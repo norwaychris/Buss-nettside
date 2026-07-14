@@ -14,6 +14,9 @@
 
 * { box-sizing: border-box; }
 
+/* Sørg for at skjulte elementer faktisk skjules, selv når de har display satt */
+[hidden] { display: none !important; }
+
 body {
   margin: 0;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
