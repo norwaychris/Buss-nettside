@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BussBestill – Bestill buss enkelt</title>
+  <meta name="description" content="Bestill buss med kart, legg til hentested og stopp, og få prisen beregnet automatisk." />
+
+  <!-- Leaflet (kart) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-logo" aria-hidden="true">🚌</span>
+      <span class="brand-name">BussBestill</span>
+    </div>
+    <p class="tagline">Planlegg turen, sett stoppene – vi regner ut prisen</p>
+  </header>
+
+  <main class="layout">
+    <!-- Venstre: planlegging -->
+    <section class="panel planner" aria-label="Planlegg reisen">
+      <h2>1. Planlegg reisen</h2>
+
+      <div class="search-row">
+        <label for="search-input" class="sr-only">Søk etter adresse eller sted</label>
+        <input type="text" id="search-input" placeholder="Søk adresse eller sted, f.eks. «Oslo S»" autocomplete="off" />
+        <button type="button" id="search-btn" class="btn btn-secondary">Søk</button>
+      </div>
+      <ul id="search-results" class="search-results" hidden></ul>
+
+      <p class="hint">
+        Tips: Søk etter et sted, eller <strong>klikk direkte i kartet</strong> for å legge til et stopp.
+      </p>
+
+      <h3>Stoppesteder</h3>
+      <p class="stops-help">Første stopp = hentested, siste = reisemål. Dra for å endre rekkefølge.</p>
+      <ol id="stops-list" class="stops-list" aria-live="polite"></ol>
+      <p id="stops-empty" class="stops-empty">Ingen stopp lagt til ennå.</p>
+
+      <button type="button" id="clear-stops" class="btn btn-ghost" hidden>Fjern alle stopp</button>
+    </section>
+
+    <!-- Midten: kart -->
+    <section class="panel map-panel" aria-label="Kart">
+      <div id="map"></div>
+      <div id="route-info" class="route-info" hidden>
+        <span id="route-distance">–</span> · <span id="route-duration">–</span>
+      </div>
+    </section>
+
+    <!-- Høyre: bestilling og pris -->
+    <section class="panel booking" aria-label="Bestilling og pris">
+      <h2>2. Detaljer</h2>
+      <form id="booking-form" novalidate>
+        <div class="field">
+          <label for="passengers">Antall passasjerer</label>
+          <input type="number" id="passengers" min="1" max="60" value="10" required />
+        </div>
+
+        <div class="field">
+          <label for="date">Dato</label>
+          <input type="date" id="date" required />
+        </div>
+
+        <div class="field">
+          <label for="time">Klokkeslett</label>
+          <input type="time" id="time" value="09:00" required />
+        </div>
+
+        <div class="field">
+          <label for="return-trip" class="checkbox-label">
+            <input type="checkbox" id="return-trip" />
+            Tur/retur (samme rute tilbake)
+          </label>
+        </div>
+
+        <div class="field">
+          <label for="name">Navn</label>
+          <input type="text" id="name" placeholder="Ditt navn" required />
+        </div>
+
+        <div class="field">
+          <label for="contact">E-post eller telefon</label>
+          <input type="text" id="contact" placeholder="deg@epost.no / 900 00 000" required />
+        </div>
+
+        <h2>3. Pris</h2>
+        <div class="price-box" id="price-box">
+          <div class="price-line"><span>Grunnpris</span><span id="p-base">–</span></div>
+          <div class="price-line"><span id="p-distance-label">Distanse</span><span id="p-distance">–</span></div>
+          <div class="price-line"><span id="p-stops-label">Ekstra stopp</span><span id="p-stops">–</span></div>
+          <div class="price-line"><span id="p-passengers-label">Passasjertillegg</span><span id="p-passengers">–</span></div>
+          <div class="price-line price-total"><span>Totalt (estimat)</span><span id="p-total">–</span></div>
+          <p class="price-note">Estimert pris inkl. mva. Endelig pris bekreftes ved bestilling.</p>
+        </div>
+
+        <button type="submit" id="book-btn" class="btn btn-primary" disabled>Bestill buss</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Bekreftelse -->
+  <div id="confirm-overlay" class="overlay" hidden>
+    <div class="overlay-card" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+      <h2 id="confirm-title">✅ Takk for bestillingen!</h2>
+      <p>Vi har mottatt reservasjonen din. En bekreftelse sendes til <strong id="confirm-contact"></strong>.</p>
+      <div id="confirm-summary" class="confirm-summary"></div>
+      <button type="button" id="confirm-close" class="btn btn-primary">Lukk</button>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>Demo-nettside · Kartdata © OpenStreetMap-bidragsytere · Ruter via OSRM</p>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="script.js"></script>
+</body>
+</html>
