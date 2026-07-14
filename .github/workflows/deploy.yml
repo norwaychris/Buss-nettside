@@ -1,0 +1,39 @@
+name: Publiser til GitHub Pages
+
+on:
+  push:
+    branches:
+      - claude/bus-booking-website-xyve0m
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Tillat kun én publisering om gangen
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Hent koden
+        uses: actions/checkout@v4
+
+      - name: Konfigurer Pages
+        uses: actions/configure-pages@v5
+
+      - name: Last opp nettsiden
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Publiser
+        id: deployment
+        uses: actions/deploy-pages@v4
