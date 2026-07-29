@@ -3,15 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NorwayRob — buss til leie i Bergen</title>
-  <meta name="description" content="Leie buss i Bergen? NorwayRob henter hele gjengen med proff sjåfør og et kjent fjes bak rattet. Utdrikningslag, fadderuke, blåtur og firmatur. Få fast pris raskt." />
+  <title>Leie buss i Bergen til fest & utdrikningslag | NorwayRob</title>
+  <meta name="description" content="Leie buss i Bergen til utdrikningslag, fadderuke, blåtur eller firmatur. Proff sjåfør, fast pris, henting og levering – vasking inkludert. Få pris raskt. Kjent fra TikTok." />
+  <link rel="canonical" href="https://norwayrob.no/" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#0a0a0b" />
 
-  <meta property="og:title" content="NorwayRob — buss til leie i Bergen" />
-  <meta property="og:description" content="Én buss henter hele gjengen, en proff sjåfør kjører, dere fester. Med et kjent fjes bak rattet." />
+  <!-- Open Graph (Facebook, LinkedIn, Messenger …) -->
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://norwayrob.no/" />
+  <meta property="og:site_name" content="NorwayRob" />
+  <meta property="og:locale" content="nb_NO" />
+  <meta property="og:title" content="Leie buss i Bergen – NorwayRob fikser kvelden" />
+  <meta property="og:description" content="Én buss henter hele gjengen, en proff sjåfør kjører, dere fester. Utdrikningslag, fadderuke, blåtur og firmatur i Bergen." />
+  <meta property="og:image" content="https://norwayrob.no/images/busman.jpg" />
+  <meta property="og:image:width" content="1600" />
+  <meta property="og:image:height" content="2000" />
+  <meta property="og:image:alt" content="Rob fra NorwayRob – buss til leie i Bergen" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Leie buss i Bergen – NorwayRob fikser kvelden" />
+  <meta name="twitter:description" content="Utdrikningslag, fadderuke, blåtur eller firmatur – én buss, proff sjåfør, fast pris. Kjent fra TikTok." />
+  <meta name="twitter:image" content="https://norwayrob.no/images/busman.jpg" />
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="favicon.svg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="image" href="images/busman.jpg" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -31,7 +52,9 @@
     <!-- ===================== HERO ===================== -->
     <section class="hero">
       <div class="hero-photo" role="img" aria-label="Rob – NorwayRob">
-        <img src="images/busman.jpg" alt="Rob – NorwayRob"
+        <img src="images/busman.jpg" width="1600" height="2000"
+             fetchpriority="high" decoding="async"
+             alt="Rob fra NorwayRob – buss til leie i Bergen"
              onerror="this.style.display='none';this.parentElement.classList.add('no-photo')" />
         <span class="photo-placeholder" aria-hidden="true">
           <span class="ph-emoji">🚌</span>
@@ -313,6 +336,73 @@
       <button type="button" class="btn btn-primary" id="success-close">Lukk</button>
     </div>
   </div>
+
+  <!-- Strukturert data: lokal bedrift -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "NorwayRob",
+    "description": "Buss til leie i Bergen til utdrikningslag, fadderuke, blåtur og firmatur. Proff sjåfør, fast pris, henting og levering – vasking inkludert.",
+    "url": "https://norwayrob.no/",
+    "image": "https://norwayrob.no/images/busman.jpg",
+    "email": "norwayrob@outlook.com",
+    "priceRange": "$$",
+    "areaServed": { "@type": "City", "name": "Bergen" },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Bergen",
+      "addressRegion": "Vestland",
+      "addressCountry": "NO"
+    },
+    "knowsLanguage": "no"
+  }
+  </script>
+
+  <!-- Strukturert data: FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Hvor mange får plass i bussen?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Bussen tar en hel gjeng. Si fra hvor mange dere er i skjemaet, så bekrefter vi at alle får plass – og finner en løsning hvis dere er ekstra mange." }
+      },
+      {
+        "@type": "Question",
+        "name": "Hva koster det?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Dere får en fast pris ut fra dato, tidsrom, antall og rute – ingen skjulte tillegg. Fyll ut skjemaet, så skreddersyr vi et tilbud og svarer raskt." }
+      },
+      {
+        "@type": "Question",
+        "name": "Kan vi feste og ha musikk om bord?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Absolutt – det er jo hele poenget! Lydanlegg om bord, spill deres egen playlist, og kos dere. Sjåføren tar rattet, så ingen i gjengen trenger å tenke på kjøring." }
+      },
+      {
+        "@type": "Question",
+        "name": "Hvor kjører dere?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Bergen og omegn. Dere sier hvor dere vil hentes og hvor turen skal gå, så legger vi ruta sammen. Henting fra ett sted, levering der dere vil." }
+      },
+      {
+        "@type": "Question",
+        "name": "Hvordan og når betaler vi?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Privatpersoner betaler hele summen i forkant – enkelt med Vipps eller bankoverføring. Datoen er sikret så snart betalingen er mottatt. Bedrifter kan få faktura mot organisasjonsnummer." }
+      },
+      {
+        "@type": "Question",
+        "name": "Hvor raskt får vi svar, og hvordan bekrefter vi?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Fyll ut skjemaet, så hører dere fra oss raskt med en fast pris. Dere bekrefter ved å betale i forkant (privat) eller avtale faktura (bedrift) – så er datoen deres." }
+      },
+      {
+        "@type": "Question",
+        "name": "Hva om planene endrer seg?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Da er det trygt: avbestill gratis inntil 14 dager før, så får dere hele beløpet tilbake – ingen spørsmål." }
+      }
+    ]
+  }
+  </script>
 
   <script src="script.js"></script>
 </body>
