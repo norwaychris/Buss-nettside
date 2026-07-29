@@ -30,7 +30,15 @@
   <main id="top">
     <!-- ===================== HERO ===================== -->
     <section class="hero">
-      <div class="wrap hero-grid">
+      <div class="hero-photo" role="img" aria-label="Rob – NorwayRob">
+        <img src="images/busman.jpg" alt="Rob – NorwayRob"
+             onerror="this.style.display='none';this.parentElement.classList.add('no-photo')" />
+        <span class="photo-placeholder" aria-hidden="true">
+          <span class="ph-emoji">🚌</span>
+          <span class="ph-text">Legg bildet ditt i <code>images/busman.jpg</code></span>
+        </span>
+      </div>
+      <div class="wrap hero-inner">
         <div class="hero-copy">
           <p class="eyebrow">Buss til leie · Bergen &amp; omegn</p>
           <h1 class="hero-title">
@@ -47,15 +55,6 @@
             <li><strong>15 års erfaring</strong> bak rattet</li>
             <li><strong>Løyve</strong> · forsikret</li>
           </ul>
-        </div>
-
-        <div class="hero-photo" role="img" aria-label="Rob foran bussen">
-          <img src="images/busman.jpg" alt="Rob – NorwayRob"
-               onerror="this.style.display='none';this.parentElement.classList.add('no-photo')" />
-          <span class="photo-placeholder" aria-hidden="true">
-            <span class="ph-emoji">🚌</span>
-            <span class="ph-text">Legg bildet ditt i <code>images/rob.jpg</code></span>
-          </span>
         </div>
       </div>
     </section>
