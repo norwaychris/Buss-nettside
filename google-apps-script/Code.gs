@@ -16,14 +16,14 @@ var ARK_NAVN = "Bestillinger";
 // Faste kolonner i ønsket rekkefølge:
 var KOLONNER = [
   "Mottatt", "Status", "Navn", "Kontakt", "Anledning",
-  "Dato", "Alternativ dato", "Tidsrom", "Antall personer",
+  "Dato", "Tidsrom", "Antall personer",
   "Hentested", "Rute", "Anledning-detaljer", "Ekstra ønsker",
   "Kilde", "Betalt (kr)", "Notat"
 ];
 
 // Skjemafelt som har sin egen kolonne (resten samles i "Anledning-detaljer"):
 var KJENTE_FELT = {
-  "Navn": 1, "Kontakt": 1, "Anledning": 1, "Dato": 1, "Alternativ dato": 1,
+  "Navn": 1, "Kontakt": 1, "Anledning": 1, "Dato": 1,
   "Tidsrom": 1, "Antall personer": 1, "Hentested": 1, "Rute": 1,
   "Ekstra ønsker": 1, "Kilde": 1
 };
@@ -108,7 +108,7 @@ function settOppArk(sheet) {
   // Kolonnebredder
   var bredder = {
     "Mottatt": 140, "Status": 110, "Navn": 150, "Kontakt": 160, "Anledning": 140,
-    "Dato": 100, "Alternativ dato": 110, "Tidsrom": 190, "Antall personer": 80,
+    "Dato": 100, "Tidsrom": 190, "Antall personer": 80,
     "Hentested": 170, "Rute": 200, "Anledning-detaljer": 260, "Ekstra ønsker": 220,
     "Kilde": 120, "Betalt (kr)": 100, "Notat": 200
   };
@@ -153,8 +153,7 @@ function sendVarsel(data, detaljer) {
       "Navn: " + (data["Navn"] || ""),
       "Kontakt: " + (data["Kontakt"] || ""),
       "Anledning: " + (data["Anledning"] || ""),
-      "Dato: " + (data["Dato"] || "") +
-        (data["Alternativ dato"] ? "  (alt: " + data["Alternativ dato"] + ")" : ""),
+      "Dato: " + (data["Dato"] || ""),
       "Tidsrom: " + (data["Tidsrom"] || ""),
       "Antall: " + (data["Antall personer"] || ""),
       "Hentested: " + (data["Hentested"] || ""),
