@@ -3,122 +3,280 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BussBestill – Bestill buss enkelt</title>
-  <meta name="description" content="Bestill buss med kart, legg til hentested og stopp, og få prisen beregnet automatisk." />
+  <title>NorwayRob — buss til leie i Bergen</title>
+  <meta name="description" content="Leie buss i Bergen? NorwayRob henter hele gjengen med proff sjåfør og et kjent fjes bak rattet. Utdrikningslag, fadderuke, blåtur og firmatur. Få fast pris raskt." />
 
-  <!-- Leaflet (kart) -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <meta property="og:title" content="NorwayRob — buss til leie i Bergen" />
+  <meta property="og:description" content="Én buss henter hele gjengen, en proff sjåfør kjører, dere fester. Med et kjent fjes bak rattet." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <!-- ===================== HEADER ===================== -->
   <header class="site-header">
-    <div class="brand">
-      <span class="brand-logo" aria-hidden="true">🚌</span>
-      <span class="brand-name">BussBestill</span>
+    <div class="wrap header-inner">
+      <a href="#top" class="brand" aria-label="NorwayRob – til toppen">
+        <span class="brand-name">NORWAY<span class="brand-accent">ROB</span></span>
+        <span class="brand-sub">Buss til leie · Bergen</span>
+      </a>
+      <a href="#booking" class="btn btn-primary btn-sm">Få pris</a>
     </div>
-    <p class="tagline">Planlegg turen, sett stoppene – vi regner ut prisen</p>
   </header>
 
-  <main class="layout">
-    <!-- Venstre: planlegging -->
-    <section class="panel planner" aria-label="Planlegg reisen">
-      <h2>Planlegg reisen</h2>
+  <main id="top">
+    <!-- ===================== HERO ===================== -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Buss til leie · Bergen &amp; omegn</p>
+          <h1 class="hero-title">
+            <span class="line-white">Leie buss?</span>
+            <span class="line-red">Vi fikser kvelden.</span>
+          </h1>
+          <p class="hero-lead">
+            Utdrikningslag, blåtur, fadderuke eller firmatur — én buss henter hele
+            gjengen, en proff sjåfør kjører, dere fester. Med et kjent fjes bak rattet.
+          </p>
+          <a href="#booking" class="btn btn-primary btn-lg">Få pris — planlegg turen</a>
+          <ul class="trust-row">
+            <li><strong>Kjent fra TikTok</strong> · 2,2M følgere</li>
+            <li><strong>15 års erfaring</strong> bak rattet</li>
+            <li><strong>Løyve</strong> · forsikret</li>
+          </ul>
+        </div>
 
-      <div class="search-row">
-        <label for="search-input" class="sr-only">Søk etter adresse eller sted</label>
-        <input type="text" id="search-input" placeholder="Søk adresse eller sted, f.eks. «Oslo S»" autocomplete="off" />
-        <button type="button" id="search-btn" class="btn btn-secondary">Søk</button>
+        <div class="hero-photo" role="img" aria-label="Rob foran bussen">
+          <img src="images/rob.jpg" alt="Rob foran bussen"
+               onerror="this.style.display='none';this.parentElement.classList.add('no-photo')" />
+          <span class="photo-placeholder" aria-hidden="true">
+            <span class="ph-emoji">🚌</span>
+            <span class="ph-text">Legg bildet ditt i <code>images/rob.jpg</code></span>
+          </span>
+        </div>
       </div>
-      <ul id="search-results" class="search-results" hidden></ul>
-
-      <p class="hint">
-        Tips: Søk etter et sted, eller <strong>klikk direkte i kartet</strong> for å legge til et stopp.
-      </p>
-
-      <h3>Stoppesteder</h3>
-      <p class="stops-help">Første stopp = hentested, siste = reisemål. Dra for å endre rekkefølge.</p>
-      <ol id="stops-list" class="stops-list" aria-live="polite"></ol>
-      <p id="stops-empty" class="stops-empty">Ingen stopp lagt til ennå.</p>
-
-      <button type="button" id="clear-stops" class="btn btn-ghost" hidden>Fjern alle stopp</button>
     </section>
 
-    <!-- Midten: kart -->
-    <section class="panel map-panel" aria-label="Kart">
-      <div id="map"></div>
-      <div id="route-info" class="route-info" hidden>
-        <span id="route-distance">–</span> · <span id="route-duration">–</span>
+    <!-- ===================== STATS ===================== -->
+    <section class="stats">
+      <div class="wrap stats-grid">
+        <div class="stat">
+          <span class="stat-num">2,2M</span>
+          <span class="stat-label">følgere på TikTok</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">15 år</span>
+          <span class="stat-label">erfaring bak rattet</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">løyve · forsikret · lovlig</span>
+        </div>
       </div>
     </section>
 
-    <!-- Høyre: bestilling og pris -->
-    <section class="panel booking" aria-label="Bestilling og pris">
-      <h2>Detaljer</h2>
-      <form id="booking-form" novalidate>
-        <div class="field">
-          <label for="passengers">Antall passasjerer</label>
-          <input type="number" id="passengers" min="1" max="60" value="10" required />
+    <!-- ===================== HOW ===================== -->
+    <section class="section how">
+      <div class="wrap">
+        <p class="section-eyebrow">Enkelt</p>
+        <h2 class="section-title">Slik booker du</h2>
+        <div class="steps">
+          <article class="step-card">
+            <span class="step-num">01</span>
+            <h3>Fyll ut skjemaet</h3>
+            <p>Dato, tidsrom, hentested og antall. Tar to minutter.</p>
+          </article>
+          <article class="step-card">
+            <span class="step-num">02</span>
+            <h3>Få fast pris raskt</h3>
+            <p>Vi skreddersyr et tilbud og svarer fort.</p>
+          </article>
+          <article class="step-card">
+            <span class="step-num">03</span>
+            <h3>Bekreft med depositum</h3>
+            <p>En liten depositum-faktura låser datoen. Klare.</p>
+          </article>
         </div>
+      </div>
+    </section>
 
-        <div class="field">
-          <label for="date">Dato</label>
-          <input type="date" id="date" required />
+    <!-- ===================== BOOKING FORM ===================== -->
+    <section id="booking" class="section booking">
+      <div class="wrap wrap-narrow">
+        <p class="section-eyebrow">Forespørsel</p>
+        <h2 class="section-title">Planlegg turen — send oss detaljene</h2>
+        <p class="section-lead">
+          Fyll ut, så hører du fra oss raskt med en fast pris. Klikk anledning, så
+          tilpasser skjemaet seg.
+        </p>
+        <p class="notice">Sommer &amp; fadderuke fylles først — book gjerne 4–6 uker før.</p>
+
+        <form id="booking-form" class="form" novalidate>
+          <!-- OM DERE -->
+          <fieldset class="form-block">
+            <legend class="block-label">Om dere</legend>
+            <div class="field">
+              <label for="navn">Navn <span class="req">*</span></label>
+              <input type="text" id="navn" name="Navn" placeholder="Ola Nordmann" required />
+            </div>
+            <div class="field">
+              <label for="kontakt">Telefon eller e-post <span class="req">*</span></label>
+              <input type="text" id="kontakt" name="Kontakt" placeholder="Så vi kan sende deg pris" required />
+            </div>
+          </fieldset>
+
+          <!-- TUREN -->
+          <fieldset class="form-block">
+            <legend class="block-label">Turen</legend>
+            <div class="field-row">
+              <div class="field">
+                <label for="dato">Dato <span class="req">*</span></label>
+                <input type="date" id="dato" name="Dato" required />
+              </div>
+              <div class="field">
+                <label for="dato-alt">Alternativ dato <span class="opt">(valgfritt)</span></label>
+                <input type="date" id="dato-alt" name="Alternativ dato" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="tid">Når + omtrent hvor mange timer? <span class="req">*</span></label>
+              <input type="text" id="tid" name="Tidsrom" placeholder="F.eks. lørdag kveld fra 19, ca. 6 timer" required />
+            </div>
+            <div class="field">
+              <label for="hentested">Hentested <span class="req">*</span></label>
+              <input type="text" id="hentested" name="Hentested" placeholder="Adresse eller område" required />
+            </div>
+            <div class="field">
+              <label for="rute">Hvor skal dere? <span class="req">*</span></label>
+              <input type="text" id="rute" name="Rute" placeholder="F.eks. rundt i Bergen sentrum" required />
+            </div>
+            <div class="field">
+              <label for="antall">Antall personer <span class="req">*</span></label>
+              <input type="number" id="antall" name="Antall personer" min="1" max="70" value="20" required />
+            </div>
+
+            <div class="field">
+              <label>Anledning <span class="req">*</span></label>
+              <div class="chips" id="occasion-chips" role="radiogroup" aria-label="Anledning">
+                <button type="button" class="chip" data-value="Utdrikningslag" role="radio" aria-checked="false">Utdrikningslag</button>
+                <button type="button" class="chip" data-value="Fadderuke" role="radio" aria-checked="false">Fadderuke</button>
+                <button type="button" class="chip" data-value="Blåtur" role="radio" aria-checked="false">Blåtur</button>
+                <button type="button" class="chip" data-value="Firma / julebord" role="radio" aria-checked="false">Firma / julebord</button>
+                <button type="button" class="chip" data-value="Bursdag" role="radio" aria-checked="false">Bursdag</button>
+                <button type="button" class="chip" data-value="Event" role="radio" aria-checked="false">Event</button>
+                <button type="button" class="chip" data-value="Annet" role="radio" aria-checked="false">Annet</button>
+              </div>
+              <input type="hidden" id="anledning" name="Anledning" required />
+            </div>
+
+            <!-- Dynamisk oppfølging pr. anledning -->
+            <div id="occasion-followup" class="followup" hidden></div>
+          </fieldset>
+
+          <!-- TIL SLUTT -->
+          <fieldset class="form-block">
+            <legend class="block-label">Til slutt</legend>
+            <div class="field">
+              <label for="onsker">Ekstra ønsker <span class="opt">(lyd, pynt, stopp…)</span></label>
+              <textarea id="onsker" name="Ekstra ønsker" rows="3" placeholder="Fortell oss hva som gjør kvelden perfekt"></textarea>
+            </div>
+            <div class="field">
+              <label for="kilde">Hvordan hørte du om oss?</label>
+              <select id="kilde" name="Kilde">
+                <option>TikTok</option>
+                <option>Instagram</option>
+                <option>Google-søk</option>
+                <option>Venner / bekjente</option>
+                <option>Annet</option>
+              </select>
+            </div>
+          </fieldset>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg" id="submit-btn">Send forespørsel</button>
+          <p class="form-note">Du hører fra oss raskt med en fast pris. Datoen låses med en depositum-faktura.</p>
+          <p class="form-error" id="form-error" hidden></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===================== INCLUDED ===================== -->
+    <section class="section included">
+      <div class="wrap">
+        <p class="section-eyebrow">Alltid inkludert</p>
+        <h2 class="section-title">Alt dette — uansett anledning</h2>
+        <ul class="check-grid">
+          <li><span class="tick">✓</span><span><strong>Henting fra ett sted, levering der dere vil</strong> — hele gjengen samlet</span></li>
+          <li><span class="tick">✓</span><span><strong>Proff sjåfør — 15 års erfaring</strong> — løyve, trygt og lovlig, ingen må kjøre selv</span></li>
+          <li><span class="tick">✓</span><span><strong>Fest ombord</strong> — lyd og deres egen playlist</span></li>
+          <li><span class="tick">✓</span><span><strong>Et kjent fjes</strong> — kvelden blir en happening</span></li>
+          <li><span class="tick">✓</span><span><strong>Vi legger ruta med deg</strong> — du sier når og hvor</span></li>
+          <li><span class="tick">✓</span><span><strong>Fast pris + faktura</strong> — ingen overraskelser</span></li>
+        </ul>
+
+        <div class="guarantee">
+          <span class="guarantee-icon">✓</span>
+          <div>
+            <h3>Trygg booking-garanti</h3>
+            <p>Endrer planene seg? Avbestill gratis inntil 14 dager før — depositumet tilbake, ingen spørsmål.</p>
+          </div>
         </div>
+      </div>
+    </section>
 
-        <div class="field">
-          <label for="time">Klokkeslett</label>
-          <input type="time" id="time" value="09:00" required />
+    <!-- ===================== REVIEWS ===================== -->
+    <section class="section reviews">
+      <div class="wrap">
+        <p class="section-eyebrow">Anmeldelser</p>
+        <h2 class="section-title">Hva gjengene sier</h2>
+        <div class="review-grid">
+          <article class="review-card">
+            <div class="stars" aria-label="5 av 5 stjerner">★★★★★</div>
+            <p>«Beste utdrikningslaget noensinne. Rob er en legende, og bussen ble hele festen.»</p>
+            <span class="review-by">— Marte, Bergen</span>
+          </article>
+          <article class="review-card">
+            <div class="stars" aria-label="5 av 5 stjerner">★★★★★</div>
+            <p>«Proff fra start til slutt. Fast pris, henta oss på døra, og et kjent fjes bak rattet!»</p>
+            <span class="review-by">— Fadderstyret, HVL</span>
+          </article>
+          <article class="review-card">
+            <div class="stars" aria-label="5 av 5 stjerner">★★★★★</div>
+            <p>«Firmaturen ble snakkis på jobben i ukevis. Enkelt å booke, alt gikk på skinner.»</p>
+            <span class="review-by">— Kristian, firmatur</span>
+          </article>
         </div>
-
-        <div class="field">
-          <label for="return-trip" class="checkbox-label">
-            <input type="checkbox" id="return-trip" />
-            Tur/retur (samme rute tilbake)
-          </label>
-        </div>
-
-        <div class="field">
-          <label for="name">Navn</label>
-          <input type="text" id="name" placeholder="Ditt navn" required />
-        </div>
-
-        <div class="field">
-          <label for="contact">E-post eller telefon</label>
-          <input type="text" id="contact" placeholder="deg@epost.no / 900 00 000" required />
-        </div>
-
-        <h2>Pris</h2>
-        <div class="price-box" id="price-box">
-          <div class="price-line"><span>Grunnpris</span><span id="p-base">–</span></div>
-          <div class="price-line"><span id="p-distance-label">Distanse</span><span id="p-distance">–</span></div>
-          <div class="price-line"><span id="p-stops-label">Ekstra stopp</span><span id="p-stops">–</span></div>
-          <div class="price-line"><span id="p-passengers-label">Passasjertillegg</span><span id="p-passengers">–</span></div>
-          <div class="price-line price-total"><span>Totalt (estimat)</span><span id="p-total">–</span></div>
-          <p class="price-note">Estimert pris inkl. mva. Endelig pris bekreftes ved bestilling.</p>
-        </div>
-
-        <button type="submit" id="book-btn" class="btn btn-primary" disabled>Bestill buss</button>
-      </form>
+      </div>
     </section>
   </main>
 
-  <!-- Bekreftelse -->
-  <div id="confirm-overlay" class="overlay" hidden>
-    <div class="overlay-card" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
-      <h2 id="confirm-title">✅ Takk for bestillingen!</h2>
-      <p>Vi har mottatt reservasjonen din. En bekreftelse sendes til <strong id="confirm-contact"></strong>.</p>
-      <div id="confirm-summary" class="confirm-summary"></div>
-      <button type="button" id="confirm-close" class="btn btn-primary">Lukk</button>
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="brand">
+        <span class="brand-name">NORWAY<span class="brand-accent">ROB</span></span>
+        <span class="brand-sub">Buss til leie · Bergen &amp; omegn</span>
+      </div>
+      <div class="footer-contact">
+        <a href="mailto:norwayrob@outlook.com">norwayrob@outlook.com</a>
+        <a href="#booking">Få pris</a>
+      </div>
+    </div>
+    <p class="footer-fine">© NorwayRob · Løyve · forsikret · lovlig</p>
+  </footer>
+
+  <!-- ===================== SUCCESS OVERLAY ===================== -->
+  <div id="success-overlay" class="overlay" hidden>
+    <div class="overlay-card" role="dialog" aria-modal="true" aria-labelledby="success-title">
+      <span class="success-check">✓</span>
+      <h2 id="success-title">Takk! Forespørselen er sendt.</h2>
+      <p>Vi hører fra deg raskt med en fast pris. Sjekk gjerne telefon og e-post.</p>
+      <button type="button" class="btn btn-primary" id="success-close">Lukk</button>
     </div>
   </div>
 
-  <footer class="site-footer">
-    <p>Demo-nettside · Kartdata © OpenStreetMap-bidragsytere · Ruter via OSRM</p>
-  </footer>
-
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="script.js"></script>
 </body>
 </html>
