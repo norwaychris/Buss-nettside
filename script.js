@@ -9,7 +9,7 @@
    La den stå tom ("") før du er ferdig – da åpnes e-post i
    stedet, så skjemaet virker uansett.
    ============================================================ */
-const BOOKING_ENDPOINT = "";
+const BOOKING_ENDPOINT = "https://script.google.com/macros/s/AKfycbxqT2-OqxBV3QsVx_GSZVjzryRtSge7kChRdyXpbvvIaEZ_-7ZZC3A2AWwjVVOwpGpCsQ/exec";
 
 /* E-post som brukes hvis endpoint ikke er satt ennå */
 const FALLBACK_EMAIL = "norwayrob@outlook.com";
