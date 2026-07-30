@@ -5,6 +5,29 @@ Internt dokument. Kopier teksten under, bytt ut [feltene], og send.
 
 ---
 
+---
+
+## ✨ Premium HTML-versjon (anbefalt)
+
+I mappen `tilbud/` ligger to ferdigdesignede e-poster som ser ut som en
+premium ordrebekreftelse (svart merkevare-topp, prisboks, 1-2-3-steg):
+
+- `tilbud/tilbud-epost.html` — standard (avreise MER enn 14 dager frem)
+- `tilbud/tilbud-epost-kortvarsel.html` — kort varsel (UNDER 14 dager)
+
+**Slik bruker du den (2 minutter):**
+
+1. Åpne riktig fil i nettleseren (dobbeltklikk på fila).
+2. Marker alt (Ctrl/Cmd + A) og kopier (Ctrl/Cmd + C).
+3. Lim inn i en ny e-post i Outlook (Ctrl/Cmd + V) — designet blir med.
+4. Bytt ut alle [feltene] direkte i e-posten: navn, dato, pris,
+   kontonummer, frist osv. Søk etter «[» så finner du alle.
+5. Send!
+
+Tekstversjonen over fungerer alltid som backup hvis liming ikke ser bra ut.
+
+---
+
 ## Standard tilbud (avreise MER enn 14 dager frem)
 
 ```
