@@ -3,7 +3,7 @@ name: Publiser til GitHub Pages
 on:
   push:
     branches:
-      - claude/norwayrob-booking-site-kc64ih
+      - live
   workflow_dispatch:
 
 permissions:
