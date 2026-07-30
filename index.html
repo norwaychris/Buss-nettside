@@ -34,7 +34,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="image" href="images/hero.jpg" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=14" />
+  <link rel="stylesheet" href="styles.css?v=15" />
 </head>
 <body>
   <a href="#booking" class="skip-link">Hopp til bestillingsskjemaet</a>
@@ -236,22 +236,71 @@
       <div class="wrap">
         <p class="section-eyebrow">Alltid inkludert</p>
         <h2 class="section-title">Alt dette — uansett anledning</h2>
-        <ul class="check-grid">
-          <li><span class="tick">✓</span><span><strong>Henting fra ett sted, levering der dere vil</strong> — hele gjengen samlet</span></li>
-          <li><span class="tick">✓</span><span><strong>Proff sjåfør — 15 års erfaring</strong> — ingen i gjengen må kjøre selv</span></li>
-          <li><span class="tick">✓</span><span><strong>Fest ombord</strong> — lyd og deres egen playlist</span></li>
-          <li><span class="tick">✓</span><span><strong>Vasking inkludert i prisen</strong> — søl skjer på fest. Vi tar vasken etterpå — dere slipper å tenke på det</span></li>
-          <li><span class="tick">✓</span><span><strong>Vi legger ruta med deg</strong> — du sier når og hvor</span></li>
-          <li><span class="tick">✓</span><span><strong>Fast pris — ingen skjulte tillegg</strong> — privat betaler i forkant, bedrift kan få faktura</span></li>
-        </ul>
+        <p class="section-lead">Hos NorwayRob får dere mer enn bare transport. Her er alt som <strong>alltid</strong> er inkludert — helt uten skjulte kostnader.</p>
+        <div class="included-grid">
+          <article class="inc-card">
+            <span class="inc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+            <div>
+              <h3>Henting fra ett sted — levering der dere vil</h3>
+              <p>Vi henter hele gjengen samlet og leverer dere trygt dit dere skal.</p>
+            </div>
+          </article>
+          <article class="inc-card">
+            <span class="inc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span>
+            <div>
+              <h3>Proff sjåfør — 15 års erfaring</h3>
+              <p>Erfaren, serviceinnstilt og lokalkjent sjåfør som tar hånd om alt.</p>
+            </div>
+          </article>
+          <article class="inc-card">
+            <span class="inc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>
+            <div>
+              <h3>Fest ombord — lyd og egen playlist</h3>
+              <p>Koble til musikken deres og sett stemningen fra første stopp.</p>
+            </div>
+          </article>
+          <article class="inc-card">
+            <span class="inc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.6L18.5 9l-4.6 1.9L12 15.5l-1.9-4.6L5.5 9l4.6-1.4L12 3z"/><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15z"/></svg></span>
+            <div>
+              <h3>Vasking inkludert i prisen</h3>
+              <p>Søl skjer på fest. Vi tar vasken etterpå — dere slipper å tenke på det.</p>
+            </div>
+          </article>
+          <article class="inc-card">
+            <span class="inc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20l-6-2V4l6 2 6-2 6 2v14l-6-2-6 2z"/><path d="M9 6v14M15 4v14"/></svg></span>
+            <div>
+              <h3>Vi legger ruta med dere</h3>
+              <p>Fortell når og hvor — så planlegger vi den beste ruta for kvelden.</p>
+            </div>
+          </article>
+          <article class="inc-card">
+            <span class="inc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4L12 22 2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg></span>
+            <div>
+              <h3>Fast pris — ingen skjulte tillegg</h3>
+              <p>Det dere får tilbud på, er det dere betaler. Privat betaler i forkant, bedrift kan få faktura.</p>
+            </div>
+          </article>
+        </div>
 
         <div class="guarantee">
-          <span class="guarantee-icon">✓</span>
-          <div>
-            <h3>Trygg booking-garanti</h3>
-            <p>Endrer planene seg? Avbestill gratis inntil 14 dager før — dere får pengene tilbake, ingen spørsmål. Nærmere avreise gjelder <a href="vilkar.html">vilkårene</a>.</p>
+          <div class="guarantee-main">
+            <span class="guarantee-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span>
+            <div>
+              <h3>Trygg booking-garanti</h3>
+              <p>Endrer planene seg? Avbestill gratis inntil 14 dager før avreise — dere får pengene tilbake, ingen spørsmål.</p>
+            </div>
+          </div>
+          <div class="guarantee-side">
+            <h4>100&nbsp;% ryddig</h4>
+            <p>Enkle og rettferdige <a href="vilkar.html">vilkår</a>.</p>
           </div>
         </div>
+
+        <ul class="mini-trust">
+          <li><span class="mt-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span><span><strong>2,2M+ følgere</strong><br />på TikTok</span></li>
+          <li><span class="mt-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></svg></span><span><strong>Fullt forsikret</strong><br />godkjent persontransport</span></li>
+          <li><span class="mt-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span><span><strong>Rask respons</strong><br />svar innen 24 timer</span></li>
+        </ul>
       </div>
     </section>
 
@@ -473,6 +522,6 @@
   }
   </script>
 
-  <script src="script.js?v=3"></script>
+  <script src="script.js?v=4"></script>
 </body>
 </html>

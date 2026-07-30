@@ -192,7 +192,7 @@ overlay.addEventListener("click", (e) => {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduce || !("IntersectionObserver" in window)) return;
   const targets = document.querySelectorAll(
-    ".section-eyebrow, .section-title, .section-lead, .step-card, .check-grid li, .guarantee, .faq-item, .trust-strip li, .about-split"
+    ".section-eyebrow, .section-title, .section-lead, .step-card, .inc-card, .guarantee, .mini-trust li, .faq-item, .trust-strip li, .about-split"
   );
   const io = new IntersectionObserver(
     (entries) => {
