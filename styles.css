@@ -163,7 +163,7 @@ a { color: inherit; text-decoration: none; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 64% center;
+  object-position: 62% 80%;
 }
 @keyframes hero-float {
   0%, 100% { transform: translateY(0); }
@@ -440,7 +440,7 @@ input[type="date"] { color-scheme: dark; }
     background:
       linear-gradient(to bottom, rgba(10,10,11,.5) 0%, rgba(10,10,11,.72) 55%, var(--bg) 100%);
   }
-  .hero-photo img { object-position: 66% center; }
+  .hero-photo img { object-position: 60% 72%; }
   .steps, .review-grid { grid-template-columns: 1fr; }
   .check-grid { grid-template-columns: 1fr; }
   .why-grid { grid-template-columns: repeat(2, 1fr); }
