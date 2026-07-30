@@ -443,6 +443,7 @@ input[type="date"] { color-scheme: dark; }
       linear-gradient(to bottom, rgba(10,10,11,.5) 0%, rgba(10,10,11,.72) 55%, var(--bg) 100%);
   }
   .hero-photo img { object-position: 60% 72%; transform: none; }
+  .cta-assure { flex-direction: column; align-items: flex-start; gap: 12px; width: 100%; }
   .steps, .review-grid { grid-template-columns: 1fr; }
   .check-grid { grid-template-columns: 1fr; }
   .why-grid { grid-template-columns: repeat(2, 1fr); }
