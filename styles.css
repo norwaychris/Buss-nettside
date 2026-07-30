@@ -136,6 +136,17 @@ a { color: inherit; text-decoration: none; }
 }
 .trust-row strong { color: var(--ink); font-weight: 600; }
 
+/* Reassurance-rad rett under hoved-CTA */
+.cta-assure {
+  list-style: none; margin: 18px 0 0; padding: 0;
+  display: flex; flex-wrap: wrap; gap: 10px 22px;
+  font-size: 15px; color: var(--ink);
+}
+.cta-assure li { display: flex; align-items: center; gap: 8px; }
+.cta-assure li::before {
+  content: "✓"; color: var(--red); font-weight: 800; font-size: 15px;
+}
+
 /* Hero photo – blør ut mot topp/høyre kant og smelter inn mot venstre/bunn */
 .hero-photo {
   position: absolute;
