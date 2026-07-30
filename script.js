@@ -186,3 +186,51 @@ overlay.addEventListener("click", (e) => {
   const today = new Date().toISOString().split("T")[0];
   document.querySelectorAll('input[type="date"]').forEach((d) => (d.min = today));
 })();
+
+/* ---------------- Scroll-reveal ---------------- */
+(function scrollReveal() {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce || !("IntersectionObserver" in window)) return;
+  const targets = document.querySelectorAll(
+    ".section-eyebrow, .section-title, .section-lead, .step-card, .check-grid li, .guarantee, .faq-item, .trust-strip li, .about-split"
+  );
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add("visible");
+          io.unobserve(e.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+  );
+  targets.forEach((el, i) => {
+    el.classList.add("reveal");
+    el.style.transitionDelay = (i % 4) * 70 + "ms";
+    io.observe(el);
+  });
+})();
+
+/* ---------------- Flytende mobil-CTA ---------------- */
+(function mobileCta() {
+  const bar = document.getElementById("mobile-cta");
+  const heroCta = document.querySelector(".hero .btn-primary");
+  const booking = document.getElementById("booking");
+  if (!bar || !heroCta || !booking || !("IntersectionObserver" in window)) return;
+  bar.hidden = false;
+  let heroVisible = true;
+  let bookingVisible = false;
+  const update = () => bar.classList.toggle("show", !heroVisible && !bookingVisible);
+  new IntersectionObserver((es) => {
+    es.forEach((e) => (heroVisible = e.isIntersecting));
+    update();
+  }).observe(heroCta);
+  new IntersectionObserver(
+    (es) => {
+      es.forEach((e) => (bookingVisible = e.isIntersecting));
+      update();
+    },
+    { threshold: 0.05 }
+  ).observe(booking);
+})();
