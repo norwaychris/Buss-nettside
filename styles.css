@@ -164,6 +164,8 @@ a { color: inherit; text-decoration: none; }
   height: 100%;
   object-fit: cover;
   object-position: 62% 80%;
+  transform: scale(1.22) translateX(15%);
+  transform-origin: center;
 }
 @keyframes hero-float {
   0%, 100% { transform: translateY(0); }
@@ -440,7 +442,7 @@ input[type="date"] { color-scheme: dark; }
     background:
       linear-gradient(to bottom, rgba(10,10,11,.5) 0%, rgba(10,10,11,.72) 55%, var(--bg) 100%);
   }
-  .hero-photo img { object-position: 60% 72%; }
+  .hero-photo img { object-position: 60% 72%; transform: none; }
   .steps, .review-grid { grid-template-columns: 1fr; }
   .check-grid { grid-template-columns: 1fr; }
   .why-grid { grid-template-columns: repeat(2, 1fr); }
