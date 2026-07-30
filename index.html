@@ -34,7 +34,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="image" href="images/hero.png" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=2" />
+  <link rel="stylesheet" href="styles.css?v=3" />
 </head>
 <body>
   <!-- ===================== HEADER ===================== -->
@@ -79,6 +79,22 @@
             <li>Svar innen 24 timer</li>
           </ul>
         </div>
+      </div>
+    </section>
+
+    <!-- ===================== INTRO / SEO ===================== -->
+    <section class="section intro">
+      <div class="wrap wrap-narrow">
+        <p class="section-eyebrow">Buss til leie · Bergen &amp; omegn</p>
+        <h2 class="section-title">Leie buss i Bergen — med sjåfør</h2>
+        <p class="section-lead">
+          NorwayRob leier ut <strong>buss med sjåfør i Bergen</strong> og omegn. Enten det
+          er utdrikningslag, fadderuke, blåtur, bursdag, firmatur eller julebord — vi henter
+          hele gjengen på ett sted, kjører dere dit dere skal, og sørger for at kvelden blir
+          stemning fra første stopp. Du får <strong>fast pris</strong>, en proff sjåfør med
+          løyve, og vasking inkludert. Ingen i gjengen trenger å tenke på kjøring eller
+          taxi-jakt på slutten av kvelden.
+        </p>
       </div>
     </section>
 
@@ -249,6 +265,32 @@
       </div>
     </section>
 
+    <!-- ===================== AREAS ===================== -->
+    <section class="section areas">
+      <div class="wrap">
+        <p class="section-eyebrow">Bergen &amp; omegn</p>
+        <h2 class="section-title">Områder vi kjører</h2>
+        <p class="section-lead">
+          Vi henter og kjører i hele Bergensområdet. Bor eller fester dere utenfor sentrum?
+          Det ordner vi også — bare oppgi hentested i skjemaet.
+        </p>
+        <ul class="area-grid">
+          <li>Bergen sentrum</li>
+          <li>Åsane</li>
+          <li>Fana</li>
+          <li>Ytrebygda</li>
+          <li>Laksevåg</li>
+          <li>Arna</li>
+          <li>Askøy</li>
+          <li>Sotra &amp; Øygarden</li>
+          <li>Os / Bjørnafjorden</li>
+          <li>Nordhordland</li>
+          <li>Flesland flyplass</li>
+          <li>Voss</li>
+        </ul>
+      </div>
+    </section>
+
     <!-- ===================== FAQ ===================== -->
     <section class="section faq">
       <div class="wrap wrap-narrow">
@@ -260,8 +302,20 @@
             <div class="faq-answer"><p>Bussen tar en hel gjeng. Si fra hvor mange dere er i skjemaet, så bekrefter vi at alle får plass — og finner en løsning hvis dere er ekstra mange.</p></div>
           </details>
           <details class="faq-item">
-            <summary>Hva koster det?<span class="faq-icon" aria-hidden="true"></span></summary>
-            <div class="faq-answer"><p>Dere får en <strong>fast pris</strong> ut fra dato, tidsrom, antall og rute — ingen skjulte tillegg. Fyll ut skjemaet, så skreddersyr vi et tilbud og svarer raskt.</p></div>
+            <summary>Kan man leie buss med sjåfør?<span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-answer"><p>Ja — hos oss leier du buss <strong>med</strong> sjåfør. En erfaren, profesjonell sjåfør med løyve kjører hele turen, så ingen i gjengen trenger å kjøre selv eller passe på klokka. Dere fester, vi tar rattet.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Hva koster det å leie buss i Bergen?<span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-answer"><p>Dere får en <strong>fast pris</strong> ut fra dato, tidsrom, antall og rute — ingen skjulte tillegg. Prisen avhenger av hvor lenge og hvor langt dere skal. Fyll ut skjemaet, så skreddersyr vi et tilbud og svarer raskt.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Passer det for bedrifter og firmaturer?<span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-answer"><p>Absolutt. Vi kjører firmaturer, julebord, kickoff og events. <strong>Bedrifter kan få faktura</strong> mot organisasjonsnummer — bare oppgi det i skjemaet, så ordner vi resten.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Hvor lenge i forveien bør vi booke?<span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-answer"><p>Jo før, jo tryggere — spesielt i høysesong som sommer og fadderuke. Vi anbefaler <strong>4–6 uker før</strong> for populære datoer, men spør gjerne uansett; noen ganger har vi ledig på kort varsel.</p></div>
           </details>
           <details class="faq-item">
             <summary>Kan vi feste og ha musikk om bord?<span class="faq-icon" aria-hidden="true"></span></summary>
@@ -330,7 +384,23 @@
       "https://www.instagram.com/norwayrob/"
     ],
     "priceRange": "$$",
-    "areaServed": { "@type": "City", "name": "Bergen" },
+    "slogan": "Vi fikser kvelden",
+    "areaServed": [
+      { "@type": "City", "name": "Bergen" },
+      { "@type": "Place", "name": "Åsane" },
+      { "@type": "Place", "name": "Fana" },
+      { "@type": "Place", "name": "Askøy" },
+      { "@type": "Place", "name": "Sotra" },
+      { "@type": "Place", "name": "Øygarden" },
+      { "@type": "Place", "name": "Os" },
+      { "@type": "Place", "name": "Voss" },
+      { "@type": "AdministrativeArea", "name": "Vestland" }
+    ],
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 60.3913,
+      "longitude": 5.3221
+    },
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Bergen",
@@ -354,8 +424,23 @@
       },
       {
         "@type": "Question",
-        "name": "Hva koster det?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Dere får en fast pris ut fra dato, tidsrom, antall og rute – ingen skjulte tillegg. Fyll ut skjemaet, så skreddersyr vi et tilbud og svarer raskt." }
+        "name": "Kan man leie buss med sjåfør?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Ja – hos oss leier du buss med sjåfør. En erfaren, profesjonell sjåfør med løyve kjører hele turen, så ingen i gjengen trenger å kjøre selv. Dere fester, vi tar rattet." }
+      },
+      {
+        "@type": "Question",
+        "name": "Hva koster det å leie buss i Bergen?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Dere får en fast pris ut fra dato, tidsrom, antall og rute – ingen skjulte tillegg. Prisen avhenger av hvor lenge og hvor langt dere skal. Fyll ut skjemaet, så skreddersyr vi et tilbud og svarer raskt." }
+      },
+      {
+        "@type": "Question",
+        "name": "Passer det for bedrifter og firmaturer?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Absolutt. Vi kjører firmaturer, julebord, kickoff og events. Bedrifter kan få faktura mot organisasjonsnummer – bare oppgi det i skjemaet, så ordner vi resten." }
+      },
+      {
+        "@type": "Question",
+        "name": "Hvor lenge i forveien bør vi booke?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Jo før, jo tryggere – spesielt i høysesong som sommer og fadderuke. Vi anbefaler 4–6 uker før for populære datoer, men spør gjerne uansett; noen ganger har vi ledig på kort varsel." }
       },
       {
         "@type": "Question",
