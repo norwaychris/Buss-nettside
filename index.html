@@ -9,27 +9,30 @@
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <meta name="theme-color" content="#0a0a0b" />
 
-  <!-- Open Graph -->
+  <!-- Open Graph (Facebook, LinkedIn, Messenger …) -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://norwayrob.no/" />
   <meta property="og:site_name" content="NorwayRob" />
   <meta property="og:locale" content="nb_NO" />
   <meta property="og:title" content="Leie buss i Bergen – NorwayRob fikser kvelden" />
   <meta property="og:description" content="Én buss henter hele gjengen, en proff sjåfør kjører, dere fester. Utdrikningslag, fadderuke, blåtur og firmatur i Bergen." />
-  <meta property="og:image" content="https://norwayrob.no/images/hero.jpg" />
-  <meta property="og:image:alt" content="Rob fra NorwayRob foran bussen i Bergen" />
+  <meta property="og:image" content="https://norwayrob.no/images/busman.jpg" />
+  <meta property="og:image:width" content="1600" />
+  <meta property="og:image:height" content="2000" />
+  <meta property="og:image:alt" content="Rob fra NorwayRob – buss til leie i Bergen" />
 
-  <!-- Twitter -->
+  <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Leie buss i Bergen – NorwayRob fikser kvelden" />
   <meta name="twitter:description" content="Utdrikningslag, fadderuke, blåtur eller firmatur – én buss, proff sjåfør, fast pris. Kjent fra TikTok." />
-  <meta name="twitter:image" content="https://norwayrob.no/images/hero.jpg" />
+  <meta name="twitter:image" content="https://norwayrob.no/images/busman.jpg" />
 
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="favicon.svg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="image" href="images/busman.jpg" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -41,13 +44,6 @@
         <span class="brand-name">NORWAY<span class="brand-accent">ROB</span></span>
         <span class="brand-sub">Buss til leie · Bergen</span>
       </a>
-      <nav class="main-nav" aria-label="Hovedmeny">
-        <a href="#top">Hjem</a>
-        <a href="#hvordan">Slik fungerer det</a>
-        <a href="#om">Om oss</a>
-        <a href="#bussen">Bussen</a>
-        <a href="#kontakt">Kontakt</a>
-      </nav>
       <a href="#booking" class="btn btn-primary btn-sm">Få pris</a>
     </div>
   </header>
@@ -55,36 +51,95 @@
   <main id="top">
     <!-- ===================== HERO ===================== -->
     <section class="hero">
-      <div class="hero-bg" aria-hidden="true">
-        <img src="images/hero.jpg" alt="" onerror="this.onerror=null;this.src='images/busman.jpg'" />
+      <div class="hero-photo" role="img" aria-label="Rob – NorwayRob">
+        <img src="images/busman.jpg" width="1600" height="2000"
+             fetchpriority="high" decoding="async"
+             alt="Rob fra NorwayRob – buss til leie i Bergen"
+             onerror="this.style.display='none';this.parentElement.classList.add('no-photo')" />
+        <span class="photo-placeholder" aria-hidden="true">
+          <span class="ph-emoji">🚌</span>
+          <span class="ph-text">Legg bildet ditt i <code>images/busman.jpg</code></span>
+        </span>
       </div>
-      <div class="wrap hero-grid">
+      <div class="wrap hero-inner">
         <div class="hero-copy">
-          <p class="eyebrow">Buss til leie i Bergen &amp; omegn</p>
+          <p class="eyebrow">Buss til leie · Bergen &amp; omegn</p>
           <h1 class="hero-title">
             <span class="line-white">Leie buss?</span>
             <span class="line-red">Vi fikser kvelden.</span>
           </h1>
           <p class="hero-lead">
-            Utdrikningslag, blåturer, firmaturer eller fadderuke — én buss henter hele
+            Utdrikningslag, blåtur, fadderuke eller firmatur — én buss henter hele
             gjengen, en proff sjåfør kjører, dere fester. Med et kjent fjes bak rattet.
           </p>
           <a href="#booking" class="btn btn-primary btn-lg">Få pris — planlegg turen</a>
-          <p class="hero-reassure">⏱ Raskt svar og uforpliktende tilbud</p>
           <ul class="trust-row">
-            <li><strong>Kjent fra TikTok</strong><span>2,2M følgere</span></li>
-            <li><strong>15 års erfaring</strong><span>bak rattet</span></li>
-            <li><strong>100% lovlig</strong><span>forsikret og trygg</span></li>
+            <li><strong>Kjent fra TikTok</strong> · 2,2M følgere</li>
+            <li><strong>15 års erfaring</strong> bak rattet</li>
+            <li><strong>Løyve</strong> · forsikret</li>
           </ul>
         </div>
+      </div>
+    </section>
 
-        <!-- Booking card -->
-        <aside class="booking-card" id="booking">
-          <p class="card-eyebrow">Få pris med en gang</p>
-          <h2 class="card-title">Planlegg turen — få fast pris</h2>
-          <p class="card-sub">Fyll ut skjemaet, så hører du fra oss raskt med en fast pris.</p>
+    <!-- ===================== STATS ===================== -->
+    <section class="stats">
+      <div class="wrap stats-grid">
+        <div class="stat">
+          <span class="stat-num">2,2M</span>
+          <span class="stat-label">følgere på TikTok</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">15 år</span>
+          <span class="stat-label">erfaring bak rattet</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">løyve · forsikret · lovlig</span>
+        </div>
+      </div>
+    </section>
 
-          <form id="booking-form" class="booking-form" novalidate>
+    <!-- ===================== HOW ===================== -->
+    <section class="section how">
+      <div class="wrap">
+        <p class="section-eyebrow">Enkelt</p>
+        <h2 class="section-title">Slik booker du</h2>
+        <div class="steps">
+          <article class="step-card">
+            <span class="step-num">01</span>
+            <h3>Fyll ut skjemaet</h3>
+            <p>Dato, tidsrom, hentested og antall. Tar to minutter.</p>
+          </article>
+          <article class="step-card">
+            <span class="step-num">02</span>
+            <h3>Få fast pris raskt</h3>
+            <p>Vi skreddersyr et tilbud og svarer fort.</p>
+          </article>
+          <article class="step-card">
+            <span class="step-num">03</span>
+            <h3>Betal og lås datoen</h3>
+            <p>Privat betaler i forkant med Vipps eller bank. Bedrift kan få faktura. Så er dere klare.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== BOOKING FORM ===================== -->
+    <section id="booking" class="section booking">
+      <div class="wrap wrap-narrow">
+        <p class="section-eyebrow">Forespørsel</p>
+        <h2 class="section-title">Planlegg turen — send oss detaljene</h2>
+        <p class="section-lead">
+          Fyll ut, så hører du fra oss raskt med en fast pris. Klikk anledning, så
+          tilpasser skjemaet seg.
+        </p>
+        <p class="notice">Sommer &amp; fadderuke fylles først — book gjerne 4–6 uker før.</p>
+
+        <form id="booking-form" class="form" novalidate>
+          <!-- OM DERE -->
+          <fieldset class="form-block">
+            <legend class="block-label">Om dere</legend>
             <div class="field">
               <label for="navn">Navn <span class="req">*</span></label>
               <input type="text" id="navn" name="Navn" placeholder="Ola Nordmann" required />
@@ -93,206 +148,121 @@
               <label for="kontakt">Telefon eller e-post <span class="req">*</span></label>
               <input type="text" id="kontakt" name="Kontakt" placeholder="Så vi kan sende deg pris" required />
             </div>
-            <div class="field-row">
-              <div class="field">
-                <label for="dato">Dato <span class="req">*</span></label>
-                <input type="date" id="dato" name="Dato" required />
-              </div>
-              <div class="field">
-                <label for="tid">Tidsrom <span class="req">*</span></label>
-                <input type="text" id="tid" name="Tidsrom" placeholder="F.eks. lør. kveld, 6t" required />
-              </div>
+          </fieldset>
+
+          <!-- TUREN -->
+          <fieldset class="form-block">
+            <legend class="block-label">Turen</legend>
+            <div class="field">
+              <label for="dato">Dato <span class="req">*</span></label>
+              <input type="date" id="dato" name="Dato" required />
+            </div>
+            <div class="field">
+              <label for="tid">Når + omtrent hvor mange timer? <span class="req">*</span></label>
+              <input type="text" id="tid" name="Tidsrom" placeholder="F.eks. lørdag kveld fra 19, ca. 6 timer" required />
             </div>
             <div class="field">
               <label for="hentested">Hentested <span class="req">*</span></label>
-              <input type="text" id="hentested" name="Hentested" placeholder="Hvor skal vi hente dere?" required />
+              <input type="text" id="hentested" name="Hentested" placeholder="Adresse eller område" required />
             </div>
             <div class="field">
-              <label for="rute">Destinasjon(er) <span class="req">*</span></label>
-              <input type="text" id="rute" name="Rute" placeholder="Hvor skal turen gå?" required />
+              <label for="rute">Hvor skal dere? <span class="req">*</span></label>
+              <input type="text" id="rute" name="Rute" placeholder="F.eks. rundt i Bergen sentrum" required />
             </div>
-            <div class="field-row">
-              <div class="field">
-                <label for="antall">Antall personer <span class="req">*</span></label>
-                <input type="number" id="antall" name="Antall personer" min="1" max="70" placeholder="Hvor mange?" required />
-              </div>
-              <div class="field">
-                <label for="type">Type tur <span class="req">*</span></label>
-                <select id="type" name="Anledning" required>
-                  <option value="" disabled selected>Velg type tur</option>
-                  <option>Utdrikningslag</option>
-                  <option>Fadderuke</option>
-                  <option>Blåtur</option>
-                  <option>Firma / julebord</option>
-                  <option>Bursdag</option>
-                  <option>Konsert / event</option>
-                  <option>Annet</option>
-                </select>
-              </div>
+            <div class="field">
+              <label for="antall">Antall personer <span class="req">*</span></label>
+              <input type="number" id="antall" name="Antall personer" min="1" max="70" value="20" required />
             </div>
-            <button type="submit" class="btn btn-primary btn-block btn-lg" id="submit-btn">Få pris nå →</button>
-            <p class="card-note">⏱ Svar som regel innen kort tid. Privat betaler i forkant (Vipps/bank), bedrift kan få faktura.</p>
-            <p class="form-error" id="form-error" hidden></p>
-          </form>
-        </aside>
+
+            <div class="field">
+              <label>Anledning <span class="req">*</span></label>
+              <div class="chips" id="occasion-chips" role="radiogroup" aria-label="Anledning">
+                <button type="button" class="chip" data-value="Utdrikningslag" role="radio" aria-checked="false">Utdrikningslag</button>
+                <button type="button" class="chip" data-value="Fadderuke" role="radio" aria-checked="false">Fadderuke</button>
+                <button type="button" class="chip" data-value="Blåtur" role="radio" aria-checked="false">Blåtur</button>
+                <button type="button" class="chip" data-value="Firma / julebord" role="radio" aria-checked="false">Firma / julebord</button>
+                <button type="button" class="chip" data-value="Bursdag" role="radio" aria-checked="false">Bursdag</button>
+                <button type="button" class="chip" data-value="Event" role="radio" aria-checked="false">Event</button>
+                <button type="button" class="chip" data-value="Annet" role="radio" aria-checked="false">Annet</button>
+              </div>
+              <input type="hidden" id="anledning" name="Anledning" required />
+            </div>
+
+            <!-- Dynamisk oppfølging pr. anledning -->
+            <div id="occasion-followup" class="followup" hidden></div>
+          </fieldset>
+
+          <!-- TIL SLUTT -->
+          <fieldset class="form-block">
+            <legend class="block-label">Til slutt</legend>
+            <div class="field">
+              <label for="onsker">Ekstra ønsker <span class="opt">(lyd, pynt, stopp…)</span></label>
+              <textarea id="onsker" name="Ekstra ønsker" rows="3" placeholder="Fortell oss hva som gjør kvelden perfekt"></textarea>
+            </div>
+            <div class="field">
+              <label for="kilde">Hvordan hørte du om oss?</label>
+              <select id="kilde" name="Kilde">
+                <option>TikTok</option>
+                <option>Instagram</option>
+                <option>Google-søk</option>
+                <option>Venner / bekjente</option>
+                <option>Annet</option>
+              </select>
+            </div>
+          </fieldset>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg" id="submit-btn">Send forespørsel</button>
+          <p class="form-note">Du hører fra oss raskt med en fast pris. Privatpersoner betaler i forkant (Vipps eller bank); bedrifter kan få faktura.</p>
+          <p class="form-error" id="form-error" hidden></p>
+        </form>
       </div>
     </section>
 
-    <!-- ===================== WHY ===================== -->
-    <section class="section why">
+    <!-- ===================== INCLUDED ===================== -->
+    <section class="section included">
       <div class="wrap">
-        <h2 class="section-title">Derfor velger folk NorwayRob</h2>
-        <div class="why-grid">
-          <article class="why-card">
-            <span class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
-            </span>
-            <h3>Trygt &amp; forsikret</h3>
-            <p>100% lovlig, forsikret og godkjent transport.</p>
-          </article>
-          <article class="why-card">
-            <span class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg>
-            </span>
-            <h3>Fast pris – ingen skjulte kostnader</h3>
-            <p>Du vet hva det koster før turen starter.</p>
-          </article>
-          <article class="why-card">
-            <span class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
-            </span>
-            <h3>Proff sjåfør</h3>
-            <p>Erfaren, serviceinnstilt og med godt humør.</p>
-          </article>
-          <article class="why-card">
-            <span class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 18.8 6.2 21.4l1.1-6.5L2.6 9.8l6.5-.9L12 3z"/></svg>
-            </span>
-            <h3>Kjent fjes</h3>
-            <p>NorwayRob bak rattet? Det blir alltid stemning.</p>
-          </article>
-        </div>
-      </div>
-    </section>
+        <p class="section-eyebrow">Alltid inkludert</p>
+        <h2 class="section-title">Alt dette — uansett anledning</h2>
+        <ul class="check-grid">
+          <li><span class="tick">✓</span><span><strong>Henting fra ett sted, levering der dere vil</strong> — hele gjengen samlet</span></li>
+          <li><span class="tick">✓</span><span><strong>Proff sjåfør — 15 års erfaring</strong> — løyve, trygt og lovlig, ingen må kjøre selv</span></li>
+          <li><span class="tick">✓</span><span><strong>Fest ombord</strong> — lyd og deres egen playlist</span></li>
+          <li><span class="tick">✓</span><span><strong>Vasking inkludert i prisen</strong> — søl skjer på fest. Vi tar vasken etterpå — dere slipper å tenke på det</span></li>
+          <li><span class="tick">✓</span><span><strong>Vi legger ruta med deg</strong> — du sier når og hvor</span></li>
+          <li><span class="tick">✓</span><span><strong>Fast pris — ingen skjulte tillegg</strong> — privat betaler i forkant, bedrift kan få faktura</span></li>
+        </ul>
 
-    <!-- ===================== HOW ===================== -->
-    <section class="section how" id="hvordan">
-      <div class="wrap">
-        <h2 class="section-title">Slik fungerer det</h2>
-        <div class="steps">
-          <article class="step-card">
-            <span class="step-num">01</span>
-            <h3>Fyll ut skjemaet</h3>
-            <p>Dato, tidsrom, hentested og antall personer. Tar 2 minutter.</p>
-          </article>
-          <article class="step-card">
-            <span class="step-num">02</span>
-            <h3>Få tilbud raskt</h3>
-            <p>Vi skreddersyr et tilbud og svarer deg fort.</p>
-          </article>
-          <article class="step-card">
-            <span class="step-num">03</span>
-            <h3>Bekreft og betal</h3>
-            <p>Privat betaler med Vipps eller bank. Bedrift kan få faktura.</p>
-          </article>
-          <article class="step-card">
-            <span class="step-num">04</span>
-            <h3>Nyt turen</h3>
-            <p>Vi henter dere — resten fikser vi. Len deg tilbake og kos deg!</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== BUS ===================== -->
-    <section class="section bus" id="bussen">
-      <div class="wrap bus-grid">
-        <div class="bus-photo">
-          <img src="images/bussen.jpg" alt="NorwayRob-bussen"
-               onerror="this.style.display='none';this.parentElement.classList.add('no-photo')" />
-          <span class="photo-placeholder" aria-hidden="true">
-            <span class="ph-emoji">🚌</span>
-            <span class="ph-text">Legg bilde av bussen i <code>images/bussen.jpg</code></span>
-          </span>
-        </div>
-        <div class="bus-copy">
-          <p class="section-eyebrow left">Vår buss</p>
-          <h2 class="bus-title">Komfort, stil og god plass</h2>
-          <ul class="spec-list">
-            <li><span class="tick">✓</span> 49 sitteplasser</li>
-            <li><span class="tick">✓</span> Klimaanlegg &amp; behagelig interiør</li>
-            <li><span class="tick">✓</span> God bagasjeplass</li>
-            <li><span class="tick">✓</span> Godkjent for langdistanse</li>
-            <li><span class="tick">✓</span> Alltid ren og representativ</li>
-          </ul>
-          <a href="#booking" class="btn btn-primary">Få pris på bussen</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== SAFE ===================== -->
-    <section class="section safe">
-      <div class="wrap">
-        <h2 class="section-title">Trygt, lovlig og forsikret</h2>
-        <p class="section-lead">Din sikkerhet er vår prioritet. Vi følger alle regler for persontransport og har full forsikring.</p>
-        <div class="safe-grid">
-          <div class="safe-item">
-            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span>
-            <strong>Godkjent</strong><span>persontransport</span>
-          </div>
-          <div class="safe-item">
-            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span>
-            <strong>Yrkessjåfør</strong><span>med erfaring</span>
-          </div>
-          <div class="safe-item">
-            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></svg></span>
-            <strong>Full forsikring</strong><span>på passasjerer</span>
-          </div>
-          <div class="safe-item">
-            <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11l1.5-4.5A2 2 0 018.4 5h7.2a2 2 0 011.9 1.5L19 11"/><path d="M3 11h18v5H3z"/><circle cx="7.5" cy="16.5" r="1.5"/><circle cx="16.5" cy="16.5" r="1.5"/></svg></span>
-            <strong>Kjøretøy</strong><span>i topp stand</span>
+        <div class="guarantee">
+          <span class="guarantee-icon">✓</span>
+          <div>
+            <h3>Trygg booking-garanti</h3>
+            <p>Endrer planene seg? Avbestill gratis inntil 14 dager før — dere får pengene tilbake, ingen spørsmål.</p>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- ===================== ABOUT ===================== -->
-    <section class="section about" id="om">
-      <div class="wrap wrap-narrow about-inner">
-        <p class="section-eyebrow">Om oss</p>
-        <h2 class="section-title">Et kjent fjes bak rattet</h2>
-        <p class="about-text">
-          NorwayRob er buss-sjåføren fra Bergen som har blitt et kjent fjes for 2,2 millioner
-          følgere på TikTok. Bak moroa ligger 15 års erfaring bak rattet — og en enkel idé:
-          at en busstur skal være en del av festen, ikke bare transport. Vi henter hele gjengen,
-          sørger for at alle kommer trygt frem, og gjør kvelden til en happening.
-        </p>
       </div>
     </section>
 
     <!-- ===================== REVIEWS ===================== -->
     <section class="section reviews">
       <div class="wrap">
-        <h2 class="section-title">Dette sier kundene</h2>
+        <p class="section-eyebrow">Anmeldelser</p>
+        <h2 class="section-title">Hva gjengene sier</h2>
         <div class="review-grid">
           <article class="review-card">
             <div class="stars" aria-label="5 av 5 stjerner">★★★★★</div>
-            <p>«Rå opplevelse fra start til slutt! NorwayRob stilte opp, kjørte oss trygt hele natten og laget skikkelig stemning. Anbefales!»</p>
-            <span class="review-by">— Martin, utdrikningslag</span>
+            <p>«Beste utdrikningslaget noensinne. Rob er en legende, og bussen ble hele festen.»</p>
+            <span class="review-by">— Marte, Bergen</span>
           </article>
           <article class="review-card">
             <div class="stars" aria-label="5 av 5 stjerner">★★★★★</div>
-            <p>«Perfekt firmatur. Alt var på stell, tydelig pris og proff sjåfør. Vi booker igjen!»</p>
-            <span class="review-by">— HR-sjef, Bergen</span>
+            <p>«Proff fra start til slutt. Fast pris, henta oss på døra, og et kjent fjes bak rattet!»</p>
+            <span class="review-by">— Fadderstyret, HVL</span>
           </article>
           <article class="review-card">
             <div class="stars" aria-label="5 av 5 stjerner">★★★★★</div>
-            <p>«Best på tur i Bergen. Ingen stress, bare god stemning og en sjåfør som leverer.»</p>
-            <span class="review-by">— Stine, fadderuke</span>
+            <p>«Firmaturen ble snakkis på jobben i ukevis. Enkelt å booke, alt gikk på skinner.»</p>
+            <span class="review-by">— Kristian, firmatur</span>
           </article>
-        </div>
-        <div class="reviews-cta">
-          <a href="https://www.google.com/search?q=NorwayRob+buss+Bergen" target="_blank" rel="noopener" class="link-google">Se flere anmeldelser på Google →</a>
         </div>
       </div>
     </section>
@@ -300,6 +270,7 @@
     <!-- ===================== FAQ ===================== -->
     <section class="section faq">
       <div class="wrap wrap-narrow">
+        <p class="section-eyebrow">Spørsmål &amp; svar</p>
         <h2 class="section-title">Ofte stilte spørsmål</h2>
         <div class="faq-list">
           <details class="faq-item" open>
@@ -315,8 +286,16 @@
             <div class="faq-answer"><p>Absolutt — det er jo hele poenget! Lydanlegg om bord, spill deres egen playlist, og kos dere. Sjåføren tar rattet, så ingen i gjengen trenger å tenke på kjøring.</p></div>
           </details>
           <details class="faq-item">
+            <summary>Hvor kjører dere?<span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-answer"><p>Bergen og omegn. Dere sier hvor dere vil hentes og hvor turen skal gå, så legger vi ruta sammen. Henting fra ett sted, levering der dere vil.</p></div>
+          </details>
+          <details class="faq-item">
             <summary>Hvordan og når betaler vi?<span class="faq-icon" aria-hidden="true"></span></summary>
             <div class="faq-answer"><p><strong>Privatpersoner betaler hele summen i forkant</strong> — enkelt med Vipps eller bankoverføring. Datoen er sikret så snart betalingen er mottatt. <strong>Bedrifter</strong> kan få faktura mot organisasjonsnummer.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Hvor raskt får vi svar, og hvordan bekrefter vi?<span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-answer"><p>Fyll ut skjemaet, så hører dere fra oss raskt med en fast pris. Dere bekrefter ved å betale i forkant (privat) eller avtale faktura (bedrift) — så er datoen deres.</p></div>
           </details>
           <details class="faq-item">
             <summary>Hva om planene endrer seg?<span class="faq-icon" aria-hidden="true"></span></summary>
@@ -325,58 +304,23 @@
         </div>
       </div>
     </section>
-
-    <!-- ===================== CTA ===================== -->
-    <section class="section cta-band">
-      <div class="wrap cta-grid">
-        <div class="cta-main">
-          <h2 class="cta-title">Klar for en legendarisk tur?</h2>
-          <p>Fyll ut skjemaet nå, så fikser vi resten.</p>
-          <a href="#booking" class="btn btn-primary btn-lg">Få pris — planlegg turen</a>
-          <p class="hero-reassure">⏱ Raskt svar og uforpliktende tilbud</p>
-        </div>
-        <aside class="recruit-card">
-          <h3>Kjør med NorwayRob?</h3>
-          <p>Ønsker du Rob bak rattet? Tilgjengelighet må sjekkes.</p>
-          <a href="#booking" class="btn btn-outline btn-block">Spør om Rob er ledig</a>
-        </aside>
-      </div>
-    </section>
   </main>
 
   <!-- ===================== FOOTER ===================== -->
-  <footer class="site-footer" id="kontakt">
-    <div class="wrap footer-grid">
-      <div class="footer-brand">
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="brand">
         <span class="brand-name">NORWAY<span class="brand-accent">ROB</span></span>
-        <span class="brand-sub">Buss til leie · Bergen</span>
-        <p class="footer-fine">© NorwayRob · Løyve · forsikret · lovlig</p>
+        <span class="brand-sub">Buss til leie · Bergen &amp; omegn</span>
       </div>
-      <div class="footer-col">
-        <h4>Meny</h4>
-        <a href="#top">Hjem</a>
-        <a href="#hvordan">Slik fungerer det</a>
-        <a href="#om">Om oss</a>
-        <a href="#bussen">Bussen</a>
-      </div>
-      <div class="footer-col">
-        <h4>Tjenester</h4>
-        <a href="#booking">Utdrikningslag</a>
-        <a href="#booking">Blåturer</a>
-        <a href="#booking">Firmaturer</a>
-        <a href="#booking">Fadderuke</a>
-        <a href="#booking">Konserter &amp; event</a>
-      </div>
-      <div class="footer-col">
-        <h4>Kontakt</h4>
+      <div class="footer-contact">
         <a href="mailto:norwayrob@outlook.com">norwayrob@outlook.com</a>
-        <span class="footer-plain">Bergen, Norge</span>
-        <div class="socials">
-          <a href="https://www.tiktok.com/@norwayrob" target="_blank" rel="noopener">TikTok</a>
-          <a href="https://www.instagram.com/norwayrob/" target="_blank" rel="noopener">Instagram</a>
-        </div>
+        <a href="https://www.tiktok.com/@norwayrob" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://www.instagram.com/norwayrob/" target="_blank" rel="noopener">Instagram</a>
+        <a href="#booking">Få pris</a>
       </div>
     </div>
+    <p class="footer-fine">© NorwayRob · Løyve · forsikret · lovlig</p>
   </footer>
 
   <!-- ===================== SUCCESS OVERLAY ===================== -->
@@ -397,13 +341,13 @@
     "name": "NorwayRob",
     "description": "Buss til leie i Bergen til utdrikningslag, fadderuke, blåtur og firmatur. Proff sjåfør, fast pris, henting og levering – vasking inkludert.",
     "url": "https://norwayrob.no/",
-    "image": "https://norwayrob.no/images/hero.jpg",
+    "image": "https://norwayrob.no/images/busman.jpg",
     "email": "norwayrob@outlook.com",
-    "priceRange": "$$",
     "sameAs": [
       "https://www.tiktok.com/@norwayrob",
       "https://www.instagram.com/norwayrob/"
     ],
+    "priceRange": "$$",
     "areaServed": { "@type": "City", "name": "Bergen" },
     "address": {
       "@type": "PostalAddress",
@@ -421,11 +365,41 @@
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-      { "@type": "Question", "name": "Hvor mange får plass i bussen?", "acceptedAnswer": { "@type": "Answer", "text": "Bussen tar en hel gjeng. Si fra hvor mange dere er i skjemaet, så bekrefter vi at alle får plass – og finner en løsning hvis dere er ekstra mange." } },
-      { "@type": "Question", "name": "Hva koster det?", "acceptedAnswer": { "@type": "Answer", "text": "Dere får en fast pris ut fra dato, tidsrom, antall og rute – ingen skjulte tillegg. Fyll ut skjemaet, så skreddersyr vi et tilbud og svarer raskt." } },
-      { "@type": "Question", "name": "Kan vi feste og ha musikk om bord?", "acceptedAnswer": { "@type": "Answer", "text": "Absolutt – det er jo hele poenget! Lydanlegg om bord, spill deres egen playlist, og kos dere. Sjåføren tar rattet, så ingen i gjengen trenger å tenke på kjøring." } },
-      { "@type": "Question", "name": "Hvordan og når betaler vi?", "acceptedAnswer": { "@type": "Answer", "text": "Privatpersoner betaler hele summen i forkant – enkelt med Vipps eller bankoverføring. Datoen er sikret så snart betalingen er mottatt. Bedrifter kan få faktura mot organisasjonsnummer." } },
-      { "@type": "Question", "name": "Hva om planene endrer seg?", "acceptedAnswer": { "@type": "Answer", "text": "Da er det trygt: avbestill gratis inntil 14 dager før, så får dere hele beløpet tilbake – ingen spørsmål." } }
+      {
+        "@type": "Question",
+        "name": "Hvor mange får plass i bussen?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Bussen tar en hel gjeng. Si fra hvor mange dere er i skjemaet, så bekrefter vi at alle får plass – og finner en løsning hvis dere er ekstra mange." }
+      },
+      {
+        "@type": "Question",
+        "name": "Hva koster det?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Dere får en fast pris ut fra dato, tidsrom, antall og rute – ingen skjulte tillegg. Fyll ut skjemaet, så skreddersyr vi et tilbud og svarer raskt." }
+      },
+      {
+        "@type": "Question",
+        "name": "Kan vi feste og ha musikk om bord?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Absolutt – det er jo hele poenget! Lydanlegg om bord, spill deres egen playlist, og kos dere. Sjåføren tar rattet, så ingen i gjengen trenger å tenke på kjøring." }
+      },
+      {
+        "@type": "Question",
+        "name": "Hvor kjører dere?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Bergen og omegn. Dere sier hvor dere vil hentes og hvor turen skal gå, så legger vi ruta sammen. Henting fra ett sted, levering der dere vil." }
+      },
+      {
+        "@type": "Question",
+        "name": "Hvordan og når betaler vi?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Privatpersoner betaler hele summen i forkant – enkelt med Vipps eller bankoverføring. Datoen er sikret så snart betalingen er mottatt. Bedrifter kan få faktura mot organisasjonsnummer." }
+      },
+      {
+        "@type": "Question",
+        "name": "Hvor raskt får vi svar, og hvordan bekrefter vi?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Fyll ut skjemaet, så hører dere fra oss raskt med en fast pris. Dere bekrefter ved å betale i forkant (privat) eller avtale faktura (bedrift) – så er datoen deres." }
+      },
+      {
+        "@type": "Question",
+        "name": "Hva om planene endrer seg?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Da er det trygt: avbestill gratis inntil 14 dager før, så får dere hele beløpet tilbake – ingen spørsmål." }
+      }
     ]
   }
   </script>
