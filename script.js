@@ -1,10 +1,92 @@
 /* ============================================================
    NorwayRob – buss til leie
-   Skjemaet sender forespørsler til Google Sheets (Apps Script).
+   ------------------------------------------------------------
+   Skjemaet sender forespørsler til et Google Sheets-regneark.
+
+   >>> SETT INN LENKEN DIN HER <<<
+   Lim inn Web App-URL-en fra Google Apps Script mellom
+   anførselstegnene under. Se SETUP.md for oppskrift.
+   La den stå tom ("") før du er ferdig – da åpnes e-post i
+   stedet, så skjemaet virker uansett.
    ============================================================ */
 const BOOKING_ENDPOINT = "https://script.google.com/macros/s/AKfycbxqT2-OqxBV3QsVx_GSZVjzryRtSge7kChRdyXpbvvIaEZ_-7ZZC3A2AWwjVVOwpGpCsQ/exec";
+
+/* E-post som brukes hvis endpoint ikke er satt ennå */
 const FALLBACK_EMAIL = "norwayrob@outlook.com";
 
+/* Oppfølgingsspørsmål som dukker opp pr. anledning.
+   Legg til/endre fritt – "name" blir kolonneoverskrift i regnearket. */
+const FOLLOWUPS = {
+  "Utdrikningslag": [
+    { name: "Hvem feires", label: "Hvem feires? (brudens/brudgommens navn)", placeholder: "F.eks. Kari (bruden)" },
+    { name: "Overraskelse", label: "Skal vi overraske hovedpersonen?", optional: true, placeholder: "F.eks. ja, hun vet ingenting!" },
+  ],
+  "Fadderuke": [
+    { name: "Linjeforening", label: "Hvilken linjeforening / studiested?", placeholder: "F.eks. HVL – ingeniør" },
+    { name: "Fadderbarn", label: "Ca. antall fadderbarn?", optional: true, placeholder: "F.eks. 25" },
+  ],
+  "Blåtur": [
+    { name: "Hvem planlegger", label: "Hvem planlegger (og hvem vet ingenting)?", placeholder: "F.eks. vennegjengen overrasker Per" },
+    { name: "Overraskelsesnivå", label: "Skal ruta være hemmelig?", optional: true, placeholder: "F.eks. ja, helt hemmelig" },
+  ],
+  "Firma / julebord": [
+    { name: "Firmanavn", label: "Firmanavn", placeholder: "F.eks. Bergen Bygg AS" },
+    { name: "Faktura org.nr", label: "Org.nr for faktura", optional: true, placeholder: "F.eks. 999 888 777" },
+  ],
+  "Bursdag": [
+    { name: "Hvem feires", label: "Hvem fyller år – og hvor mange?", placeholder: "F.eks. Jonas, 30 år" },
+  ],
+  "Event": [
+    { name: "Type event", label: "Hva slags event?", placeholder: "F.eks. konsert, kickoff, bryllup" },
+  ],
+  "Annet": [
+    { name: "Om anledningen", label: "Fortell kort hva det gjelder", placeholder: "F.eks. klassetur" },
+  ],
+};
+
+/* ---------------- Anledning-chips ---------------- */
+const chipsWrap = document.getElementById("occasion-chips");
+const anledningInput = document.getElementById("anledning");
+const followupWrap = document.getElementById("occasion-followup");
+
+chipsWrap.addEventListener("click", (e) => {
+  const chip = e.target.closest(".chip");
+  if (!chip) return;
+  const value = chip.dataset.value;
+
+  chipsWrap.querySelectorAll(".chip").forEach((c) => {
+    const active = c === chip;
+    c.classList.toggle("active", active);
+    c.setAttribute("aria-checked", active ? "true" : "false");
+  });
+
+  anledningInput.value = value;
+  renderFollowup(value);
+});
+
+function renderFollowup(value) {
+  const fields = FOLLOWUPS[value];
+  if (!fields || !fields.length) {
+    followupWrap.hidden = true;
+    followupWrap.innerHTML = "";
+    return;
+  }
+
+  let html = `<p class="followup-title">Litt mer om <span>${value}</span></p>`;
+  fields.forEach((f, i) => {
+    const id = `fu-${i}`;
+    const opt = f.optional ? ` <span class="opt">(valgfritt)</span>` : "";
+    html += `
+      <div class="field">
+        <label for="${id}">${f.label}${opt}</label>
+        <input type="text" id="${id}" name="${f.name}" placeholder="${f.placeholder || ""}" />
+      </div>`;
+  });
+  followupWrap.innerHTML = html;
+  followupWrap.hidden = false;
+}
+
+/* ---------------- Innsending ---------------- */
 const form = document.getElementById("booking-form");
 const submitBtn = document.getElementById("submit-btn");
 const formError = document.getElementById("form-error");
@@ -14,12 +96,17 @@ form.addEventListener("submit", async (e) => {
   e.preventDefault();
   formError.hidden = true;
 
+  if (!anledningInput.value) {
+    showError("Velg en anledning før du sender.");
+    return;
+  }
   if (!form.checkValidity()) {
     form.reportValidity();
     return;
   }
 
   const data = collectData();
+
   submitBtn.disabled = true;
   submitBtn.textContent = "Sender…";
 
@@ -30,13 +117,14 @@ form.addEventListener("submit", async (e) => {
       openMailto(data);
     }
     form.reset();
+    resetChips();
     overlay.hidden = false;
   } catch (err) {
     console.error(err);
     showError("Noe gikk galt. Prøv igjen, eller send oss en e-post til " + FALLBACK_EMAIL + ".");
   } finally {
     submitBtn.disabled = false;
-    submitBtn.textContent = "Få pris nå →";
+    submitBtn.textContent = "Send forespørsel";
   }
 });
 
@@ -50,6 +138,7 @@ function collectData() {
 }
 
 async function sendToSheet(data) {
+  // no-cors: Apps Script tar imot POST-en, vi viser suksess optimistisk.
   await fetch(BOOKING_ENDPOINT, {
     method: "POST",
     mode: "no-cors",
@@ -59,10 +148,23 @@ async function sendToSheet(data) {
 }
 
 function openMailto(data) {
-  const lines = Object.entries(data).filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`);
+  const lines = Object.entries(data)
+    .filter(([, v]) => v)
+    .map(([k, v]) => `${k}: ${v}`);
   const subject = `Ny forespørsel – ${data["Anledning"] || "buss"} (${data["Navn"] || ""})`;
   const body = "Ny bussforespørsel fra nettsiden:\n\n" + lines.join("\n");
-  window.location.href = `mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  window.location.href =
+    `mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+function resetChips() {
+  chipsWrap.querySelectorAll(".chip").forEach((c) => {
+    c.classList.remove("active");
+    c.setAttribute("aria-checked", "false");
+  });
+  anledningInput.value = "";
+  followupWrap.hidden = true;
+  followupWrap.innerHTML = "";
 }
 
 function showError(msg) {
@@ -71,10 +173,15 @@ function showError(msg) {
   formError.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
-document.getElementById("success-close").addEventListener("click", () => { overlay.hidden = true; });
-overlay.addEventListener("click", (e) => { if (e.target === overlay) overlay.hidden = true; });
+/* ---------------- Success overlay ---------------- */
+document.getElementById("success-close").addEventListener("click", () => {
+  overlay.hidden = true;
+});
+overlay.addEventListener("click", (e) => {
+  if (e.target === overlay) overlay.hidden = true;
+});
 
-/* Minimum-dato = i dag */
+/* ---------------- Sett minimum-dato til i dag ---------------- */
 (function setMinDates() {
   const today = new Date().toISOString().split("T")[0];
   document.querySelectorAll('input[type="date"]').forEach((d) => (d.min = today));
