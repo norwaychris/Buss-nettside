@@ -496,22 +496,6 @@ input[type="date"] { color-scheme: dark; }
 .guarantee-side p { font-size: 14px; }
 .guarantee-side a { color: var(--red); text-decoration: underline; text-underline-offset: 3px; }
 
-/* Mini-tillitsstripe nederst i inkludert-seksjonen */
-.mini-trust {
-  list-style: none; margin: 22px 0 0; padding: 20px 26px;
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--radius);
-  display: flex; flex-wrap: wrap; justify-content: space-around; gap: 18px 30px;
-}
-.mini-trust li { display: flex; align-items: center; gap: 13px; }
-.mini-trust .mt-icon {
-  flex: none; width: 40px; height: 40px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  color: var(--red); background: var(--red-soft);
-}
-.mini-trust .mt-icon svg { width: 20px; height: 20px; }
-.mini-trust span:last-child { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
-.mini-trust strong { color: var(--ink); font-size: 15px; }
 
 /* ===================== REVIEWS ===================== */
 .review-grid {
@@ -733,7 +717,6 @@ input[type="date"] { color-scheme: dark; }
   .included-grid { grid-template-columns: 1fr; }
   .guarantee { flex-direction: column; align-items: flex-start; gap: 18px; }
   .guarantee-side { border-left: none; border-top: 1px solid var(--border-2); padding-left: 0; padding-top: 16px; max-width: none; }
-  .mini-trust { justify-content: flex-start; }
   .why-grid { grid-template-columns: repeat(2, 1fr); }
   .section { padding: 60px 0; }
 }
