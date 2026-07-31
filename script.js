@@ -210,6 +210,8 @@ overlay.addEventListener("click", (e) => {
   if (!fra || !til || !tidsrom) return;
   function oppdater() {
     if (fra.value && til.value) tidsrom.value = "kl. " + fra.value + "–" + til.value;
+    else if (fra.value) tidsrom.value = "fra kl. " + fra.value + " (sluttid ikke oppgitt)";
+    else tidsrom.value = "";
   }
   fra.addEventListener("change", oppdater);
   til.addEventListener("change", oppdater);

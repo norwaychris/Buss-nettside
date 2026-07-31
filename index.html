@@ -34,7 +34,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="image" href="images/hero.jpg" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20" />
+  <link rel="stylesheet" href="styles.css?v=21" />
 </head>
 <body>
   <a href="#booking" class="skip-link">Hopp til bestillingsskjemaet</a>
@@ -182,9 +182,10 @@
                 <div class="time-range">
                   <input type="time" id="tid-fra" required aria-label="Fra klokkeslett" />
                   <span class="time-sep" aria-hidden="true">til</span>
-                  <input type="time" id="tid-til" required aria-label="Til klokkeslett" />
+                  <input type="time" id="tid-til" aria-label="Til klokkeslett (valgfritt)" />
                 </div>
                 <input type="hidden" id="tid" name="Tidsrom" />
+                <p class="field-note">Vet dere ikke sluttiden — f.eks. tur til Voss? La «til» stå tom, så regner vi ut tidsbruken for dere.</p>
               </div>
             </div>
             <div class="field">
@@ -193,7 +194,7 @@
             </div>
             <div class="field">
               <label for="rute">Hva er planen for turen? <span class="req">*</span></label>
-              <textarea id="rute" name="Rute" rows="3" required placeholder="Fortell litt: skal dere ha stopp underveis, eller bare rulle fritt rundt i Bergen sentrum? Er det steder dere må innom?"></textarea>
+              <textarea id="rute" name="Rute" rows="3" required placeholder="Fortell litt: skal dere direkte fra A til B, ha stopp underveis, eller bare rulle fritt rundt i Bergen sentrum?"></textarea>
             </div>
             <div class="field field-half">
               <label for="antall">Antall personer <span class="req">*</span>
@@ -551,6 +552,6 @@
   }
   </script>
 
-  <script src="script.js?v=8"></script>
+  <script src="script.js?v=9"></script>
 </body>
 </html>
