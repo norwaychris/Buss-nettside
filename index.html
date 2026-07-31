@@ -153,14 +153,18 @@
           <!-- OM DERE -->
           <fieldset class="form-block">
             <legend class="block-label">Om dere</legend>
+            <div class="field">
+              <label for="navn">Navn <span class="req">*</span></label>
+              <input type="text" id="navn" name="Navn" placeholder="Ola Nordmann" autocomplete="name" required />
+            </div>
             <div class="field-row">
               <div class="field">
-                <label for="navn">Navn <span class="req">*</span></label>
-                <input type="text" id="navn" name="Navn" placeholder="Ola Nordmann" autocomplete="name" required />
+                <label for="telefon">Telefon <span class="req">*</span></label>
+                <input type="tel" id="telefon" name="Telefon" placeholder="900 00 000" autocomplete="tel" required />
               </div>
               <div class="field">
-                <label for="kontakt">Telefon eller e-post <span class="req">*</span></label>
-                <input type="text" id="kontakt" name="Kontakt" placeholder="Så vi kan sende deg pris" autocomplete="tel email" required />
+                <label for="epost">E-post <span class="req">*</span></label>
+                <input type="email" id="epost" name="E-post" placeholder="deg@epost.no" autocomplete="email" required />
               </div>
             </div>
           </fieldset>

@@ -19,7 +19,7 @@ var ARK_NAVN = "Bestillinger";
 
 // Faste kolonner i ønsket rekkefølge:
 var KOLONNER = [
-  "Mottatt", "Status", "Navn", "Kontakt", "Anledning",
+  "Mottatt", "Status", "Navn", "Telefon", "E-post", "Anledning",
   "Dato", "Tidsrom", "Antall personer",
   "Hentested", "Rute", "Anledning-detaljer", "Ekstra ønsker",
   "Kilde", "Betalt (kr)", "Notat"
@@ -27,7 +27,7 @@ var KOLONNER = [
 
 // Skjemafelt som har sin egen kolonne (resten samles i "Anledning-detaljer"):
 var KJENTE_FELT = {
-  "Navn": 1, "Kontakt": 1, "Anledning": 1, "Dato": 1,
+  "Navn": 1, "Telefon": 1, "E-post": 1, "Anledning": 1, "Dato": 1,
   "Tidsrom": 1, "Antall personer": 1, "Hentested": 1, "Rute": 1,
   "Ekstra ønsker": 1, "Kilde": 1
 };
@@ -112,7 +112,7 @@ function settOppArk(sheet) {
 
   // Kolonnebredder
   var bredder = {
-    "Mottatt": 140, "Status": 110, "Navn": 150, "Kontakt": 160, "Anledning": 140,
+    "Mottatt": 140, "Status": 110, "Navn": 150, "Telefon": 120, "E-post": 180, "Anledning": 140,
     "Dato": 100, "Tidsrom": 190, "Antall personer": 80,
     "Hentested": 170, "Rute": 200, "Anledning-detaljer": 260, "Ekstra ønsker": 220,
     "Kilde": 120, "Betalt (kr)": 100, "Notat": 200
@@ -156,7 +156,8 @@ function sendVarsel(data, detaljer) {
 
     var linjer = [
       "Navn: " + (data["Navn"] || ""),
-      "Kontakt: " + (data["Kontakt"] || ""),
+      "Telefon: " + (data["Telefon"] || ""),
+      "E-post: " + (data["E-post"] || ""),
       "Anledning: " + (data["Anledning"] || ""),
       "Dato: " + (data["Dato"] || ""),
       "Tidsrom: " + (data["Tidsrom"] || ""),
@@ -176,12 +177,12 @@ function sendVarsel(data, detaljer) {
   }
 }
 
-// Automatisk kvittering til kunden – kun hvis "Kontakt" er en e-postadresse.
+// Automatisk kvittering til kunden – sendes til e-postadressen de oppga.
 function sendAutosvar(data) {
   try {
     if (!AUTOSVAR_PAA) return;
-    var kontakt = (data["Kontakt"] || "").trim();
-    if (!/^\S+@\S+\.\S+$/.test(kontakt)) return; // ser ikke ut som e-post → hopp over
+    var kontakt = (data["E-post"] || "").trim();
+    if (!/^\S+@\S+\.\S+$/.test(kontakt)) return; // ugyldig e-post → hopp over
 
     var fornavn = (data["Navn"] || "").trim().split(/\s+/)[0] || "";
     var emne = "Takk! Vi har mottatt forespørselen din – NorwayRob";
