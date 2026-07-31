@@ -432,7 +432,10 @@ input:focus, textarea:focus, select:focus {
   box-shadow: 0 0 0 3px var(--red-soft);
 }
 textarea { resize: vertical; }
-input[type="date"] { color-scheme: dark; }
+input[type="date"], input[type="time"] { color-scheme: dark; }
+.time-range { display: flex; align-items: center; gap: 10px; }
+.time-range input { flex: 1; min-width: 0; }
+.time-sep { color: var(--muted-2); font-size: 14px; flex: none; }
 
 /* Chips */
 .chips { display: flex; flex-wrap: wrap; gap: 10px; }

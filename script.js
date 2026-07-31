@@ -181,6 +181,19 @@ overlay.addEventListener("click", (e) => {
   if (e.target === overlay) overlay.hidden = true;
 });
 
+/* ---------------- Klokkeslett fra–til → Tidsrom ---------------- */
+(function tidsromFelt() {
+  const fra = document.getElementById("tid-fra");
+  const til = document.getElementById("tid-til");
+  const tidsrom = document.getElementById("tid");
+  if (!fra || !til || !tidsrom) return;
+  function oppdater() {
+    if (fra.value && til.value) tidsrom.value = "kl. " + fra.value + "–" + til.value;
+  }
+  fra.addEventListener("change", oppdater);
+  til.addEventListener("change", oppdater);
+})();
+
 /* ---------------- Sett minimum-dato til i dag ---------------- */
 (function setMinDates() {
   const today = new Date().toISOString().split("T")[0];

@@ -34,7 +34,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="image" href="images/hero.jpg" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=17" />
+  <link rel="stylesheet" href="styles.css?v=18" />
 </head>
 <body>
   <a href="#booking" class="skip-link">Hopp til bestillingsskjemaet</a>
@@ -174,19 +174,22 @@
                 <input type="date" id="dato" name="Dato" required />
               </div>
               <div class="field">
-                <label for="tid">Når + omtrent hvor mange timer? <span class="req">*</span></label>
-                <input type="text" id="tid" name="Tidsrom" placeholder="F.eks. lørdag kveld fra 19, ca. 6 timer" required />
+                <label for="tid-fra">Klokkeslett <span class="req">*</span></label>
+                <div class="time-range">
+                  <input type="time" id="tid-fra" required aria-label="Fra klokkeslett" />
+                  <span class="time-sep" aria-hidden="true">til</span>
+                  <input type="time" id="tid-til" required aria-label="Til klokkeslett" />
+                </div>
+                <input type="hidden" id="tid" name="Tidsrom" />
               </div>
             </div>
-            <div class="field-row">
-              <div class="field">
-                <label for="hentested">Hentested <span class="req">*</span></label>
-                <input type="text" id="hentested" name="Hentested" placeholder="Adresse eller område" required />
-              </div>
-              <div class="field">
-                <label for="rute">Hvor skal dere? <span class="req">*</span></label>
-                <input type="text" id="rute" name="Rute" placeholder="F.eks. rundt i Bergen sentrum" required />
-              </div>
+            <div class="field">
+              <label for="hentested">Hentested <span class="req">*</span></label>
+              <input type="text" id="hentested" name="Hentested" placeholder="Adresse eller område" required />
+            </div>
+            <div class="field">
+              <label for="rute">Hva er planen for turen? <span class="req">*</span></label>
+              <textarea id="rute" name="Rute" rows="3" required placeholder="Fortell litt: skal dere ha stopp underveis, eller bare rulle fritt rundt i Bergen sentrum? Er det steder dere må innom?"></textarea>
             </div>
             <div class="field field-half">
               <label for="antall">Antall personer <span class="req">*</span></label>
@@ -541,6 +544,6 @@
   }
   </script>
 
-  <script src="script.js?v=5"></script>
+  <script src="script.js?v=6"></script>
 </body>
 </html>
