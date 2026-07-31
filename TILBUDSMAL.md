@@ -149,6 +149,146 @@ Anmeldelser er det som løfter dere mest i «leie buss bergen»-søket.
 
 ---
 
+---
+
+## Betalingspåminnelse (fristen nærmer seg)
+
+Send når ca. halve fristen har gått uten betaling.
+
+```
+Emne: Påminnelse – bussen [dato] venter på dere ⏳
+
+Hei [navn]!
+
+Bare en vennlig påminnelse: bussen [dato] står fortsatt
+reservert til dere, men betalingsfristen er [frist].
+
+Betal til kontonummer [XXXX.XX.XXXXX], merk «[navn + dato]»,
+så er datoen deres — jeg sender bekreftelse med en gang
+betalingen er inne.
+
+Er det noe dere lurer på før dere bestemmer dere?
+Bare svar på denne e-posten.
+
+Rob — NorwayRob
+```
+
+### Variant: fristen er utløpt
+
+```
+Emne: Reservasjonen av [dato] er utløpt
+
+Hei [navn]!
+
+Betalingsfristen for [dato] gikk ut [frist], så reservasjonen
+har dessverre falt bort, og datoen er åpen for andre igjen.
+
+Fortsatt interessert? Svar her, så sjekker jeg om datoen
+fremdeles er ledig — eller finner en annen som passer.
+
+Rob — NorwayRob
+```
+
+---
+
+## Datoen er opptatt (redde leadet)
+
+```
+Emne: [Dato] er dessverre booket — men se her!
+
+Hei [navn]!
+
+Takk for forespørselen! [Dato] er dessverre allerede booket —
+den datoen gikk fort.
+
+Men: jeg har ledig [alternativ 1] og [alternativ 2], og
+begge fungerer perfekt for [anledning]. Samme opplegg,
+samme faste pris: [X XXX] kr, alt inkludert.
+
+Frist ikke? Si ifra hvilke datoer dere kan, så sjekker jeg
+kalenderen. Populære helger går fort, så gi lyd så snart
+dere har landet på noe!
+
+Rob — NorwayRob
+norwayrob.no
+```
+
+---
+
+## Påminnelse før turen (send 2–3 dager før)
+
+**HTML-versjon:** `tilbud/paminnelse-epost.html` — samme oppskrift som de andre.
+
+```
+Emne: Snart klart! Bussen kommer [dato] 🚌
+
+Hei [navn]!
+
+Da nærmer det seg — her er alt dere trenger å vite:
+
+🚌 Dato: [lørdag 8. august]
+🕗 Oppmøte: [kl. 18:50] (bussen kjører [19:00] presis)
+📍 Hentested: [Torgallmenningen]
+👥 Antall: [25] personer
+
+Verdt å huske:
+• Vær ute 10 min før — bussen venter maks 15 min
+• Maks avtalt antall om bord
+• Playlist? Ha den klar, så kobler vi til når dere er om bord
+
+Endringer i siste liten eller spørsmål på selve dagen?
+Svar på denne e-posten.
+
+Gled dere — vi fikser kvelden!
+Rob — NorwayRob
+```
+
+---
+
+## Avbestillingsbekreftelse
+
+### Mer enn 14 dager før avreise (full refusjon)
+
+```
+Emne: Avbestillingen er bekreftet
+
+Hei [navn]!
+
+Da har jeg registrert avbestillingen av turen [dato].
+Siden det er mer enn 14 dager til avreise, får dere hele
+beløpet ([X XXX] kr) tilbake — det overføres til kontoen
+betalingen kom fra innen [3–5] virkedager.
+
+Synd det ikke ble noe denne gangen — men dere er hjertelig
+velkomne tilbake når anledningen byr seg!
+
+Rob — NorwayRob
+```
+
+### Mindre enn 14 dager før avreise (ingen refusjon)
+
+```
+Emne: Avbestillingen er bekreftet
+
+Hei [navn]!
+
+Da har jeg registrert avbestillingen av turen [dato].
+
+Som det står i vilkårene (norwayrob.no/vilkar.html) og i
+tilbudet dere fikk, refunderes ikke beløpet ved avbestilling
+mindre enn 14 dager før avreise — datoen har vært holdt av
+til dere, og andre forespørsler er takket nei til.
+
+Skulle jeg likevel klare å fylle datoen med et annet oppdrag,
+tar jeg kontakt — da kan deler av beløpet bli refundert.
+
+Beklager at det ikke ble tur — velkommen tilbake en annen gang.
+
+Rob — NorwayRob
+```
+
+---
+
 ## Huskeliste per booking
 
 - [ ] Svar innen 24 timer (det lover nettsiden!)
@@ -156,4 +296,5 @@ Anmeldelser er det som løfter dere mest i «leie buss bergen»-søket.
 - [ ] Frist satt (standard: 7 dager, kort varsel: 48 t)
 - [ ] Oppdater Google-arket: Status + Betalt (kr) når pengene er inne
 - [ ] Send bekreftelses-e-post
+- [ ] 2–3 dager før turen: send påminnelse med hentetid og -sted
 - [ ] Dagen etter turen: send takk-e-post med anmeldelses-lenken
