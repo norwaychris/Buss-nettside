@@ -232,7 +232,6 @@ Da nærmer det seg — her er alt dere trenger å vite:
 👥 Antall: [25] personer
 
 Verdt å huske:
-• Vær klare ute 10 min før avgang, så ruller vi presis
 • Maks avtalt antall om bord
 • Playlist? Ha den klar, så kobler vi til når dere er om bord
 
