@@ -111,6 +111,44 @@ Rob — NorwayRob
 
 ---
 
+---
+
+## Etter turen — takk + anmeldelse (send dagen etter)
+
+**HTML-versjon (anbefalt):** `tilbud/takk-epost.html` — åpne i nettleser,
+kopier alt, lim inn i Outlook, bytt [Navn]. Anmeldelses-lenken er ferdig
+lagt inn.
+
+Tekstversjon (backup):
+
+```
+Emne: Takk for turen! 🎉
+
+Hei [navn]!
+
+Tusen takk for turen — håper kvelden ble akkurat så bra som
+dere fortjente!
+
+Én liten tjeneste? En anmeldelse på Google tar 30 sekunder og
+betyr enormt mye for at flere gjenger finner oss:
+
+⭐ https://g.page/r/CaOsA5S43vnjEBM/review
+
+Har dere bilder eller videoer fra turen? Tagg @norwayrob på
+TikTok eller Instagram — kanskje dere havner på kontoen! 📸
+
+Neste tur? Dere vet hvor dere finner meg.
+
+Vi sees i Bergen!
+Rob — NorwayRob
+norwayrob.no
+```
+
+Tips: send den dagen etter turen, mens stemningen fortsatt sitter.
+Anmeldelser er det som løfter dere mest i «leie buss bergen»-søket.
+
+---
+
 ## Huskeliste per booking
 
 - [ ] Svar innen 24 timer (det lover nettsiden!)
@@ -118,3 +156,4 @@ Rob — NorwayRob
 - [ ] Frist satt (standard: 7 dager, kort varsel: 48 t)
 - [ ] Oppdater Google-arket: Status + Betalt (kr) når pengene er inne
 - [ ] Send bekreftelses-e-post
+- [ ] Dagen etter turen: send takk-e-post med anmeldelses-lenken
