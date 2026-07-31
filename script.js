@@ -186,10 +186,19 @@ overlay.addEventListener("click", (e) => {
   const btn = document.getElementById("antall-hint-btn");
   const hint = document.getElementById("antall-hint");
   if (!btn || !hint) return;
-  btn.addEventListener("click", () => {
-    const open = hint.hidden;
+  function sett(open) {
     hint.hidden = !open;
     btn.setAttribute("aria-expanded", String(open));
+  }
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    sett(hint.hidden);
+  });
+  document.addEventListener("click", (e) => {
+    if (!hint.hidden && !hint.contains(e.target)) sett(false);
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !hint.hidden) sett(false);
   });
 })();
 
