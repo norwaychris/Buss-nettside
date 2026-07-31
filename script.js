@@ -181,6 +181,18 @@ overlay.addEventListener("click", (e) => {
   if (e.target === overlay) overlay.hidden = true;
 });
 
+/* ---------------- Hint-knapp for antall ---------------- */
+(function antallHint() {
+  const btn = document.getElementById("antall-hint-btn");
+  const hint = document.getElementById("antall-hint");
+  if (!btn || !hint) return;
+  btn.addEventListener("click", () => {
+    const open = hint.hidden;
+    hint.hidden = !open;
+    btn.setAttribute("aria-expanded", String(open));
+  });
+})();
+
 /* ---------------- Klokkeslett fra–til → Tidsrom ---------------- */
 (function tidsromFelt() {
   const fra = document.getElementById("tid-fra");
