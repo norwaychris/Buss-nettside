@@ -232,7 +232,8 @@ Da nærmer det seg — her er alt dere trenger å vite:
 👥 Antall: [25] personer
 
 Verdt å huske:
-• Maks avtalt antall om bord
+• Noen ekstra i gjengen? Helt greit — så lenge dere er innenfor
+  bussens godkjente antall plasser
 • Playlist? Ha den klar, så kobler vi til når dere er om bord
 
 Endringer i siste liten eller spørsmål på selve dagen?
