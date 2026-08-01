@@ -35,7 +35,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="image" href="images/hero.jpg" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=21" />
+  <link rel="stylesheet" href="styles.css?v=22" />
 </head>
 <body>
   <a href="#booking" class="skip-link">Hopp til bestillingsskjemaet</a>
@@ -61,10 +61,10 @@
              fetchpriority="high" decoding="async"
              alt="Rob fra NorwayRob foran bussen med fjorden i bakgrunnen"
              onerror="this.style.display='none';this.parentElement.classList.add('no-photo')" />
-        <span class="photo-placeholder" aria-hidden="true">
-          <span class="ph-emoji">🚌</span>
-          <span class="ph-text">Legg bildet ditt i <code>images/hero.jpg</code></span>
-        </span>
+        <!-- Vises kun hvis bildet ikke lastes. Sto tidligere med utviklertekst
+             («Legg bildet ditt i images/hero.jpg»), som ville nådd en ekte
+             besøkende ved en 404. -->
+        <span class="photo-placeholder" aria-hidden="true"></span>
       </div>
       <div class="wrap hero-inner">
         <div class="hero-copy">
@@ -74,13 +74,13 @@
             <span class="line-red">Vi fikser kvelden.</span>
           </h1>
           <p class="hero-lead">
-            Utdrikningslag, blåtur, fadderuke eller firmatur — én buss henter hele
-            gjengen, en proff sjåfør kjører, dere fester. Med et kjent fjes bak rattet.
+            Utdrikningslag, fadderuke, blåtur eller firmatur. Én buss henter hele
+            gjengen — dere fester, vi kjører.
           </p>
           <a href="#booking" class="btn btn-primary btn-lg">Få pris — planlegg turen</a>
           <ul class="cta-assure">
-            <li>Tar under 2 min</li>
-            <li>Gratis og uforpliktende</li>
+            <li>Tar 2 min</li>
+            <li>Gratis</li>
             <li>Svar innen 24 timer</li>
           </ul>
         </div>
@@ -101,7 +101,7 @@
     <!-- ===================== INTRO / SEO ===================== -->
     <section class="section intro">
       <div class="wrap wrap-narrow">
-        <p class="section-eyebrow">Buss til leie · Bergen &amp; omegn</p>
+        <p class="section-eyebrow">Hva vi gjør</p>
         <h2 class="section-title">Leie buss i Bergen — med sjåfør</h2>
         <p class="section-lead">
           NorwayRob tilbyr <strong>bussutleie med sjåfør i Bergen</strong> og omegn — charterbuss til fest og arrangement. Enten det
@@ -557,6 +557,6 @@
   }
   </script>
 
-  <script src="script.js?v=12"></script>
+  <script src="script.js?v=13"></script>
 </body>
 </html>

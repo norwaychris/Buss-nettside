@@ -19,7 +19,12 @@
   --radius-sm: 10px;
   --wrap:      1120px;
 
-  --display: "Anton", "Arial Narrow", sans-serif;
+  /* Fallback-kjeden er smal med vilje. Anton lastes med display=swap, så
+     ALLE førstegangsbesøkende ser fallback et øyeblikk. Er den bred, hopper
+     overskriften fra to til tre linjer når Anton kommer – synlig og billig.
+     Roboto Condensed dekker Android, som er der mesteparten av trafikken er. */
+  --display: "Anton", "Arial Narrow", "Roboto Condensed", "Liberation Sans Narrow",
+             "Helvetica Neue Condensed", sans-serif;
   --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
@@ -771,15 +776,54 @@ input[type="date"], input[type="time"] { color-scheme: dark; }
 
 /* ===================== RESPONSIVE ===================== */
 @media (max-width: 860px) {
-  .hero { min-height: 76vh; padding: 40px 0 48px; }
+  .hero { min-height: auto; padding: 28px 0 40px; }
+  /* Mørkest ØVERST, der teksten står – og lysere i båndet der Rob er, så
+     ansiktet faktisk vises i stedet for å ligge som støy bak brødteksten.
+     Var motsatt: lysest oppe (.5) og helt tett nede. */
   .hero::after {
     background:
-      linear-gradient(to bottom, rgba(10,10,11,.5) 0%, rgba(10,10,11,.72) 55%, var(--bg) 100%);
+      linear-gradient(to bottom,
+        rgba(10,10,11,.94) 0%,
+        rgba(10,10,11,.88) 34%,
+        rgba(10,10,11,.42) 66%,
+        rgba(10,10,11,.80) 90%,
+        var(--bg) 100%);
   }
-  .hero-photo img { object-position: 60% 72%; transform: none; }
-  .cta-assure { flex-direction: column; align-items: flex-start; gap: 12px; width: 100%; }
+  .hero-photo img { object-position: 70% 22%; transform: none; }
+
+  /* Tre kolonner med lik bredde. Var flex med 54px mellomrom, som ikke fikk
+     plass til tre på 390px og brakk 2+1 – samme skjeve ombrekking som
+     ✓-boksen hadde. */
+  .trust-strip ul {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0; padding: 16px 0;
+  }
+  .trust-strip .num { font-size: 19px; }
+  .trust-strip .lbl { font-size: 10px; letter-spacing: .8px; line-height: 1.3; }
+  .hero-title { font-size: clamp(40px, 12.5vw, 60px); margin-bottom: 16px; }
+  .hero-lead { font-size: 16.5px; line-height: 1.55; margin-bottom: 20px; max-width: none; }
+  .eyebrow { font-size: 11px; letter-spacing: 2.2px; margin-bottom: 12px; }
+
+  /* Én kompakt linje i stedet for tre stablede – sparer ~140px over folden,
+     som er forskjellen på om knappen synes på en liten telefon. */
+  .cta-assure {
+    display: flex; flex-direction: row; flex-wrap: wrap;
+    align-items: center; gap: 6px 14px;
+    width: 100%; padding: 11px 14px; font-size: 13px;
+  }
+  .cta-assure li { gap: 5px; }
+  .cta-assure li::before { font-size: 12px; }
   .steps, .review-grid { grid-template-columns: 1fr; }
-  .included-grid { grid-template-columns: 1fr; }
+
+  /* «Alt inkludert» var 2112px høy på mobil – 2,5 skjermer med scrolling for
+     seks korte punkter. Tettere kort halverer det uten å fjerne noe. */
+  .included-grid { grid-template-columns: 1fr; gap: 10px; margin-top: 30px; }
+  .inc-card { padding: 16px 18px; gap: 14px; align-items: center; }
+  .inc-icon { width: 40px; height: 40px; }
+  .inc-icon svg { width: 20px; height: 20px; }
+  .inc-card h3 { margin: 0 0 3px; font-size: 16px; line-height: 1.3; }
+  .inc-card p { font-size: 14px; line-height: 1.5; }
+  .inc-card:hover { transform: none; box-shadow: none; }
   .guarantee { flex-direction: column; align-items: flex-start; gap: 18px; }
   .guarantee-side { border-left: none; border-top: 1px solid var(--border-2); padding-left: 0; padding-top: 16px; max-width: none; }
   .why-grid { grid-template-columns: repeat(2, 1fr); }

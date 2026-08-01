@@ -195,7 +195,7 @@ form.addEventListener("submit", async (e) => {
       maal("innsendt");
       form.reset();
       resetChips();
-      overlay.hidden = false;
+      apneOverlay();
     } else {
       huskUbekreftet(ref, data);
       visIkkeBekreftet(data);
@@ -348,13 +348,83 @@ function showError(msg) {
   formError.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
-/* ---------------- Success overlay ---------------- */
-document.getElementById("success-close").addEventListener("click", () => {
+/* ---------------- Success overlay ----------------
+   Markupen lover aria-modal="true", altså at alt bak dialogen er utilgjengelig.
+   Uten fokusstyring var det en tom lovnad: fokus ble stående på siden bak, Tab
+   vandret rett ut, og Escape gjorde ingenting. For en som bruker tastatur eller
+   skjermleser betydde det at innsendingen endte i ingenting.                  */
+const lukkKnapp = document.getElementById("success-close");
+let fokusFoerOverlay = null;
+
+function fokuserbare() {
+  return overlay.querySelectorAll(
+    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+  );
+}
+
+function overlayTaster(e) {
+  if (e.key === "Escape") { lukkOverlay(); return; }
+  if (e.key !== "Tab") return;
+  const f = fokuserbare();
+  if (!f.length) return;
+  const forste = f[0], siste = f[f.length - 1];
+  if (e.shiftKey && document.activeElement === forste) { e.preventDefault(); siste.focus(); }
+  else if (!e.shiftKey && document.activeElement === siste) { e.preventDefault(); forste.focus(); }
+}
+
+function apneOverlay() {
+  fokusFoerOverlay = document.activeElement;
+  overlay.hidden = false;
+  lukkKnapp.focus();
+  document.addEventListener("keydown", overlayTaster);
+}
+
+function lukkOverlay() {
   overlay.hidden = true;
-});
+  document.removeEventListener("keydown", overlayTaster);
+  if (fokusFoerOverlay && fokusFoerOverlay.focus) fokusFoerOverlay.focus();
+}
+
+lukkKnapp.addEventListener("click", lukkOverlay);
 overlay.addEventListener("click", (e) => {
-  if (e.target === overlay) overlay.hidden = true;
+  if (e.target === overlay) lukkOverlay();
 });
+
+/* ---------------- Anledning: tastaturnavigasjon ----------------
+   Chipsene er merket role="radiogroup"/role="radio". Det lover piltast-
+   navigasjon og ÉN tabulator-stopp for hele gruppen. Uten det var løftet
+   verre enn ingen ARIA: en skjermleserbruker fikk beskjed om at dette var en
+   radiogruppe, og oppdaget at den ikke oppførte seg som en.                  */
+(function chipsTastatur() {
+  const chips = () => Array.from(chipsWrap.querySelectorAll(".chip"));
+
+  function settTabstopp(aktiv) {
+    chips().forEach((c) => c.setAttribute("tabindex", c === aktiv ? "0" : "-1"));
+  }
+  settTabstopp(chips()[0]);
+
+  chipsWrap.addEventListener("keydown", (e) => {
+    const liste = chips();
+    const naa = liste.indexOf(document.activeElement);
+    if (naa === -1) return;
+
+    let ny = null;
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") ny = (naa + 1) % liste.length;
+    else if (e.key === "ArrowLeft" || e.key === "ArrowUp") ny = (naa - 1 + liste.length) % liste.length;
+    else if (e.key === "Home") ny = 0;
+    else if (e.key === "End") ny = liste.length - 1;
+    else return;
+
+    e.preventDefault();
+    liste[ny].focus();
+    liste[ny].click();          // i en radiogruppe velger piltasten, den flytter ikke bare fokus
+  });
+
+  chipsWrap.addEventListener("click", (e) => {
+    const chip = e.target.closest(".chip");
+    if (chip) settTabstopp(chip);
+  });
+})();
 
 /* ---------------- Hint-knapp for antall ---------------- */
 (function antallHint() {
