@@ -785,25 +785,30 @@ input[type="date"], input[type="time"] { color-scheme: dark; }
      plass til å forsvinne gradvis i stedet for å bli kuttet. */
   .hero { min-height: auto; padding: 28px 0 110px; }
 
-  /* Mørkest ØVERST, der teksten står – og lysere i båndet der Rob er, så
-     ansiktet faktisk vises i stedet for å ligge som støy bak brødteksten.
-     Var motsatt: lysest oppe (.5) og helt tett nede.
-     Mange stopp i bunnen med vilje: et rett lineært fall gir et synlig bånd,
-     fordi øyet er langt mer følsomt for knekk i en gradient enn for selve
-     mørkningen. Stoppene følger en ease-kurve, ikke en rett linje. */
+  /* Ansiktet får et eget bånd ØVERST, og teksten begynner under det.
+     På 390px er det ikke plass til både en fullbreddes overskrift og et
+     ansikt ved siden av – overskriften spenner 275px av 342 tilgjengelige.
+     Derfor over/under, ikke side ved side.
+     Høyden skalerer med skjermen: på en liten telefon krymper båndet så
+     hoved-CTA fortsatt ligger over folden. */
+  .hero-inner { padding-top: clamp(150px, 26vh, 240px); }
+
+  /* Ren loddrett mørkelegging. En vannrett gradient dempet ansiktet, som er
+     nettopp det vi vil vise. Klar der ansiktet er, mørk der teksten står,
+     lang uttoning i bunnen. Mange stopp med vilje: øyet er langt mer følsomt
+     for knekk i en gradient enn for selve mørkningen. */
   .hero::after {
     background:
       linear-gradient(to bottom,
-        rgba(10,10,11,.94) 0%,
-        rgba(10,10,11,.88) 28%,
-        rgba(10,10,11,.52) 50%,
-        rgba(10,10,11,.40) 62%,
-        rgba(10,10,11,.42) 70%,
-        rgba(10,10,11,.50) 78%,
-        rgba(10,10,11,.62) 85%,
-        rgba(10,10,11,.76) 91%,
-        rgba(10,10,11,.88) 95%,
-        rgba(10,10,11,.96) 98%,
+        rgba(10,10,11,.22) 0%,
+        rgba(10,10,11,.10) 24%,
+        rgba(10,10,11,.13) 39%,
+        rgba(10,10,11,.55) 47%,
+        rgba(10,10,11,.78) 55%,
+        rgba(10,10,11,.82) 68%,
+        rgba(10,10,11,.74) 79%,
+        rgba(10,10,11,.84) 88%,
+        rgba(10,10,11,.93) 95%,
         var(--bg) 100%);
   }
 
@@ -812,7 +817,14 @@ input[type="date"], input[type="time"] { color-scheme: dark; }
      det er den kanten man ser, ikke gradienten. Nå går hero rett over i
      tallene, og skillet markeres bare nedover. */
   .trust-strip { border-top: none; background: transparent; }
-  .hero-photo img { object-position: 70% 22%; transform: none; }
+  /* Bildet er liggende og hero-boksen stående, så object-fit: cover skalerer
+     etter HØYDEN – hele bildehøyden vises alltid, og object-position sin
+     Y-verdi har derfor ingen virkning her. Ansiktet må løftes med transform. */
+  .hero-photo img {
+    object-position: center;
+    transform: scale(1.18) translate(7%, -10%);
+    transform-origin: center center;
+  }
 
   /* Tre kolonner med lik bredde. Var flex med 54px mellomrom, som ikke fikk
      plass til tre på 390px og brakk 2+1 – samme skjeve ombrekking som
@@ -868,7 +880,9 @@ input[type="date"], input[type="time"] { color-scheme: dark; }
   input, textarea, select { padding: 13px 12px; }
   .time-range { gap: 7px; }
   .time-sep { font-size: 13px; }
-  .wrap { padding: 0 16px; }
+  /* padding-INLINE, ikke padding. Kortformen nullstiller padding-top og
+     slo dermed ut ansiktsbåndet i hero, siden denne blokken står sist. */
+  .wrap { padding-inline: 16px; }
 }
 
 /* ===================== OVERFLYT-SIKRING =====================
