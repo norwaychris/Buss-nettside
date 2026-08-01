@@ -158,12 +158,13 @@ on the existing header being a prefix of the new one.
 ```
 Mottatt · Status · Navn · Telefon · E-post · Anledning · Dato · Tidsrom ·
 Antall personer · Hentested · Rute · Anledning-detaljer · Ekstra ønsker ·
-Kilde · Betalt (kr) · Notat · Pris (kr) · Timer · Sendt
+Kilde · Betalt (kr) · Notat · Pris (kr) · Timer · Sendt · Ref
 ```
 
-The last three were added with the email automation: `Pris (kr)` is the quoted
-price, `Timer` the trip duration driving the price suggestion, and `Sendt` an
-append-only log of which emails went out and when.
+`Pris (kr)` is the quoted price, `Timer` the trip duration driving the price
+suggestion, `Sendt` an append-only log of which emails went out and when, and
+`Ref` the per-submission reference used to confirm delivery and to make retries
+idempotent (`ARCHITECTURE.md` §5).
 
 A second sheet, `Innstillinger`, holds everything commercial or private —
 hourly rate, minimum hours, **bank account number**, **Rob's phone number**,

@@ -108,27 +108,40 @@ form.addEventListener("submit", async (e) => {
   }
 
   const data = collectData();
+  const ref = lagRef();
+  data["Ref"] = ref;
 
   submitBtn.disabled = true;
   submitBtn.textContent = "Sender…";
 
   try {
-    if (BOOKING_ENDPOINT) {
-      await sendToSheet(data);
-    } else {
+    if (!BOOKING_ENDPOINT) {
       openMailto(data);
+      return;
     }
-    form.reset();
-    resetChips();
-    overlay.hidden = false;
+
+    await sendToSheet(data);
+
+    // Kom den fram? Vi antar ikke – vi spør.
+    if (await sjekkMottatt(ref, 6000)) {
+      glemUbekreftet(ref);
+      form.reset();
+      resetChips();
+      overlay.hidden = false;
+    } else {
+      huskUbekreftet(ref, data);
+      visIkkeBekreftet(data);
+    }
   } catch (err) {
     console.error(err);
-    showError("Noe gikk galt. Prøv igjen, eller send oss en e-post til " + FALLBACK_EMAIL + ".");
+    huskUbekreftet(ref, data);
+    visIkkeBekreftet(data);
   } finally {
     submitBtn.disabled = false;
     submitBtn.textContent = SUBMIT_TEKST;
   }
 });
+
 
 function collectData() {
   const data = {};
@@ -139,8 +152,25 @@ function collectData() {
   return data;
 }
 
+/* ---------------- Bekreftet levering ----------------
+
+   Nettleseren kan ikke lese svaret på POST-en («no-cors»), så vi kan ikke vite
+   om innsendingen kom fram bare ved å sende den. Derfor:
+
+     1. Hver innsending får en unik referanse som sendes med.
+     2. Etterpå spør vi endepunktet om referansen finnes — via en <script>-tag,
+        som ikke er underlagt CORS, så det svaret KAN vi lese.
+     3. Får vi ikke bekreftelse, later vi ikke som. Da tilbyr vi e-post i
+        stedet, og prøver stille på nytt neste gang kunden er innom.
+
+   Referansen gjør også at det er trygt å prøve på nytt: Apps Script legger
+   aldri inn samme referanse to ganger.                                       */
+
+function lagRef() {
+  return "nr-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 8);
+}
+
 async function sendToSheet(data) {
-  // no-cors: Apps Script tar imot POST-en, vi viser suksess optimistisk.
   await fetch(BOOKING_ENDPOINT, {
     method: "POST",
     mode: "no-cors",
@@ -149,14 +179,89 @@ async function sendToSheet(data) {
   });
 }
 
-function openMailto(data) {
+/* Spør: «kom denne referansen fram?» Svarer alltid – false ved tidsavbrudd.
+   Vi gjetter aldri «ja». */
+function sjekkMottatt(ref, timeoutMs) {
+  return new Promise((resolve) => {
+    if (!BOOKING_ENDPOINT || !ref) return resolve(false);
+
+    const navn = "nrSvar" + Math.random().toString(36).slice(2, 10);
+    const el = document.createElement("script");
+    let ferdig = false;
+
+    const avslutt = (svar) => {
+      if (ferdig) return;
+      ferdig = true;
+      clearTimeout(timer);
+      try { delete window[navn]; } catch (e) { window[navn] = undefined; }
+      if (el.parentNode) el.parentNode.removeChild(el);
+      resolve(svar);
+    };
+
+    const timer = setTimeout(() => avslutt(false), timeoutMs || 6000);
+    window[navn] = (res) => avslutt(!!(res && res.funnet));
+    el.onerror = () => avslutt(false);
+    el.src = BOOKING_ENDPOINT + "?sjekk=" + encodeURIComponent(ref) + "&callback=" + navn;
+    document.head.appendChild(el);
+  });
+}
+
+/* Ubekreftede innsendinger huskes lokalt og prøves på nytt senere. */
+const UBEKREFTET_NOKKEL = "norwayrob_ubekreftet";
+const UBEKREFTET_MAKS_ALDER = 7 * 24 * 60 * 60 * 1000;
+
+function lesUbekreftet() {
+  try {
+    const liste = JSON.parse(localStorage.getItem(UBEKREFTET_NOKKEL) || "[]");
+    if (!Array.isArray(liste)) return [];
+    const grense = Date.now() - UBEKREFTET_MAKS_ALDER;
+    return liste.filter((x) => x && x.ref && x.data && x.tid > grense);
+  } catch (e) {
+    return [];
+  }
+}
+
+function skrivUbekreftet(liste) {
+  try {
+    localStorage.setItem(UBEKREFTET_NOKKEL, JSON.stringify(liste.slice(-5)));
+  } catch (e) {
+    /* privat modus eller full lagring – da mister vi bare sikkerhetsnettet */
+  }
+}
+
+function huskUbekreftet(ref, data) {
+  skrivUbekreftet(lesUbekreftet().concat([{ ref, data, tid: Date.now() }]));
+}
+
+function glemUbekreftet(ref) {
+  skrivUbekreftet(lesUbekreftet().filter((x) => x.ref !== ref));
+}
+
+/* Ærlig melding når vi ikke fikk bekreftelse – med ferdig utfylt e-post,
+   så forespørselen når fram likevel. Skjemaet nullstilles ikke. */
+function visIkkeBekreftet(data) {
+  formError.textContent =
+    "Vi fikk ikke bekreftet at forespørselen kom fram. Send den på e-post i stedet — alt du fylte ut ligger klart: ";
+  const lenke = document.createElement("a");
+  lenke.href = mailtoLenke(data);
+  lenke.textContent = "åpne e-post";
+  lenke.style.textDecoration = "underline";
+  formError.appendChild(lenke);
+  formError.hidden = false;
+  formError.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function mailtoLenke(data) {
   const lines = Object.entries(data)
-    .filter(([, v]) => v)
+    .filter(([k, v]) => v && k !== "Ref")
     .map(([k, v]) => `${k}: ${v}`);
   const subject = `Ny forespørsel – ${data["Anledning"] || "buss"} (${data["Navn"] || ""})`;
   const body = "Ny bussforespørsel fra nettsiden:\n\n" + lines.join("\n");
-  window.location.href =
-    `mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  return `mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+function openMailto(data) {
+  window.location.href = mailtoLenke(data);
 }
 
 function resetChips() {
@@ -271,4 +376,20 @@ overlay.addEventListener("click", (e) => {
     },
     { threshold: 0.05 }
   ).observe(booking);
+})();
+
+/* ---------------- Nytt forsøk på ubekreftede innsendinger ----------------
+   Kjører sist i fila, etter at alt den bruker er deklarert. Stille for
+   kunden. Referansen gjør at ingenting kan havne to ganger i arket.        */
+(function proevUbekreftetPaaNytt() {
+  if (!BOOKING_ENDPOINT) return;
+  lesUbekreftet().forEach(async (post) => {
+    try {
+      if (await sjekkMottatt(post.ref, 6000)) return glemUbekreftet(post.ref);
+      await sendToSheet(post.data);
+      if (await sjekkMottatt(post.ref, 6000)) glemUbekreftet(post.ref);
+    } catch (e) {
+      /* fortsatt nede – vi prøver igjen neste gang */
+    }
+  });
 })();

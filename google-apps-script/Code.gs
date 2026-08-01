@@ -57,14 +57,14 @@ var KOLONNER = [
   "Dato", "Tidsrom", "Antall personer",
   "Hentested", "Rute", "Anledning-detaljer", "Ekstra ønsker",
   "Kilde", "Betalt (kr)", "Notat",
-  "Pris (kr)", "Timer", "Sendt"
+  "Pris (kr)", "Timer", "Sendt", "Ref"
 ];
 
 // Skjemafelt som har sin egen kolonne (resten samles i "Anledning-detaljer"):
 var KJENTE_FELT = {
   "Navn": 1, "Telefon": 1, "E-post": 1, "Anledning": 1, "Dato": 1,
   "Tidsrom": 1, "Antall personer": 1, "Hentested": 1, "Rute": 1,
-  "Ekstra ønsker": 1, "Kilde": 1
+  "Ekstra ønsker": 1, "Kilde": 1, "Ref": 1
 };
 
 // Kolonner som alltid starter tomme ved ny forespørsel:
@@ -131,6 +131,14 @@ function doPost(e) {
     var sheet = hentEllerLagArk();
     var data = (e && e.parameter) ? e.parameter : {};
 
+    // Har vi sett denne referansen før? Da er forespørselen allerede lagret,
+    // og vi svarer greit uten å legge inn en dublett. Det gjør det trygt for
+    // nettsiden å prøve på nytt når den ikke fikk bekreftelse.
+    var ref = String(data["Ref"] || "").trim();
+    if (ref && finnRadForRef(sheet, ref)) {
+      return svar({ status: "ok", duplikat: true });
+    }
+
     // Samle ukjente felt (anledning-oppfølging) i én lesbar tekst
     var detaljer = [];
     for (var key in data) {
@@ -163,13 +171,50 @@ function doPost(e) {
   }
 }
 
-function doGet() {
-  return svar({
+/**
+ * Svarer nettsiden på «kom forespørsel <ref> fram?».
+ *
+ * Nettleseren kan ikke lese svaret på POST-en vi mottar (Apps Script svarer
+ * uten CORS-headere), så nettsiden stiller spørsmålet på nytt via en
+ * <script>-tag i stedet. Script-tagger er ikke underlagt CORS, og da får den
+ * faktisk lese svaret. Derfor JSONP her.
+ *
+ *   ?sjekk=<ref>&callback=<funksjonsnavn>   → callback({"funnet":true})
+ *   uten parametre                          → status og versjon
+ */
+function doGet(e) {
+  var p = (e && e.parameter) ? e.parameter : {};
+  var callback = String(p.callback || "").trim();
+
+  if (p.sjekk) {
+    var funnet = false;
+    try {
+      // Bevisst enkelt oppslag: ingen arkoppsett eller migrering på lesevei.
+      var ark = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(ARK_NAVN);
+      if (ark) funnet = finnRadForRef(ark, String(p.sjekk).trim()) > 0;
+    } catch (err) {}
+    return svarJsonp({ funnet: funnet }, callback);
+  }
+
+  return svarJsonp({
     status: "ok",
     message: "NorwayRob booking-endepunkt er live.",
     versjon: VERSJON,
     testmodus: TESTMODUS
-  });
+  }, callback);
+}
+
+/** Radnummeret referansen står på, eller 0 hvis den ikke finnes. */
+function finnRadForRef(sheet, ref) {
+  if (!ref) return 0;
+  var k = kol("Ref");
+  var siste = sheet.getLastRow();
+  if (!k || siste < 2 || sheet.getLastColumn() < k) return 0;
+  var verdier = sheet.getRange(2, k, siste - 1, 1).getValues();
+  for (var i = 0; i < verdier.length; i++) {
+    if (String(verdier[i][0]).trim() === ref) return i + 2;
+  }
+  return 0;
 }
 
 /* ========================== ARKOPPSETT OG MIGRERING ========================== */
@@ -290,7 +335,7 @@ function settKolonnebredder(sheet) {
     "Anledning": 140, "Dato": 100, "Tidsrom": 190, "Antall personer": 80,
     "Hentested": 170, "Rute": 200, "Anledning-detaljer": 260, "Ekstra ønsker": 220,
     "Kilde": 120, "Betalt (kr)": 100, "Notat": 200,
-    "Pris (kr)": 100, "Timer": 70, "Sendt": 230
+    "Pris (kr)": 100, "Timer": 70, "Sendt": 230, "Ref": 130
   };
   for (var i = 0; i < KOLONNER.length; i++) {
     if (bredder[KOLONNER[i]]) sheet.setColumnWidth(i + 1, bredder[KOLONNER[i]]);
@@ -1052,4 +1097,19 @@ function svar(obj) {
   return ContentService
     .createTextOutput(JSON.stringify(obj))
     .setMimeType(ContentService.MimeType.JSON);
+}
+
+/**
+ * Samme svar som svar(), men pakket i et funksjonskall når nettsiden ber om
+ * det. Funksjonsnavnet valideres strengt — vi setter aldri fritekst fra
+ * spørringen inn i noe som kjøres som JavaScript.
+ */
+function svarJsonp(obj, callback) {
+  var json = JSON.stringify(obj);
+  if (callback && /^[A-Za-z0-9_]{1,40}$/.test(callback)) {
+    return ContentService
+      .createTextOutput(callback + "(" + json + ");")
+      .setMimeType(ContentService.MimeType.JAVASCRIPT);
+  }
+  return svar(obj);
 }

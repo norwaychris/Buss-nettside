@@ -146,13 +146,20 @@ tydeligste signalet på at det finnes noen i den andre enden.
 |---|---|
 | Anledning ikke valgt | Rød melding over skjemaet, scroller til seg selv, `role="alert"` |
 | Påkrevd felt tomt | Nettleserens egen `reportValidity()` |
-| Innsending feiler | Melding med e-postadresse som reserveløsning |
-| Innsending lykkes | Overlegg + skjemaet nullstilles |
+| Innsending bekreftet | Overlegg + skjemaet nullstilles |
+| Ikke bekreftet | Ærlig melding + ferdig utfylt e-post. **Skjemaet nullstilles ikke** |
 
-**Den store svakheten:** `mode: "no-cors"` gjør at vi ikke kan lese svaret fra
-serveren. Vi viser suksess uansett. Hvis Apps Script er nede, får kunden takk —
-og forespørselen forsvinner. Dette er den alvorligste UX-feilen på siden, fordi
-den er usynlig for begge parter. Se `ROADMAP.md` prioritet 4.
+**Vi later aldri som.** Siden viser «Takk!» først når den har fått bekreftet at
+forespørselen er lagret — ikke bare sendt. Tidsavbrudd, nettverksfeil og et
+eksplisitt «nei» behandles likt: som *ikke bekreftet*.
+
+Når det skjer, får kunden en setning som forklarer hva som er galt og en lenke
+som åpner e-post med alle svarene hennes ferdig utfylt. Ett trykk, og
+forespørselen når fram likevel. Skjemaet beholder innholdet, så ingenting må
+skrives på nytt.
+
+I bakgrunnen huskes innsendingen og prøves stille på nytt neste gang hun er
+innom siden. Se `ARCHITECTURE.md` §5.
 
 ## 9. Mobil
 

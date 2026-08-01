@@ -111,19 +111,17 @@ Design i `ARCHITECTURE.md` §8. Omfang:
 
 </details>
 
-### 1.3 Bekreftet levering av skjemainnsendinger 🔴
+### 1.3 Bekreftet levering av skjemainnsendinger ✅ FERDIG 1. august 2026
 
-Innsendingen skjer med `mode: "no-cors"`, som betyr at nettleseren ikke kan lese
-serverens svar. Kvitteringen til kunden vises derfor optimistisk. Vi ønsker
-positiv bekreftelse på at forespørselen faktisk er lagret.
+Kvitteringen til kunden vises ikke lenger optimistisk. Hver innsending får en
+referanse, og nettsiden spør endepunktet om den kom fram før den sier «Takk!».
+Får vi ikke bekreftelse, sier vi det som det er og tilbyr e-post med alt ferdig
+utfylt. Ubekreftede innsendinger prøves stille på nytt ved neste besøk, og
+referansen gjør at ingenting kan havne to ganger i arket.
 
-Alternativer, i økende robusthet:
-
-1. Helsesjekk mot endepunktet før innsending
-2. Mellomlagring i nettleseren med nytt forsøk ved neste besøk
-3. Uavhengig signal ved siden av skrivingen, med avvik varslet til Rob
-
-Minst nr. 1 bør på plass.
+Mekanismen er beskrevet i `ARCHITECTURE.md` §5. Verifisert med 15 automatiske
+sjekker i ekte nettleser mot en etterlignet backend: normal flyt, backend nede,
+backend tilbake, og tre identiske innsendinger som gir én rad.
 
 ### 1.4 Sikkerhetskopi av regnearket 🟠
 

@@ -180,10 +180,43 @@ Apps Script Web Apps do not return usable CORS headers to a browser. Options
 were: `no-cors` and accept a blind write; a hidden iframe + form POST; or a
 proxy. `no-cors` is simplest and works.
 
-**The cost:** the browser cannot read the response, so the confirmation shown to
-the customer is optimistic rather than confirmed. Getting positive delivery
-confirmation is the most valuable robustness improvement available, and is
-tracked as `ROADMAP.md` 1.3 with three candidate approaches.
+**The cost:** the browser cannot read the response to the POST.
+
+### Confirmed delivery (implemented 1 Aug 2026)
+
+We cannot read the answer to the POST, so we ask a **second** question whose
+answer we *can* read.
+
+```
+1. Client generates a reference          nr-<base36 time>-<random>
+2. POST (no-cors) carries it as `Ref`    → Apps Script writes it to the sheet
+3. Client asks "did Ref arrive?" over a  → doGet looks it up, replies JSONP
+   <script> tag, 6 s timeout                {"funnet": true}
+4. Confirmed  → success overlay
+   Not confirmed → honest message + prefilled mailto; form is NOT reset
+5. Unconfirmed submissions are kept in localStorage and retried silently on
+   the next visit (max 5, max 7 days old)
+```
+
+**Why a `<script>` tag and not `fetch`.** Script tags are not subject to CORS at
+all, so the response is always readable. That is the entire reason JSONP is used
+here — it is not legacy, it is the only channel that works without control over
+the response headers.
+
+**Why the reference makes retrying safe.** `doPost` looks up the reference
+before appending. A reference it has already seen returns
+`{status:"ok", duplikat:true}` without writing a second row. Without that,
+step 5 would create duplicates every time a POST succeeded but its confirmation
+was lost.
+
+**Security.** The JSONP callback name is validated against
+`/^[A-Za-z0-9_]{1,40}$/` in `svarJsonp()` before being echoed. Anything else
+falls back to plain JSON. Never relax that check — it is the one place where a
+query parameter would otherwise end up inside executed JavaScript.
+
+**We never guess "yes".** A timeout, a network error and an explicit
+`funnet: false` are all treated as *not confirmed*. Showing a customer a false
+"Takk!" is the failure this whole mechanism exists to prevent.
 
 ---
 
