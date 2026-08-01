@@ -33,14 +33,16 @@ det er en fast forutsetning for driften, ikke en vurderingssak.
 Fram til da gjelder driftsstatusen i §2: nettsiden tar imot forespørsler, ikke
 bookinger. Ingen dato bekreftes, og ingen betaling tas imot.
 
-**Når løyvet innvilges:** legg løyvenummeret i footeren og i vilkårene. En
-etterprøvbar opplysning er verdt mer enn en påstand, særlig overfor
-bedriftskunder. Det samme gjelder «forsikret» — kjøretøyforsikringen følger
-kjøretøyet.
+**Nettsiden nevner ikke løyve eller forsikring** (endret 1. august 2026). I
+stedet står **organisasjonsnummeret**, som er sant i dag og som hvem som helst
+kan slå opp i Brønnøysundregistrene. For en bedriftskunde er et oppslagbart
+org.nr et sterkere signal enn ordet «løyve» uten nummer.
 
-**Teksten om løyve og forsikring gjennomgås på nytt hvis** saksbehandlingen
-trekker ut, eller det oppstår behov for å bekrefte en tur før løyvet er på
-plass.
+Prinsippet: **oppgi det som kan etterprøves, ikke det som må tros på.**
+
+**Når løyvet innvilges:** legg løyvenummeret ved siden av org.nr i footeren og
+i vilkårene. Da står det to etterprøvbare opplysninger der. Det samme gjelder
+forsikring — den følger kjøretøyet og kan nevnes når kjøretøyet finnes.
 
 ## 2. Driftsstatus
 
@@ -228,6 +230,10 @@ ingenting kan antyde garantert tilgjengelighet eller automatisk reservasjon.
 | Vilkår § Forespørsel og tilbud | Ny setning: «En forespørsel reserverer ingen dato i seg selv» |
 | `priceRange: "$$"` i JSON-LD | Fjernet |
 | «15+ års erfaring» vs «15 års erfaring» | «15 år bak rattet» overalt |
+| Footer: «Løyve · forsikret» | «Org.nr 931 870 106» — etterprøvbart i stedet for upåviselig |
+| FAQ: «sjåfør med løyve» | «sjåfør med 15 år bak rattet» (også i schema) |
+| Om-siden: «kjører med løyve, er forsikret» | «registrert foretak med org.nr … og 15 år bak rattet» |
+| Tilbudsmalene: «Forsikret & 100 % lovlig» | «Fast pris — ingen tillegg» |
 
 ### Fortsatt åpent
 
@@ -235,7 +241,6 @@ ingenting kan antyde garantert tilgjengelighet eller automatisk reservasjon.
 |---|---|---|
 | «Svar innen 24 timer» | Løfte uten operasjonelt sikkerhetsnett | Behold, men bygg en påminnelse så det faktisk holdes |
 | «Vasking inkludert», «lydanlegg» | Egenskaper ved en buss som ikke er kjøpt | Behold generisk, ikke spesifiser utstyr |
-| «Løyve · forsikret» | Løyvet er til behandling, bussen ikke kjøpt | Se §2a. Løyvenummer legges inn når det foreligger |
 
 ## 11. Nøkkeltall vi må begynne å måle
 

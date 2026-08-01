@@ -170,8 +170,8 @@ kjøpt**.
 - «Gratis og uforpliktende»
 - «Vi går gjennom hver forespørsel og svarer med et personlig tilbud»
 - «Svar innen 24 timer»
-- «Løyve · forsikret · lovlig»
-- «15 års erfaring»
+- «Registrert foretak · Org.nr 931 870 106» — oppslagbart i Brønnøysund
+- «15 år bak rattet»
 - «2,2 millioner følgere på TikTok»
 
 ### Kan vi ikke si, før bussen er på plass

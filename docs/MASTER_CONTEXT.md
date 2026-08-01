@@ -59,13 +59,16 @@ is granted** — that is a fixed operating precondition, not a judgement call.
 Until then the operating status in §3 applies: the site takes inquiries, not
 bookings. No date is confirmed and no payment is accepted.
 
-**When granted:** add the licence number to the footer and the terms page. A
-verifiable detail is worth more than a claim, particularly to business
-customers. The same applies to "forsikret" — vehicle insurance follows the
-vehicle.
+**The site does not mention the licence or insurance** (changed 1 Aug 2026). It
+shows the **organisation number** instead — true today, and anyone can look it
+up in the Brønnøysund register. To a business customer a lookupable org.nr is a
+stronger signal than the word "løyve" with no number behind it.
 
-**Revisit the licence and insurance wording if** processing drags on, or a trip
-needs confirming before the licence is in place.
+The principle: **state what can be verified, not what has to be believed.**
+
+**When granted:** add the licence number beside the org.nr in the footer and the
+terms page. Insurance follows the vehicle and can be mentioned once the vehicle
+exists.
 
 ## 4. What exists today
 
@@ -192,8 +195,8 @@ analytics events.
 These are believed true, but are not documented anywhere with evidence. They
 should be substantiated or softened.
 
-- "Løyve · forsikret" — **the licence is applied for, not yet granted**, and
-  there is no vehicle to insure yet. Kept by Rob's explicit decision; see §3a.
+*(The licence and insurance claims were removed from the site on 1 Aug 2026 and
+replaced with the organisation number — see §3a.)*
 - "2,2M følgere på TikTok" — verifiable; keep in sync as it grows.
 - "Vasking inkludert", "lydanlegg", "henting og levering" — features of a bus
   that does not exist yet.
