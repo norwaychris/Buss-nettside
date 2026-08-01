@@ -29,10 +29,24 @@ jobs:
       - name: Konfigurer Pages
         uses: actions/configure-pages@v5
 
+      # Bygg en mappe med KUN det som skal være offentlig.
+      # Alt annet - kunnskapsbasen, Apps Script-koden, interne maler og
+      # oppskrifter - blir liggende i repoet, men skal aldri serveres fra
+      # norwayrob.no. docs/ROADMAP.md beskriver kjente svakheter, og
+      # docs/BUSINESS.md inneholder forretningsinterne vurderinger.
+      - name: Samle det som skal publiseres
+        run: |
+          mkdir -p _site
+          cp -r *.html styles.css script.js favicon.svg favicon.ico \
+                apple-touch-icon.png robots.txt sitemap.xml CNAME images _site/
+          rm -f _site/images/README.md
+          echo "--- Dette publiseres ---"
+          find _site -type f | sort
+
       - name: Last opp nettsiden
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
 
       - name: Publiser
         id: deployment

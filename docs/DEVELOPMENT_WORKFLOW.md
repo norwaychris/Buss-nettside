@@ -131,6 +131,32 @@ the fold.
 
 ## 6. Publishing
 
+### What actually gets served
+
+The workflow does **not** upload the repository root. It assembles a `_site/`
+directory containing only the public files:
+
+```
+*.html · styles.css · script.js · favicon.svg · favicon.ico ·
+apple-touch-icon.png · robots.txt · sitemap.xml · CNAME · images/
+```
+
+Everything else stays in the repository and is never served from
+norwayrob.no — `docs/`, `CLAUDE.md`, `README.md`, `SETUP.md`,
+`TILBUDSMAL.md`, `google-apps-script/`, `tilbud/`, `.github/`.
+
+**This is a security boundary, not tidiness.** `docs/ROADMAP.md` enumerates
+known weaknesses (no spam protection, silent submission failures, no backup)
+and `docs/BUSINESS.md` records internal commercial judgement including the
+licence decision. Serving those from the public domain would hand a competitor
+or a journalist the material directly, and `robots.txt` allows crawling.
+
+**If you add a new file that belongs on the website, add it to the copy list in
+`.github/workflows/deploy.yml`** — otherwise it silently will not deploy. The
+workflow prints the full file list on every run; check it after publishing.
+
+### The steps
+
 Only when asked.
 
 ```bash
