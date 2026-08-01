@@ -145,16 +145,16 @@ om å oppgi antall plasser.
 Det første folk lurer på. Krever 2.1 og at bussen er kjøpt. Når begge er på
 plass: tallet inn i tillitsstripen, FAQ og skjemaets `max`.
 
-### 2.3 Cookiefri måling 🟠
+### 2.3 Cookiefri måling ✅ FERDIG 1. august 2026
 
-Design i `ARCHITECTURE.md` §7. Uten den kan vi ikke *validere etterspørsel* —
-bare telle innsendinger.
+`Trafikk`-fane med fire hendelser (`sidevisning` · `skjema_start` ·
+`anledning_valgt` · `innsendt`), kilde og enhet. Menypunktet **Trafikk – siste
+30 dager** viser trakten. Ingen cookies, ingen identifikator, ingen
+samtykkebanner. Design i `ARCHITECTURE.md` §7.
 
-- `Trafikk`-fane i regnearket
-- Hendelser: `sidevisning` · `skjema_start` · `anledning_valgt` · `innsendt`
-- Kildesporing som skiller sosialt fra søk
-- UTM-parametere på TikTok-bio-lenken
-- Enkel månedsoppsummering i regnearket
+**Gjenstår:** undersidene måles ikke, fordi `script.js` bare lastes på
+forsiden. Å laste den overalt krever at koden på toppnivå tåler at
+`#booking-form` mangler — den kaster i dag. Liten jobb, men gjøres for seg.
 
 ### 2.4 Filtrering av automatiserte innsendinger 🟠
 

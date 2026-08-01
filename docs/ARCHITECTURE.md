@@ -301,13 +301,43 @@ Browser event ──▶ navigator.sendBeacon(ENDPOINT, {type:"hendelse", …})
 **Never collected:** IP address, user agent string, any identifier, any form
 field value, anything that persists between visits.
 
-### Why `doPost` must route on payload type
+### Why `doPost` routes on payload type — and routes *before* the lock
 
-The same endpoint will receive bookings and analytics events. `doPost` must
-branch on an explicit `type` parameter and default to the booking path for
-backwards compatibility, so an old cached `script.js` keeps working.
+The same endpoint receives bookings and analytics events. `doPost` branches on
+`type === "hendelse"` and defaults to the booking path, so an old cached
+`script.js` keeps working.
 
-> **Status: not yet implemented.** `ROADMAP.md` priority 6.
+**The branch sits above `LockService.getScriptLock()` and returns immediately.**
+This is the single most important detail in the analytics design: the booking
+path holds a lock for up to 30 seconds, and if page views queued behind it, one
+viral video could lock out a paying customer. A dropped analytics row costs
+nothing; a dropped booking costs a trip.
+
+### What is written, and what never is
+
+| Written | Never written |
+|---|---|
+| Server-side timestamp | IP address |
+| Event name, from a fixed whitelist | User agent / fingerprint |
+| Path only (`/`, `/om.html`) | Query strings — they can carry anything |
+| Source (`tiktok`, `google`, `direkte`) | Any identifier, any cookie |
+| Device (`mobil` / `desktop`) | Anything from the form |
+
+`loggHendelse()` rejects any event name outside `TRAFIKK_HENDELSER`, truncates
+`side` to 80 and `kilde` to 40 characters, strips newlines and tabs, and
+normalises `enhet` to one of two values. The timestamp is always
+`new Date()` on the server — a client-supplied time is ignored, because a
+precise client clock is itself a fingerprinting signal.
+
+> **Status: implemented 1 Aug 2026.** Menu item *Trafikk – siste 30 dager*
+> renders the funnel. Verified with browser tests (source detection, single
+> `skjema_start`, no query-string leakage, no form data in the traffic log) and
+> unit tests (whitelist rejection, truncation, server-side timestamp, and that
+> the routing branch precedes the lock).
+
+**Known gap:** `script.js` only loads on `index.html`, so subpages are not
+measured. Loading it everywhere would require guarding the top-level form code,
+which currently throws when `#booking-form` is absent. Tracked in `ROADMAP.md`.
 
 ---
 

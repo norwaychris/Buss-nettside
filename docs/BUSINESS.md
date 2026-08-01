@@ -257,5 +257,20 @@ Ingen av disse måles i dag.
 | Turer per måned | Nordstjernen |
 | Andel gjenkjøp | Bærekraft i modellen |
 
-Cookiefri egen logging til `Trafikk`-fanen dekker de fire første. De øvrige
-kommer fra `Bestillinger` når statusfeltet brukes disiplinert.
+De fire første måles nå automatisk i `Trafikk`-fanen — se **NorwayRob → Trafikk
+– siste 30 dager**. De øvrige kommer fra `Bestillinger` når statusfeltet brukes
+disiplinert.
+
+**Lenkene som skiller kanalene fra hverandre.** Bruk disse i profilene, ikke
+den nakne adressen — ellers havner alt i «direkte» og vi vet ingenting om hva
+som virker:
+
+| Sted | Lenke |
+|---|---|
+| TikTok-bio | `https://norwayrob.no/?utm_source=tiktok` |
+| Instagram-bio | `https://norwayrob.no/?utm_source=instagram` |
+| Snapchat | `https://norwayrob.no/?utm_source=snapchat` |
+
+Google-treff og direkte trafikk kjenner systemet igjen selv. `canonical` peker
+uansett på `https://norwayrob.no/`, så Google indekserer ikke lenkene som egne
+sider.

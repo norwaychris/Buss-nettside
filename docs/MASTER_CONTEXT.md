@@ -178,8 +178,9 @@ Form fields with a dedicated column: `Navn`, `Telefon`, `E-post`, `Anledning`,
 `Kilde`. Anything else the form sends — the per-occasion follow-up questions —
 is concatenated into `Anledning-detaljer`.
 
-Planned addition (see `ROADMAP.md`): a `Trafikk` sheet for cookieless
-analytics events.
+A third sheet, `Trafikk`, holds cookieless analytics events — timestamp, event,
+path, source, device. Nothing that identifies a visitor. See
+`ARCHITECTURE.md` §7.
 
 ## 8. Contact channels
 

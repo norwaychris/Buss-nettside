@@ -14,6 +14,72 @@ const BOOKING_ENDPOINT = "https://script.google.com/macros/s/AKfycbxqT2-OqxBV3Qs
 /* E-post som brukes hvis endpoint ikke er satt ennå */
 const FALLBACK_EMAIL = "norwayrob@outlook.com";
 
+/* ---------------- Cookiefri måling ----------------
+
+   Vi lagrer og leser INGENTING på brukerens enhet, og registrerer ingen
+   IP-adresse, nettleser-signatur eller identifikator. Derfor kreves verken
+   samtykke eller informasjonskapsel-banner etter ekomloven § 2-7b.
+
+   Fire hendelser blir til en trakt: hvor mange kom, hvor mange begynte på
+   skjemaet, hvor mange kom seg gjennom, hvor mange sendte inn.
+
+   Målingen skal aldri kunne ødelegge noe. Alt ligger i try/catch, og
+   sendingen er «fire and forget» – den bremser ikke siden.               */
+
+const MAALING_PAA = true;
+
+/* Kun sti sendes videre, aldri søkestrengen – den kan inneholde hva som helst. */
+function maalKilde() {
+  try {
+    const utm = (new URLSearchParams(location.search).get("utm_source") || "")
+      .toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 24);
+    if (utm) return utm;
+    if (!document.referrer) return "direkte";
+
+    const vert = new URL(document.referrer).hostname.replace(/^www\./, "");
+    if (vert === location.hostname) return "intern";
+    if (/tiktok/.test(vert)) return "tiktok";
+    if (/instagram/.test(vert)) return "instagram";
+    if (/google/.test(vert)) return "google";
+    if (/facebook|^fb\./.test(vert)) return "facebook";
+    if (/snapchat/.test(vert)) return "snapchat";
+    if (/bing|duckduckgo|yahoo|kvasir/.test(vert)) return "annet søk";
+    return vert.slice(0, 32);
+  } catch (e) {
+    return "ukjent";
+  }
+}
+
+let _kilde = null;
+
+function maal(hendelse) {
+  if (!MAALING_PAA || !BOOKING_ENDPOINT) return;
+  try {
+    if (_kilde === null) _kilde = maalKilde();
+    const felt = new URLSearchParams({
+      type: "hendelse",
+      hendelse: hendelse,
+      side: location.pathname,
+      kilde: _kilde,
+      enhet: window.innerWidth <= 700 ? "mobil" : "desktop",
+    }).toString();
+
+    if (navigator.sendBeacon) {
+      const pakke = new Blob([felt], { type: "application/x-www-form-urlencoded" });
+      if (navigator.sendBeacon(BOOKING_ENDPOINT, pakke)) return;
+    }
+    fetch(BOOKING_ENDPOINT, {
+      method: "POST",
+      mode: "no-cors",
+      keepalive: true,
+      headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+      body: felt,
+    }).catch(() => {});
+  } catch (e) {
+    /* måling skal aldri stå i veien for noe */
+  }
+}
+
 /* Oppfølgingsspørsmål som dukker opp pr. anledning.
    Legg til/endre fritt – "name" blir kolonneoverskrift i regnearket. */
 const FOLLOWUPS = {
@@ -62,6 +128,7 @@ chipsWrap.addEventListener("click", (e) => {
 
   anledningInput.value = value;
   renderFollowup(value);
+  maal("anledning_valgt");
 });
 
 function renderFollowup(value) {
@@ -125,6 +192,7 @@ form.addEventListener("submit", async (e) => {
     // Kom den fram? Vi antar ikke – vi spør.
     if (await sjekkMottatt(ref, 6000)) {
       glemUbekreftet(ref);
+      maal("innsendt");
       form.reset();
       resetChips();
       overlay.hidden = false;
@@ -392,4 +460,19 @@ overlay.addEventListener("click", (e) => {
       /* fortsatt nede – vi prøver igjen neste gang */
     }
   });
+})();
+
+/* ---------------- Måling: sidevisning og skjema-start ----------------
+   Ligger sist, etter at alt den bruker er deklarert.                   */
+(function maalOppstart() {
+  maal("sidevisning");
+
+  if (!form) return;
+  const start = () => {
+    form.removeEventListener("input", start);
+    form.removeEventListener("focusin", start);
+    maal("skjema_start");
+  };
+  form.addEventListener("input", start);
+  form.addEventListener("focusin", start);
 })();

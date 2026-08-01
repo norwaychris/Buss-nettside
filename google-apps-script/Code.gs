@@ -49,6 +49,13 @@ var VERSJON = "2026-08-01";
 
 var ARK_NAVN = "Bestillinger";
 var ARK_INNSTILLINGER = "Innstillinger";
+var ARK_TRAFIKK = "Trafikk";
+
+// Cookiefri måling. Kun disse hendelsene godtas – alt annet ignoreres.
+var TRAFIKK_KOLONNER = ["Tidspunkt", "Hendelse", "Side", "Kilde", "Enhet"];
+var TRAFIKK_HENDELSER = {
+  "sidevisning": 1, "skjema_start": 1, "anledning_valgt": 1, "innsendt": 1
+};
 
 // Rekkefølgen er en kontrakt mot nettsiden. Endre aldri rekkefølgen –
 // legg kun nye kolonner til på slutten.
@@ -103,6 +110,7 @@ function onOpen() {
     .addItem("⑤ Send påminnelse før tur", "sendTurpaminnelse")
     .addItem("⑥ Send takk + anmeldelse", "sendTakk")
     .addSeparator()
+    .addItem("Trafikk – siste 30 dager", "visTrafikk")
     .addItem("Sett opp / reparer arkene", "settOppAlt")
     .addItem("Status for systemet", "visStatus")
     .addToUi();
@@ -125,11 +133,22 @@ var STEG_NAVN = {
 /* ========================== MOTTAK FRA NETTSIDEN ========================== */
 
 function doPost(e) {
+  var innkommende = (e && e.parameter) ? e.parameter : {};
+
+  // Trafikkhendelser går UTENOM låsen, og ut av funksjonen med en gang.
+  // En ekte booking skal aldri stå i kø bak en sidevisning – én viral video
+  // ville ellers kunne låse ute en betalende kunde. En tapt trafikkrad er
+  // derimot helt uproblematisk.
+  if (innkommende.type === "hendelse") {
+    try { loggHendelse(innkommende); } catch (err) {}
+    return svar({ status: "ok" });
+  }
+
   var lock = LockService.getScriptLock();
   lock.waitLock(30000);
   try {
     var sheet = hentEllerLagArk();
-    var data = (e && e.parameter) ? e.parameter : {};
+    var data = innkommende;
 
     // Har vi sett denne referansen før? Da er forespørselen allerede lagret,
     // og vi svarer greit uten å legge inn en dublett. Det gjør det trygt for
@@ -222,6 +241,7 @@ function finnRadForRef(sheet, ref) {
 function settOppAlt() {
   hentEllerLagArk();
   hentInnstillingsark();
+  hentTrafikkArk();
   SpreadsheetApp.getUi().alert("Klart", "Arkene er satt opp og oppdatert.", SpreadsheetApp.getUi().ButtonSet.OK);
 }
 
@@ -361,6 +381,93 @@ function formaterRad(sheet, r) {
 }
 
 function kol(navn) { return KOLONNER.indexOf(navn) + 1; }
+
+/* ========================== TRAFIKKMÅLING ==========================
+   Cookiefri og uten samtykke: vi lagrer og leser ingenting på brukerens
+   enhet, og registrerer ingen IP, nettleser-signatur eller identifikator.
+   Tidsstempelet settes her på serveren, aldri i nettleseren – da kan det
+   heller ikke brukes til å gjenkjenne noen.                              */
+
+function hentTrafikkArk() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ark = ss.getSheetByName(ARK_TRAFIKK);
+  if (ark) return ark;
+
+  ark = ss.insertSheet(ARK_TRAFIKK);
+  ark.getRange(1, 1, 1, TRAFIKK_KOLONNER.length).setValues([TRAFIKK_KOLONNER])
+    .setBackground("#ff3b3b").setFontColor("#ffffff").setFontWeight("bold");
+  ark.setFrozenRows(1);
+  ark.setColumnWidth(1, 150); ark.setColumnWidth(2, 150);
+  ark.setColumnWidth(3, 180); ark.setColumnWidth(4, 130); ark.setColumnWidth(5, 90);
+  ark.getRange(2, 1, ark.getMaxRows() - 1, 1).setNumberFormat("dd.MM.yyyy  HH:mm");
+  return ark;
+}
+
+function loggHendelse(d) {
+  var hendelse = String(d.hendelse || "").trim();
+  if (!TRAFIKK_HENDELSER[hendelse]) return;   // ukjent hendelse: ignorer stille
+
+  hentTrafikkArk().appendRow([
+    new Date(),
+    hendelse,
+    kortTekst(d.side, 80),
+    kortTekst(d.kilde, 40) || "direkte",
+    String(d.enhet) === "mobil" ? "mobil" : "desktop"
+  ]);
+}
+
+function kortTekst(v, maks) {
+  var s = String(v == null ? "" : v).replace(/[\r\n\t]/g, " ").trim();
+  return s.length > maks ? s.substring(0, maks) : s;
+}
+
+/** Trakten for de siste 30 dagene, lesbart. */
+function visTrafikk() {
+  var ui = SpreadsheetApp.getUi();
+  var ark = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(ARK_TRAFIKK);
+  if (!ark || ark.getLastRow() < 2) {
+    ui.alert("Trafikk",
+      "Ingen tall ennå.\n\nMålingen begynner å samle data så snart nettsiden er " +
+      "publisert med den nye koden, og noen har vært innom.", ui.ButtonSet.OK);
+    return;
+  }
+
+  var grense = new Date();
+  grense.setDate(grense.getDate() - 30);
+
+  var rader = ark.getRange(2, 1, ark.getLastRow() - 1, TRAFIKK_KOLONNER.length)
+    .getValues()
+    .filter(function (r) { return (r[0] instanceof Date) && r[0] >= grense; });
+
+  var tell = {}, kilder = {}, enheter = {};
+  rader.forEach(function (r) {
+    tell[r[1]] = (tell[r[1]] || 0) + 1;
+    if (r[1] === "sidevisning") {
+      var k = r[3] || "direkte", e = r[4] || "ukjent";
+      kilder[k] = (kilder[k] || 0) + 1;
+      enheter[e] = (enheter[e] || 0) + 1;
+    }
+  });
+
+  var besok = tell["sidevisning"] || 0;
+  function andel(n) { return besok ? "  (" + Math.round((n / besok) * 100) + " %)" : ""; }
+
+  ui.alert("Trafikk – siste 30 dager",
+    "Besøk: " + besok + "\n" +
+    "Begynte på skjemaet: " + (tell["skjema_start"] || 0) + andel(tell["skjema_start"] || 0) + "\n" +
+    "Valgte anledning: " + (tell["anledning_valgt"] || 0) + andel(tell["anledning_valgt"] || 0) + "\n" +
+    "Sendte inn: " + (tell["innsendt"] || 0) + andel(tell["innsendt"] || 0) + "\n\n" +
+    "HVOR DE KOM FRA\n" + sortertListe(kilder) + "\n" +
+    "ENHET\n" + sortertListe(enheter) + "\n" +
+    "Totalt " + rader.length + " hendelser i perioden.",
+    ui.ButtonSet.OK);
+}
+
+function sortertListe(o) {
+  var navn = Object.keys(o).sort(function (a, b) { return o[b] - o[a]; });
+  if (!navn.length) return "  (ingen)\n";
+  return navn.map(function (k) { return "  " + k + ": " + o[k]; }).join("\n") + "\n";
+}
 
 /* ========================== INNSTILLINGER ========================== */
 
