@@ -822,7 +822,7 @@ input[type="date"], input[type="time"] { color-scheme: dark; }
      Y-verdi har derfor ingen virkning her. Ansiktet må løftes med transform. */
   .hero-photo img {
     object-position: center;
-    transform: scale(1.18) translate(7%, -10%);
+    transform: scale(1.18) translate(-4%, -10%);
     transform-origin: center center;
   }
 
