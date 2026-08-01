@@ -94,7 +94,9 @@ before the vehicle does.
 | Privacy | `personvern.html` | GDPR privacy policy |
 | Not found | `404.html` | Branded 404, `noindex` |
 
-Supporting files: `styles.css`, `script.js`, `favicon.svg`, `robots.txt`,
+Supporting files: `styles.css`, `script.js`, `favicon.svg` + `favicon.ico` +
+`apple-touch-icon.png` (the NR circle mark — see `BRAND_GUIDE.md` §6a),
+`robots.txt`,
 `sitemap.xml`, `CNAME`, `googleb42a97d75978e695.html` (Search Console
 verification — **never delete**), `images/hero.jpg`, `images/rob.jpg`.
 

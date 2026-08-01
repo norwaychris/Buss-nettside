@@ -18,7 +18,9 @@ second.
 | `script.js` | 10 KB | Entire site |
 | `images/hero.jpg` | 196 KB | Was 2 MB as PNG |
 | `images/rob.jpg` | 264 KB | Was 2.2 MB as PNG |
-| `favicon.svg` | 499 B | |
+| `favicon.svg` | 745 B | NR-merket som vektor |
+| `favicon.ico` | 6 KB | 16/32/48, kun for eldre klienter og Google |
+| `apple-touch-icon.png` | 7 KB | 180×180, kun iOS hjemskjerm |
 | Google Fonts | ~45 KB | Anton + Inter (5 weights) |
 | **Total, front page** | **~310 KB** | |
 

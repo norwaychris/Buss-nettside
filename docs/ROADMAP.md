@@ -201,7 +201,7 @@ Beskrivelse, tjenester, område, bilder, åpningstider, kategori, org.nr.
 | Ingen sjekk på at sluttid er etter starttid | `script.js` |
 | `required` på et `type="hidden"`-felt gjør ingenting | `index.html:218` |
 | `value="20"` forhåndsutfylt på antall kan sendes uendret | `index.html:203` |
-| `apple-touch-icon` peker på en SVG — iOS støtter det ikke | alle sider |
+| ~~`apple-touch-icon` peker på en SVG — iOS støtter det ikke~~ ✅ rettet 1. aug | alle sider |
 | `onerror`-plassholderen viser utviklertekst til en ekte besøkende | `index.html:65` |
 
 ### Tilgjengelighet 🟠

@@ -1,11 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#0a0a0b"/>
-  <g fill="#ff3b3b">
-    <rect x="13" y="17" width="38" height="25" rx="4"/>
-    <rect x="17" y="21" width="9" height="8" rx="1.5" fill="#0a0a0b"/>
-    <rect x="27.5" y="21" width="9" height="8" rx="1.5" fill="#0a0a0b"/>
-    <rect x="38" y="21" width="9" height="8" rx="1.5" fill="#0a0a0b"/>
-    <circle cx="22" cy="45" r="4.5"/>
-    <circle cx="42" cy="45" r="4.5"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="NorwayRob">
+  <!-- Bakgrunn: nesten svart, avrundet så merket leser både i firkantet og rundt utsnitt -->
+  <rect width="100" height="100" rx="18" fill="#0a0a0b"/>
+  <!-- Rød ring – hentet fra hjulmerket -->
+  <circle cx="50" cy="50" r="40.5" fill="none" stroke="#ff3b3b" stroke-width="3"/>
+  <!-- N -->
+  <polygon fill="#f5f5f6" points="17,31 27,31 41,58 41,31 51,31 51,69 41,69 27,42 27,69 17,69"/>
+  <!-- R -->
+  <path fill="#ff3b3b" fill-rule="evenodd"
+        d="M53,31 H72 C79,31 82.5,35 82.5,41.5 C82.5,47 79.5,50.8 74.8,52 L82.5,69 H71 L64.5,53.5 H63 V69 H53 Z
+           M63,39 H71 C74,39 75.3,40.2 75.3,42 C75.3,43.8 74,45 71,45 H63 Z"/>
 </svg>

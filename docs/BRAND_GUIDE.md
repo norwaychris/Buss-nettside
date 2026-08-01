@@ -117,6 +117,33 @@ BUSS TIL LEIE · BERGEN
 Logoen er ren tekst — ingen bildefil, ingen SVG. Det er bevisst: den er alltid
 skarp, alltid tilgjengelig for søkemotorer, og veier ingenting.
 
+## 6a. Ikonmerket (NR)
+
+Ved siden av ordmerket finnes et **sirkelmerke**: svart flate, rød ring,
+hvit «N» og rød «R». Det brukes der det ikke er plass til hele navnet —
+favicon, fane i nettleseren, Google-treff, ikon på hjemskjerm, profilbilder.
+
+| Fil | Størrelse | Brukes til |
+|---|---|---|
+| `favicon.svg` | vektor | Nettleserfane, Google-treff, alt moderne |
+| `favicon.ico` | 16 · 32 · 48 | Eldre nettlesere, og Googles reservevei |
+| `apple-touch-icon.png` | 180 × 180, ugjennomsiktig | iOS hjemskjerm (iOS runder hjørnene selv) |
+
+**Merket er tegnet som ren vektor, ikke hentet fra 3D-renderen.** Renderen med
+dekkmønster og dybde er riktig som profilbilde og i store flater, men på 16–32
+piksler forsvinner all detaljen og blir til grøt. Vektorversjonen er samme merke
+renset for alt som ikke er lesbart i den størrelsen.
+
+**Regler:**
+
+- Endre aldri `favicon.svg` uten å se den rendret på **16 px**. Det er der den
+  faktisk brukes.
+- Bakgrunnen må forbli mørk, men aldri helt ren `#000` — `#0a0a0b` gir så vidt
+  kant mot ekte svart i mørk modus.
+- Ringen må ikke bli tynnere enn `stroke-width: 3` av 100. Under det forsvinner
+  den under 24 px.
+- Genererer du `.ico` og PNG på nytt, gjør det fra SVG-en — den er kilden.
+
 ## 7. Bildespråk
 
 | Skal | Skal ikke |
