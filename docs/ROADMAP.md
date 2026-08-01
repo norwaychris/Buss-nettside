@@ -76,7 +76,12 @@ gjetning, og vi vet ikke om en tur er lønnsom.
 
 ### 1.2 Regneark-automasjon, godkjenningsstyrt ✅ FERDIG 1. august 2026
 
-Bygget og enhetstestet. `NorwayRob`-meny i regnearket med seks handlinger,
+Bygget, enhetstestet og **verifisert i drift i det ekte regnearket 1. august**:
+migreringen beholdt begge eksisterende bookinger, `Timer` ble fylt inn bakover,
+`Innstillinger`-fanen ble opprettet, og tilbud er sendt gjennom
+forhåndsvisningen i testmodus.
+
+`NorwayRob`-meny i regnearket med seks handlinger,
 forhåndsvisning før hver sending, automatisk statusoppdatering og
 sendingslogg. Malene ligger nå i `Code.gs` som funksjoner, ikke som filer som
 må kopieres for hånd.
