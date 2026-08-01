@@ -413,6 +413,11 @@ a { color: inherit; text-decoration: none; }
 }
 .field { margin-bottom: 18px; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+/* Rutenettceller har min-width:auto som standard og kan derfor ikke krympe
+   under innholdets minstebredde. To input[type="time"] har en iboende
+   minstebredde i Chromium og tvang raden 10px utenfor skjermen på 360px –
+   en reell enhetsbredde (Galaxy S). */
+.field-row > * { min-width: 0; }
 .field-half { max-width: calc(50% - 8px); }
 .field label {
   display: block; font-weight: 600; font-size: 15px; margin-bottom: 8px;
@@ -776,19 +781,37 @@ input[type="date"], input[type="time"] { color-scheme: dark; }
 
 /* ===================== RESPONSIVE ===================== */
 @media (max-width: 860px) {
-  .hero { min-height: auto; padding: 28px 0 40px; }
+  /* Ekstra luft i bunnen er ren uttoningssone – der får veien og lysstripene
+     plass til å forsvinne gradvis i stedet for å bli kuttet. */
+  .hero { min-height: auto; padding: 28px 0 110px; }
+
   /* Mørkest ØVERST, der teksten står – og lysere i båndet der Rob er, så
      ansiktet faktisk vises i stedet for å ligge som støy bak brødteksten.
-     Var motsatt: lysest oppe (.5) og helt tett nede. */
+     Var motsatt: lysest oppe (.5) og helt tett nede.
+     Mange stopp i bunnen med vilje: et rett lineært fall gir et synlig bånd,
+     fordi øyet er langt mer følsomt for knekk i en gradient enn for selve
+     mørkningen. Stoppene følger en ease-kurve, ikke en rett linje. */
   .hero::after {
     background:
       linear-gradient(to bottom,
         rgba(10,10,11,.94) 0%,
-        rgba(10,10,11,.88) 34%,
-        rgba(10,10,11,.42) 66%,
-        rgba(10,10,11,.80) 90%,
+        rgba(10,10,11,.88) 28%,
+        rgba(10,10,11,.52) 50%,
+        rgba(10,10,11,.40) 62%,
+        rgba(10,10,11,.42) 70%,
+        rgba(10,10,11,.50) 78%,
+        rgba(10,10,11,.62) 85%,
+        rgba(10,10,11,.76) 91%,
+        rgba(10,10,11,.88) 95%,
+        rgba(10,10,11,.96) 98%,
         var(--bg) 100%);
   }
+
+  /* Sømmen mot tallstripen: bildet tonet ut til #0a0a0b, og rett under lå en
+     1px strek og en LYSERE flate (#101012). Tre tonesprang på få piksler –
+     det er den kanten man ser, ikke gradienten. Nå går hero rett over i
+     tallene, og skillet markeres bare nedover. */
+  .trust-strip { border-top: none; background: transparent; }
   .hero-photo img { object-position: 70% 22%; transform: none; }
 
   /* Tre kolonner med lik bredde. Var flex med 54px mellomrom, som ikke fikk
@@ -837,3 +860,35 @@ input[type="date"], input[type="time"] { color-scheme: dark; }
   .header-inner { height: 60px; }
   body { font-size: 16px; }
 }
+
+/* Smale telefoner (Galaxy S o.l.). Må stå SIST – 520px-blokken over setter
+   .form-padding, og med lik spesifisitet vinner den som kommer sist. */
+@media (max-width: 400px) {
+  .form { padding: 22px 14px 20px; }
+  input, textarea, select { padding: 13px 12px; }
+  .time-range { gap: 7px; }
+  .time-sep { font-size: 13px; }
+  .wrap { padding: 0 16px; }
+}
+
+/* ===================== OVERFLYT-SIKRING =====================
+   Tre gamle feil på smale telefoner (320–390px), funnet ved å teste
+   bredder vi aldri hadde testet før. */
+
+/* 1. Lange norske sammensatte ord – «Personvernerklæring», «holdeplassen» –
+      kan ikke brytes, og skjøv overskriftene utenfor skjermkanten. */
+h1, h2, h3,
+.hero-title, .section-title, .page-hero h1 {
+  overflow-wrap: break-word;
+}
+
+/* 2. Den dekorative røde gløden bak Rob-bildet lå 22px utenfor sin egen
+      boks. På desktop er det innenfor marginene; på mobil dro den
+      rullefeltet med seg. */
+@media (max-width: 760px) {
+  .about-media::before { right: 0; bottom: -14px; width: 62%; }
+}
+
+/* 3. Sikkerhetsnett. clip – ikke hidden – fordi hidden på html/body bryter
+      position: sticky, og headeren er sticky. */
+html { overflow-x: clip; }
