@@ -90,7 +90,7 @@
     <section class="trust-strip" aria-label="Nøkkeltall">
       <div class="wrap">
         <ul>
-          <li><span class="num">15<em>+</em></span><span class="lbl">års erfaring</span></li>
+          <li><span class="num">15 <em>år</em></span><span class="lbl">bak rattet</span></li>
           <li><span class="num">2,2<em>M</em></span><span class="lbl">følgere på TikTok</span></li>
           <li><span class="num">Fast <em>pris</em></span><span class="lbl">ingen skjulte tillegg</span></li>
         </ul>
@@ -126,13 +126,13 @@
           </article>
           <article class="step-card">
             <span class="step-num">02</span>
-            <h3>Få fast pris raskt</h3>
-            <p>Fast pris innen 24 timer — helt uforpliktende.</p>
+            <h3>Vi går gjennom turen</h3>
+            <p>Vi ser på datoen og opplegget deres, og svarer innen 24 timer med en fast pris — helt uforpliktende.</p>
           </article>
           <article class="step-card">
             <span class="step-num">03</span>
-            <h3>Betal og lås datoen</h3>
-            <p>Privat betaler i forkant med bankoverføring. Bedrift kan få faktura. Så er dere klare.</p>
+            <h3>Så bekrefter vi turen</h3>
+            <p>Er dere fornøyde med prisen, avtaler vi resten sammen. Privat betaler i forkant, bedrift kan få faktura.</p>
           </article>
         </div>
       </div>
@@ -242,7 +242,7 @@
           </fieldset>
 
           <button type="submit" class="btn btn-primary btn-block btn-lg" id="submit-btn">Få fast pris — uforpliktende</button>
-          <p class="form-note">Du hører fra oss <strong>innen 24 timer</strong> med en fast pris. Privatpersoner betaler i forkant (bankoverføring); bedrifter kan få faktura.</p>
+          <p class="form-note">Vi går gjennom hver forespørsel og svarer <strong>innen 24 timer</strong> med en fast pris — helt uforpliktende. Ingenting er bindende før dere har bekreftet.</p>
           <p class="form-error" id="form-error" role="alert" hidden></p>
         </form>
       </div>
@@ -303,8 +303,8 @@
           <div class="guarantee-main">
             <span class="guarantee-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span>
             <div>
-              <h3>Trygg booking-garanti</h3>
-              <p>Endrer planene seg? Avbestill gratis inntil 14 dager før avreise — dere får pengene tilbake, ingen spørsmål.</p>
+              <h3>Ingen risiko for dere</h3>
+              <p>Å be om pris er gratis og uforpliktende. Og har dere først bekreftet turen, kan dere avbestille gratis inntil 14 dager før avreise — hele beløpet tilbake, ingen spørsmål.</p>
             </div>
           </div>
           <div class="guarantee-side">
@@ -351,11 +351,11 @@
           </details>
           <details class="faq-item">
             <summary>Hvordan og når betaler vi?<span class="faq-icon" aria-hidden="true"></span></summary>
-            <div class="faq-answer"><p><strong>Privatpersoner betaler hele summen i forkant</strong> — enkelt med bankoverføring. Datoen er sikret så snart betalingen er mottatt. <strong>Bedrifter</strong> kan få faktura mot organisasjonsnummer.</p></div>
+            <div class="faq-answer"><p>Først får dere en fast pris — helt uforpliktende. Passer den, bekrefter vi turen sammen. <strong>Privatpersoner betaler hele summen i forkant</strong> med bankoverføring, og datoen er sikret så snart betalingen er registrert. <strong>Bedrifter</strong> kan få faktura mot organisasjonsnummer.</p></div>
           </details>
           <details class="faq-item">
             <summary>Hvor raskt får vi svar, og hvordan bekrefter vi?<span class="faq-icon" aria-hidden="true"></span></summary>
-            <div class="faq-answer"><p>Fyll ut skjemaet, så hører dere fra oss raskt med en fast pris. Dere bekrefter ved å betale i forkant (privat) eller avtale faktura (bedrift) — så er datoen deres.</p></div>
+            <div class="faq-answer"><p>Vi går gjennom hver eneste forespørsel selv, og svarer <strong>innen 24 timer</strong> med en fast pris tilpasset turen deres. Passer den, bekrefter vi datoen sammen — privat ved å betale i forkant, bedrift ved å avtale faktura.</p></div>
           </details>
           <details class="faq-item">
             <summary>Hva om planene endrer seg?<span class="faq-icon" aria-hidden="true"></span></summary>
@@ -407,7 +407,7 @@
       </div>
     </div>
     <div class="wrap footer-bottom">
-      <p>© NorwayRob · Løyve · forsikret · lovlig · Bergen</p>
+      <p>© NorwayRob · Org.nr 931 870 106 · Løyve · forsikret · Bergen</p>
       <nav class="footer-legal" aria-label="Juridisk">
         <a href="/personvern.html">Personvern</a>
         <a href="/vilkar.html">Vilkår</a>
@@ -447,7 +447,11 @@
     ],
     "@id": "https://norwayrob.no/#bedrift",
     "logo": "https://norwayrob.no/favicon.svg",
-    "priceRange": "$$",
+    "identifier": {
+      "@type": "PropertyValue",
+      "propertyID": "Organisasjonsnummer",
+      "value": "931870106"
+    },
     "slogan": "Vi fikser kvelden",
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
@@ -536,12 +540,12 @@
       {
         "@type": "Question",
         "name": "Hvordan og når betaler vi?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Privatpersoner betaler hele summen i forkant – enkelt med bankoverføring. Datoen er sikret så snart betalingen er mottatt. Bedrifter kan få faktura mot organisasjonsnummer." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Først får dere en fast pris – helt uforpliktende. Passer den, bekrefter vi turen sammen. Privatpersoner betaler hele summen i forkant med bankoverføring, og datoen er sikret så snart betalingen er registrert. Bedrifter kan få faktura mot organisasjonsnummer." }
       },
       {
         "@type": "Question",
         "name": "Hvor raskt får vi svar, og hvordan bekrefter vi?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Fyll ut skjemaet, så hører dere fra oss raskt med en fast pris. Dere bekrefter ved å betale i forkant (privat) eller avtale faktura (bedrift) – så er datoen deres." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Vi går gjennom hver eneste forespørsel selv, og svarer innen 24 timer med en fast pris tilpasset turen deres. Passer den, bekrefter vi datoen sammen – privat ved å betale i forkant, bedrift ved å avtale faktura." }
       },
       {
         "@type": "Question",
@@ -552,6 +556,6 @@
   }
   </script>
 
-  <script src="script.js?v=9"></script>
+  <script src="script.js?v=10"></script>
 </body>
 </html>

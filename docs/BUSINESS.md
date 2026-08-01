@@ -12,8 +12,8 @@ Sist oppdatert: 1. august 2026
 
 | | |
 |---|---|
-| Foretaksnavn | **MÅ FYLLES INN** |
-| Organisasjonsnummer | **MÅ FYLLES INN** |
+| Foretaksnavn | NorwayRob |
+| Organisasjonsnummer | **931 870 106** |
 | Selskapsform | Registrert norsk foretak |
 | Løyve | Eget turvognløyve. Løyvenummer: **MÅ FYLLES INN** |
 | Forsikring | På plass (bekreftes ved kjøp av buss) |
@@ -21,11 +21,12 @@ Sist oppdatert: 1. august 2026
 | E-post | `norwayrob@outlook.com` |
 | Nettsted | `norwayrob.no` |
 
-> **Kritisk åpen post.** Organisasjonsnummeret er **lovpålagt** å oppgi på
-> nettsiden når du driver næringsvirksomhet — *e-handelsloven § 8* krever navn,
-> organisasjonsnummer, geografisk adresse og e-postadresse lett tilgjengelig.
-> Det står ikke noe sted i dag. I tillegg vil enhver bedriftskunde be om det
-> før de godtar en faktura. Se `ROADMAP.md`, prioritet 1.
+> **Løst 1. august 2026.** Organisasjonsnummeret er nå oppgitt i footeren på
+> alle sider, i vilkårene, i personvernerklæringen og i `LocalBusiness`-schema,
+> slik *e-handelsloven § 8* krever.
+>
+> **Fortsatt åpent:** løyvenummeret. Siden hevder «Løyve · forsikret» uten å
+> dokumentere det. Se `ROADMAP.md`.
 
 ## 2. Driftsstatus
 
@@ -179,7 +180,7 @@ veksthypotesen etter at grunndriften går rundt.
 | Krav | Hjemmel | Status |
 |---|---|---|
 | Løyve for persontransport | Yrkestransportlova | ✅ På plass |
-| Org.nr og kontaktinfo på nettsiden | E-handelsloven § 8 | ❌ **Mangler** |
+| Org.nr og kontaktinfo på nettsiden | E-handelsloven § 8 | ✅ Footer, vilkår, personvern, schema |
 | Personvernerklæring | GDPR art. 13 | ✅ `personvern.html` |
 | Behandlingsgrunnlag for kundedata | GDPR art. 6 | ✅ Avtale / berettiget interesse |
 | Samtykke for cookies | Ekomloven § 2-7b | ✅ Ikke nødvendig — vi bruker ingen |
@@ -189,19 +190,30 @@ veksthypotesen etter at grunndriften går rundt.
 
 ## 10. Påstander som må ryddes
 
-Nettsiden sier i dag ting vi ikke fullt ut kan stå for så lenge bussen ikke
-finnes. Dette er ikke teoretisk — å markedsføre en tjeneste man ikke kan levere
-er villedende etter markedsføringsloven § 6.
+Å markedsføre en tjeneste man ikke kan levere er villedende etter
+markedsføringsloven § 6.
+
+### Ryddet 1. august 2026 ✅
+
+| Var | Er nå |
+|---|---|
+| Steg 03: «Betal og lås datoen» | «Passer det? Da bekrefter vi» — betaling nevnt, men ingen dato låses automatisk |
+| Steg 02: «Få fast pris raskt» | «Vi går gjennom turen» — gjør den manuelle vurderingen eksplisitt |
+| «Trygg booking-garanti» | «Ingen risiko for dere» — dekker både forespørsel og bekreftet tur |
+| FAQ: «Datoen er sikret så snart betalingen er mottatt» | Innledes med «Først får dere en fast pris … Passer den, bekrefter vi turen sammen» |
+| FAQ: «så hører dere fra oss raskt» | «Vi går gjennom hver eneste forespørsel selv, og svarer innen 24 timer» |
+| Skjemanotis: «Du hører fra oss innen 24 timer» | «… Ingenting er bindende før dere har bekreftet» |
+| Vilkår § Forespørsel og tilbud | Ny setning: «En forespørsel reserverer ingen dato i seg selv» |
+| `priceRange: "$$"` i JSON-LD | Fjernet |
+| «15+ års erfaring» vs «15 års erfaring» | «15 år bak rattet» overalt |
+
+### Fortsatt åpent
 
 | Påstand | Problem | Løsning |
 |---|---|---|
-| «Betal og lås datoen» (steg 03) | Impliserer garantert tilgjengelighet | Omformuleres til vurdering og personlig tilbud |
-| «Datoen er reservert når betalingen er mottatt» | Lover reservasjon vi ikke kan gi | Forbehold til bussen er på plass |
-| «Trygg booking-garanti» | Forutsetter at en booking finnes | Omformuleres eller utsettes |
 | «Svar innen 24 timer» | Løfte uten operasjonelt sikkerhetsnett | Behold, men bygg en påminnelse så det faktisk holdes |
 | «Vasking inkludert», «lydanlegg» | Egenskaper ved en buss som ikke er kjøpt | Behold generisk, ikke spesifiser utstyr |
-| «Løyve · forsikret · lovlig» | Sant, men udokumentert | Legg til org.nr og løyvenummer |
-| `priceRange: "$$"` i JSON-LD | Ubegrunnet gjetning | Fjern eller begrunn |
+| «Løyve · forsikret» | Sant, men udokumentert | Legg til løyvenummer |
 
 ## 11. Nøkkeltall vi må begynne å måle
 

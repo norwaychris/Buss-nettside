@@ -14,38 +14,33 @@ Sist oppdatert: 1. august 2026
 
 ---
 
-## Fase 0 — Rydde opp før mer trafikk kommer
+## Fase 0 — Rydde opp før mer trafikk kommer ✅ FERDIG 1. august 2026
 
-Billig, raskt, og reduserer reell risiko. Bør gjøres først uansett.
+### 0.1 Organisasjonsnummer på siden ✅
 
-### 0.1 Organisasjonsnummer og løyvenummer på siden 🔴
+Org.nr **931 870 106** lagt inn i footeren på alle fire sider med footer, i
+`vilkar.html` (egen seksjon «Kontakt og selskapsopplysninger»), i
+`personvern.html` (behandlingsansvarlig) og som `identifier` i
+`LocalBusiness`-schema. Oppfyller *e-handelsloven § 8*.
 
-Lovpålagt etter *e-handelsloven § 8*, og bedriftskunder ber om det før de godtar
-faktura. Står ikke noe sted i dag.
+> **Gjenstår:** løyvenummeret. Siden hevder «Løyve · forsikret» uten
+> dokumentasjon. **Blokkert på:** Rob må oppgi nummeret.
 
-- Org.nr i footeren på alle fem sider
-- Org.nr og løyvenummer i `vilkar.html`
-- `identifier` i `LocalBusiness`-schema
-- **Blokkert på:** Rob må oppgi tallene
+### 0.2 Fjerne påstander vi ikke kan holde ✅
 
-### 0.2 Fjerne påstander vi ikke kan holde 🔴
+Alle formuleringer som impliserte garantert tilgjengelighet eller automatisk
+reservasjon er omskrevet. Full oversikt over før/etter i `BUSINESS.md` §10.
+`priceRange: "$$"` er fjernet fra JSON-LD.
 
-Bussen er ikke kjøpt. Siden lover tilgjengelighet og betaling. Å markedsføre en
-tjeneste man ikke kan levere er villedende etter markedsføringsloven § 6.
+### 0.3 Rydde interne motsigelser ✅
 
-| Sted | Fra | Til |
-|---|---|---|
-| Steg 03 | «Betal og lås datoen» | «Vi går gjennom forespørselen og sender et personlig tilbud» |
-| `vilkar.html` | «Datoen er reservert når betalingen er mottatt» | Forbehold til bussen er på plass |
-| Garantibanner | «Trygg booking-garanti» | Omformuleres |
-| JSON-LD | `priceRange: "$$"` | Fjernes |
-
-### 0.3 Rydde interne motsigelser 🟠
-
-- `README.md` sier at push til utkast-grenen publiserer. **Det er motsatt av
-  sannheten** og nevner slettede filer. Må skrives om.
-- «15 års erfaring» vs «15+ års erfaring» — velg én.
-- «Svar innen 24 timer» vs «svarer raskt» i FAQ — velg én.
+- `README.md` skrevet om — den påsto at push til utkast-grenen publiserer, og
+  viste til slettede kart-filer
+- «15+ års erfaring» → «15 år bak rattet» overalt
+- «svarer raskt» → «innen 24 timer» i FAQ og JSON-LD
+- `sitemap.xml` `lastmod` oppdatert til 2026-08-01
+- Knappeteksten etter innsending (`script.js`) rettet — leses nå fra HTML i
+  stedet for å være hardkodet feil
 
 ---
 
@@ -188,7 +183,7 @@ Beskrivelse, tjenester, område, bilder, åpningstider, kategori, org.nr.
 
 | Feil | Hvor |
 |---|---|
-| Knappeteksten blir «Send forespørsel» etter første innsending, i stedet for «Få fast pris — uforpliktende» | `script.js:127` |
+| ~~Knappeteksten blir «Send forespørsel» etter første innsending~~ ✅ rettet 1. aug | `script.js` |
 | `Tidsrom` er skjult og uten validering — tom verdi kan nå regnearket hvis JS feiler | `index.html:187` |
 | Ingen sjekk på at sluttid er etter starttid | `script.js` |
 | `required` på et `type="hidden"`-felt gjør ingenting | `index.html:218` |
@@ -213,7 +208,7 @@ Detaljer og ferdig kode i `ACCESSIBILITY.md` §4–6.
 | Manuell cache-busting i fem filer — bør automatiseres eller sjekkes i CI |
 | Apps Script deployes ved kopier–lim, uten versjonskobling til repoet |
 | Dødt CSS: `.why-card`, `.review-card`, `.stars` fra fjernede seksjoner |
-| `sitemap.xml` har utdatert `lastmod` og vedlikeholdes for hånd |
+| `sitemap.xml` vedlikeholdes for hånd |
 | Ingen avstandstokens — rå px-verdier i hele stilarket |
 | Grenen `claude/bus-booking-website-xyve0m` lever fortsatt på origin |
 | Ingen lenkesjekk, HTML-validering eller linting i CI |
@@ -268,8 +263,8 @@ regnearket, kapasitet allerede konfigurerbar. Se `ARCHITECTURE.md` §12.
 ## Rekkefølgen, kort
 
 ```
-NÅ          0.1 org.nr · 0.2 rydde påstander · 0.3 README + motsigelser
-DERETTER    1.3 skjemaet mister ikke kunder · 1.4 backup · 2.4 spamsikring
+FERDIG      0.1 org.nr · 0.2 rydde påstander · 0.3 README + motsigelser
+NÅ          1.3 skjemaet mister ikke kunder · 1.4 backup · 2.4 spamsikring
 NÅR BUSSEN  1.1 kostnadsmodell → 1.2 automasjon → 2.1 config → 2.2 kapasitet
 ER KJØPT    → 3.1 bilder av bussen → 3.3 prisanker
 PARALLELT   2.3 måling · 3.2 video · 3.5 Bedriftsprofil · Fase 4-feil

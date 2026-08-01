@@ -24,16 +24,14 @@ attention into qualified inquiries.
 |---|---|
 | Owner / operator | Rob |
 | Legal form | Registered Norwegian company with its own transport licence (*løyve*) |
-| Organisation number | **NOT YET RECORDED — must be filled in** |
+| Organisation number | **931 870 106** (displayed in the footer, terms and privacy policy) |
 | Licence number (løyvenummer) | **NOT YET RECORDED — must be filled in** |
 | Staff | One person. Rob is owner, driver, salesperson and support. |
 | Contact | `norwayrob@outlook.com` |
 | Phone | Exists, but is **not public**. See §8. |
 
-> **Open item.** The organisation number is legally required on the website
-> under *e-handelsloven § 8* and is expected by any business customer before
-> they accept an invoice. It is not currently displayed anywhere. This is
-> tracked in `ROADMAP.md`.
+> **Open item.** The licence number (*løyvenummer*) is still not recorded. The
+> site claims "Løyve · forsikret" without evidence. Tracked in `ROADMAP.md`.
 
 ## 3. The most important fact about the current stage
 
@@ -163,16 +161,18 @@ analytics sheet, and an `Innstillinger` configuration sheet.
 
 ## 9. Known unverified claims currently on the site
 
-These are on the live site and are believed true, but are not documented
-anywhere with evidence. They should be substantiated or softened.
+These are believed true, but are not documented anywhere with evidence. They
+should be substantiated or softened.
 
-- "Løyve · forsikret · lovlig" — true per Rob, but no licence number shown.
-- "15 års erfaring" (about page) vs "15+ års erfaring" (front page) — pick one.
+- "Løyve · forsikret" — true per Rob, but no licence number shown.
 - "2,2M følgere på TikTok" — verifiable; keep in sync as it grows.
-- `priceRange: "$$"` in JSON-LD — an unsubstantiated guess on a site that
-  otherwise refuses to state price levels.
 - "Vasking inkludert", "lydanlegg", "henting og levering" — features of a bus
   that does not exist yet.
+
+**Resolved 1 Aug 2026:** organisation number added everywhere · `priceRange:"$$"`
+removed from JSON-LD · "15+ års erfaring" reconciled to "15 år bak rattet" ·
+"svarer raskt" reconciled to "innen 24 timer" · all copy that implied guaranteed
+availability or an automatic reservation rewritten (see `BUSINESS.md` §10).
 
 ## 10. Glossary
 

@@ -89,6 +89,8 @@ function renderFollowup(value) {
 /* ---------------- Innsending ---------------- */
 const form = document.getElementById("booking-form");
 const submitBtn = document.getElementById("submit-btn");
+/* Husk knappeteksten slik den står i HTML, så den kan settes tilbake etter sending */
+const SUBMIT_TEKST = submitBtn.textContent;
 const formError = document.getElementById("form-error");
 const overlay = document.getElementById("success-overlay");
 
@@ -124,7 +126,7 @@ form.addEventListener("submit", async (e) => {
     showError("Noe gikk galt. Prøv igjen, eller send oss en e-post til " + FALLBACK_EMAIL + ".");
   } finally {
     submitBtn.disabled = false;
-    submitBtn.textContent = "Send forespørsel";
+    submitBtn.textContent = SUBMIT_TEKST;
   }
 });
 
