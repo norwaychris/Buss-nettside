@@ -15,8 +15,8 @@ Sist oppdatert: 1. august 2026
 | Foretaksnavn | NorwayRob |
 | Organisasjonsnummer | **931 870 106** |
 | Selskapsform | Registrert norsk foretak |
-| Løyve | Eget turvognløyve. Løyvenummer: **MÅ FYLLES INN** |
-| Forsikring | På plass (bekreftes ved kjøp av buss) |
+| Løyve | **Søkt om, ikke innvilget ennå.** Se §2a |
+| Forsikring | Kommer med bussen — kjøretøyforsikring finnes ikke før kjøretøyet gjør det |
 | Ansatte | Én — Rob |
 | E-post | `norwayrob@outlook.com` |
 | Nettsted | `norwayrob.no` |
@@ -24,9 +24,31 @@ Sist oppdatert: 1. august 2026
 > **Løst 1. august 2026.** Organisasjonsnummeret er nå oppgitt i footeren på
 > alle sider, i vilkårene, i personvernerklæringen og i `LocalBusiness`-schema,
 > slik *e-handelsloven § 8* krever.
->
-> **Fortsatt åpent:** løyvenummeret. Siden hevder «Løyve · forsikret» uten å
-> dokumentere det. Se `ROADMAP.md`.
+
+## 2a. Løyve — status og beslutning
+
+Løyvet er **søkt om, men ikke innvilget**. Siden sier likevel «Løyve ·
+forsikret» i footeren, i FAQ-en, på om-siden, i vilkårene og i tilbudsmalene.
+
+**Robs beslutning 1. august 2026:** teksten står som den er, fordi ingen tur
+kjøres før løyvet er i hånden — så innen påstanden betyr noe for en kunde, er
+den sann.
+
+**Innvendingen som ble reist og overprøvd:** siden ligger ute og er indeksert
+nå, så påstanden er offentlig før den er sann. Å drive persontransport uten
+løyve er ulovlig etter *yrkestransportlova*, og å oppgi at man har et løyve man
+ikke har, er villedende etter *markedsføringsloven § 6*.
+
+**Hvorfor eksponeringen likevel er liten:** ingen booking kan fullføres, ingen
+betaling tas imot, og hver innsending behandles som en forespørsel.
+
+**Må tas opp igjen hvis:** søknaden avslås eller trekker ut forbi første
+bookede tur · noen aksepterer et tilbud før løyvet er innvilget · det tas imot
+betaling fra noen.
+
+**Når løyvet innvilges:** legg løyvenummeret i footeren og i vilkårene. Da blir
+en udokumentert påstand til en etterprøvbar en, og det er verdt mer enn
+påstanden alene.
 
 ## 2. Driftsstatus
 
@@ -179,7 +201,7 @@ veksthypotesen etter at grunndriften går rundt.
 
 | Krav | Hjemmel | Status |
 |---|---|---|
-| Løyve for persontransport | Yrkestransportlova | ✅ På plass |
+| Løyve for persontransport | Yrkestransportlova | ⏳ Søkt om — ingen kjøring før det er innvilget |
 | Org.nr og kontaktinfo på nettsiden | E-handelsloven § 8 | ✅ Footer, vilkår, personvern, schema |
 | Personvernerklæring | GDPR art. 13 | ✅ `personvern.html` |
 | Behandlingsgrunnlag for kundedata | GDPR art. 6 | ✅ Avtale / berettiget interesse |
@@ -213,7 +235,7 @@ markedsføringsloven § 6.
 |---|---|---|
 | «Svar innen 24 timer» | Løfte uten operasjonelt sikkerhetsnett | Behold, men bygg en påminnelse så det faktisk holdes |
 | «Vasking inkludert», «lydanlegg» | Egenskaper ved en buss som ikke er kjøpt | Behold generisk, ikke spesifiser utstyr |
-| «Løyve · forsikret» | Sant, men udokumentert | Legg til løyvenummer |
+| «Løyve · forsikret» | Løyvet er søkt om, ikke innvilget; bussen er ikke kjøpt | Bevisst beholdt — se §2a. Legg inn løyvenummer når det kommer |
 
 ## 11. Nøkkeltall vi må begynne å måle
 

@@ -23,8 +23,14 @@ Org.nr **931 870 106** lagt inn i footeren på alle fire sider med footer, i
 `personvern.html` (behandlingsansvarlig) og som `identifier` i
 `LocalBusiness`-schema. Oppfyller *e-handelsloven § 8*.
 
-> **Gjenstår:** løyvenummeret. Siden hevder «Løyve · forsikret» uten
-> dokumentasjon. **Blokkert på:** Rob må oppgi nummeret.
+> **Gjenstår: løyvenummer inn når løyvet innvilges.** Løyvet er søkt om, ikke
+> innvilget ennå. Rob har bevisst valgt å la «Løyve · forsikret» stå, siden
+> ingen tur kjøres før løyvet er i hånden — begrunnelse og forbehold i
+> `BUSINESS.md` §2a. Når nummeret kommer: legg det i footeren og i vilkårene,
+> så blir påstanden etterprøvbar.
+>
+> **Utløser en ny vurdering:** avslag på søknaden, eller at noen aksepterer et
+> tilbud før løyvet er innvilget.
 
 ### 0.2 Fjerne påstander vi ikke kan holde ✅
 
@@ -47,6 +53,13 @@ reservasjon er omskrevet. Full oversikt over før/etter i `BUSINESS.md` §10.
 ## Fase 1 — Gjøre driften mulig
 
 Uten disse kan ikke første ekte kunde håndteres forsvarlig.
+
+### 1.0 Løyvet innvilget 🔴
+
+Alt annet i denne fasen er meningsløst uten det — uten løyve kan ingen tur
+kjøres lovlig. **Blokkert på:** saksbehandling hos Statsforvalteren.
+
+Når det kommer: løyvenummer inn i footeren og vilkårene (se 0.1).
 
 ### 1.1 Kostnads- og prismodell 🔴
 

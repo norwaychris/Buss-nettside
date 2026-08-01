@@ -25,13 +25,13 @@ attention into qualified inquiries.
 | Owner / operator | Rob |
 | Legal form | Registered Norwegian company with its own transport licence (*løyve*) |
 | Organisation number | **931 870 106** (displayed in the footer, terms and privacy policy) |
-| Licence number (løyvenummer) | **NOT YET RECORDED — must be filled in** |
+| Licence (løyve) | **Applied for — not yet granted.** See §3a. |
 | Staff | One person. Rob is owner, driver, salesperson and support. |
 | Contact | `norwayrob@outlook.com` |
 | Phone | Exists, but is **not public**. See §8. |
 
-> **Open item.** The licence number (*løyvenummer*) is still not recorded. The
-> site claims "Løyve · forsikret" without evidence. Tracked in `ROADMAP.md`.
+> **Open item.** The licence number (*løyvenummer*) is still not recorded, and
+> the licence itself has not been granted yet. Tracked in `ROADMAP.md`.
 
 ## 3. The most important fact about the current stage
 
@@ -50,6 +50,37 @@ This single fact constrains almost everything:
 
 The site stays live deliberately: it validates demand and teaches us how
 customers behave before capital is committed.
+
+## 3a. The transport licence — a deliberate, documented decision
+
+The *løyve* has been applied for but **not yet granted**. The site nevertheless
+states "Løyve · forsikret" in the footer, the FAQ, the about page, the terms and
+the quote emails.
+
+**Rob's decision, 1 Aug 2026:** keep the wording as-is, because no trip will be
+driven before the licence is in hand — so by the time the claim matters to any
+customer, it will be true.
+
+**The concern that was raised and overruled:** the site is live and indexed now,
+so the claim is public before it is true. Operating passenger transport without
+a licence is illegal under *yrkestransportlova*, and stating you hold one you do
+not is a misrepresentation under *markedsføringsloven § 6*.
+
+**Why the exposure is nevertheless small:** no booking can be completed, no
+payment is accepted, and every submission is treated as an inquiry (§3).
+
+**This must be revisited if any of the following happens:**
+
+- The licence application is refused or delayed past the first booked trip
+- Anyone is quoted a price and accepts before the licence is granted
+- Payment is accepted from anyone
+
+**When the licence is granted:** add the *løyvenummer* to the footer and the
+terms page. It converts an unbacked claim into a verifiable one, which is
+worth more than the claim alone.
+
+The same reasoning applies to "forsikret" — vehicle insurance cannot exist
+before the vehicle does.
 
 ## 4. What exists today
 
@@ -164,7 +195,8 @@ analytics sheet, and an `Innstillinger` configuration sheet.
 These are believed true, but are not documented anywhere with evidence. They
 should be substantiated or softened.
 
-- "Løyve · forsikret" — true per Rob, but no licence number shown.
+- "Løyve · forsikret" — **the licence is applied for, not yet granted**, and
+  there is no vehicle to insure yet. Kept by Rob's explicit decision; see §3a.
 - "2,2M følgere på TikTok" — verifiable; keep in sync as it grows.
 - "Vasking inkludert", "lydanlegg", "henting og levering" — features of a bus
   that does not exist yet.
