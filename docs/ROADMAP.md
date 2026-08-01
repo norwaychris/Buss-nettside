@@ -113,25 +113,24 @@ Design i `ARCHITECTURE.md` §8. Omfang:
 
 </details>
 
-### 1.3 Skjemaet skal ikke miste kunder i stillhet 🔴
+### 1.3 Bekreftet levering av skjemainnsendinger 🔴
 
-`mode: "no-cors"` gjør at vi viser «Takk!» selv når innsendingen feilet. Hvis
-Apps Script er nede eller kvoten er brukt opp, forsvinner forespørselen sporløst.
+Innsendingen skjer med `mode: "no-cors"`, som betyr at nettleseren ikke kan lese
+serverens svar. Kvitteringen til kunden vises derfor optimistisk. Vi ønsker
+positiv bekreftelse på at forespørselen faktisk er lagret.
 
 Alternativer, i økende robusthet:
 
-1. `GET`-helsesjekk mot endepunktet før innsending
-2. Lagre innsendingen i `localStorage` og prøve på nytt ved neste besøk
-3. `sendBeacon` som hjerteslag, og varsel til Rob hvis skriving og hjerteslag
-   spriker
+1. Helsesjekk mot endepunktet før innsending
+2. Mellomlagring i nettleseren med nytt forsøk ved neste besøk
+3. Uavhengig signal ved siden av skrivingen, med avvik varslet til Rob
 
-Minst nr. 1 må på plass.
+Minst nr. 1 bør på plass.
 
 ### 1.4 Sikkerhetskopi av regnearket 🟠
 
-All kundedata og all omsetningshistorikk ligger på én privat Google-konto uten
-kopi. En tidsstyrt trigger som eksporterer til Drive ukentlig løser det på
-femten minutter.
+Kundedata og omsetningshistorikk bør finnes flere steder enn i ett dokument. En
+tidsstyrt trigger som eksporterer til Drive ukentlig løser det på et kvarter.
 
 ---
 
@@ -161,14 +160,12 @@ bare telle innsendinger.
 - UTM-parametere på TikTok-bio-lenken
 - Enkel månedsoppsummering i regnearket
 
-### 2.4 Spamsikring 🟠
+### 2.4 Filtrering av automatiserte innsendinger 🟠
 
-Endepunktet er åpent uten noen beskyttelse. Hver spam-innsending brenner to
-e-poster av Gmails 100-per-dag-kvote og skitner til arket.
-
-- Honeypot-felt som mennesker aldri fyller ut
-- Tidssjekk: innsending under 3 sekunder etter sidelast avvises
-- Enkel frekvensbegrensning per økt
+Et offentlig skjemaendepunkt vil før eller siden få automatisk trafikk. Hver
+slike innsending koster e-postkvote og gjør arket mindre oversiktlig. Standard
+mottiltak implementeres i Apps Script og i skjemaet — detaljene holdes utenfor
+dokumentasjonen med vilje.
 
 ### 2.5 Varsling når e-post feiler 🟡
 

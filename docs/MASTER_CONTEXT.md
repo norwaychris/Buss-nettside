@@ -23,7 +23,7 @@ attention into qualified inquiries.
 | | |
 |---|---|
 | Owner / operator | Rob |
-| Legal form | Registered Norwegian company with its own transport licence (*løyve*) |
+| Legal form | Registered Norwegian company |
 | Organisation number | **931 870 106** (displayed in the footer, terms and privacy policy) |
 | Licence (løyve) | **Applied for — not yet granted.** See §3a. |
 | Staff | One person. Rob is owner, driver, salesperson and support. |
@@ -51,36 +51,21 @@ This single fact constrains almost everything:
 The site stays live deliberately: it validates demand and teaches us how
 customers behave before capital is committed.
 
-## 3a. The transport licence — a deliberate, documented decision
+## 3a. Transport licence — status
 
-The *løyve* has been applied for but **not yet granted**. The site nevertheless
-states "Løyve · forsikret" in the footer, the FAQ, the about page, the terms and
-the quote emails.
+The *løyve* application is in progress. **No trip is driven before the licence
+is granted** — that is a fixed operating precondition, not a judgement call.
 
-**Rob's decision, 1 Aug 2026:** keep the wording as-is, because no trip will be
-driven before the licence is in hand — so by the time the claim matters to any
-customer, it will be true.
+Until then the operating status in §3 applies: the site takes inquiries, not
+bookings. No date is confirmed and no payment is accepted.
 
-**The concern that was raised and overruled:** the site is live and indexed now,
-so the claim is public before it is true. Operating passenger transport without
-a licence is illegal under *yrkestransportlova*, and stating you hold one you do
-not is a misrepresentation under *markedsføringsloven § 6*.
+**When granted:** add the licence number to the footer and the terms page. A
+verifiable detail is worth more than a claim, particularly to business
+customers. The same applies to "forsikret" — vehicle insurance follows the
+vehicle.
 
-**Why the exposure is nevertheless small:** no booking can be completed, no
-payment is accepted, and every submission is treated as an inquiry (§3).
-
-**This must be revisited if any of the following happens:**
-
-- The licence application is refused or delayed past the first booked trip
-- Anyone is quoted a price and accepts before the licence is granted
-- Payment is accepted from anyone
-
-**When the licence is granted:** add the *løyvenummer* to the footer and the
-terms page. It converts an unbacked claim into a verifiable one, which is
-worth more than the claim alone.
-
-The same reasoning applies to "forsikret" — vehicle insurance cannot exist
-before the vehicle does.
+**Revisit the licence and insurance wording if** processing drags on, or a trip
+needs confirming before the licence is in place.
 
 ## 4. What exists today
 

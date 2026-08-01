@@ -180,13 +180,10 @@ Apps Script Web Apps do not return usable CORS headers to a browser. Options
 were: `no-cors` and accept a blind write; a hidden iframe + form POST; or a
 proxy. `no-cors` is simplest and works.
 
-**The cost:** we cannot read the response, so success is assumed. If the endpoint
-is down, quota-exhausted, or the deployment URL rotated, **the customer sees a
-thank-you and the lead is lost silently.** This is the highest-severity
-architectural weakness in the system. Mitigation options are in `ROADMAP.md`
-priority 4: a `no-cors` write plus a same-origin `sendBeacon` heartbeat, or a
-`GET` health check before submit, or a `localStorage` capture retried on next
-visit.
+**The cost:** the browser cannot read the response, so the confirmation shown to
+the customer is optimistic rather than confirmed. Getting positive delivery
+confirmation is the most valuable robustness improvement available, and is
+tracked as `ROADMAP.md` 1.3 with three candidate approaches.
 
 ---
 
@@ -437,10 +434,10 @@ it.
 | Concern | Position |
 |---|---|
 | Endpoint is public (`Anyone`) | Required — Apps Script cannot authenticate an anonymous web form |
-| Spam / abuse | **No protection today.** Honeypot + timestamp check is `ROADMAP.md` priority 7 |
-| Rate limiting | None. Gmail's 100/day quota is the de facto limit — and it fails silently |
+| Automated submissions | Filtering tracked in `ROADMAP.md` 2.4. Implementation detail is deliberately kept out of the docs |
+| Throughput | Bounded by the Gmail daily send quota; alerting tracked in `ROADMAP.md` 2.5 |
 | Secrets in repo | None, by rule. See `AI_RULES.md` §1.2 |
-| Customer data | Google Sheet on Rob's personal account. No backup. `ROADMAP.md` |
+| Customer data | Google Sheet on Rob's account. Backup tracked in `ROADMAP.md` 1.4 |
 | Transport | HTTPS everywhere; Pages enforces it |
 | XSS | Low surface — `followupWrap.innerHTML` is built from the hardcoded `FOLLOWUPS` object, never from user input. **Keep it that way.** |
 | Dependencies | Two Google Fonts requests. Nothing else. |
