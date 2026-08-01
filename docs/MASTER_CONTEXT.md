@@ -162,15 +162,25 @@ branding and expansion are means, not ends.
 
 ## 7. Data model — the booking spreadsheet
 
-Sheet `Bestillinger`, 16 fixed columns in this exact order. The order is part
+Sheet `Bestillinger`, 19 fixed columns in this exact order. The order is part
 of the contract between the website, the Apps Script and any future migration.
-**Do not reorder. Append only.**
+**Do not reorder. Append only** — the migration in `hentEllerLagArk()` depends
+on the existing header being a prefix of the new one.
 
 ```
 Mottatt · Status · Navn · Telefon · E-post · Anledning · Dato · Tidsrom ·
 Antall personer · Hentested · Rute · Anledning-detaljer · Ekstra ønsker ·
-Kilde · Betalt (kr) · Notat
+Kilde · Betalt (kr) · Notat · Pris (kr) · Timer · Sendt
 ```
+
+The last three were added with the email automation: `Pris (kr)` is the quoted
+price, `Timer` the trip duration driving the price suggestion, and `Sendt` an
+append-only log of which emails went out and when.
+
+A second sheet, `Innstillinger`, holds everything commercial or private —
+hourly rate, minimum hours, **bank account number**, **Rob's phone number**,
+seat capacity, deadlines and the review link. It is created automatically on
+first run. **None of those values may ever appear in this repository.**
 
 Status values: `Ny` · `Tilbud sendt` · `Betalt` · `Fullført` · `Avlyst`.
 
@@ -179,8 +189,8 @@ Form fields with a dedicated column: `Navn`, `Telefon`, `E-post`, `Anledning`,
 `Kilde`. Anything else the form sends — the per-occasion follow-up questions —
 is concatenated into `Anledning-detaljer`.
 
-Planned additions (see `ROADMAP.md`): a `Pris (kr)` column, a `Trafikk`
-analytics sheet, and an `Innstillinger` configuration sheet.
+Planned addition (see `ROADMAP.md`): a `Trafikk` sheet for cookieless
+analytics events.
 
 ## 8. Contact channels
 

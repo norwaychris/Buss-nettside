@@ -128,20 +128,27 @@ Ni steg. Alt fra steg 3 og utover er i dag manuelt.
 |---|---|---|---|
 | 1 | Kunden fyller ut skjemaet | Kunde | Automatisk |
 | 2 | Rad i regnearket + varsel til Rob + kvittering til kunden | System | **Automatisk** ✅ |
-| 3 | Rob vurderer og setter pris | Rob | Manuelt |
-| 4 | Tilbud sendes | Rob | Manuelt → skal bli halvautomatisk |
-| 5 | Betaling mottas og registreres | Rob | Manuelt |
-| 6 | Bekreftelse sendes | Rob | Manuelt → skal bli halvautomatisk |
-| 7 | Påminnelse 2–3 dager før turen | Rob | Manuelt → skal bli automatisk |
+| 3 | Pris settes | Rob | **Menyen foreslår, Rob godkjenner** ✅ |
+| 4 | Tilbud sendes | Rob | **Ett klikk + forhåndsvisning** ✅ |
+| 5 | Betaling mottas og registreres | Rob | Manuelt — krever bankkontroll |
+| 6 | Bekreftelse sendes | Rob | **Ett klikk + forhåndsvisning** ✅ |
+| 7 | Påminnelse 2–3 dager før turen | Rob | **Ett klikk** ✅ (kan bli tidsstyrt) |
 | 8 | Turen kjøres | Rob | — |
-| 9 | Takk + anmeldelsesforespørsel dagen etter | Rob | Manuelt → skal bli automatisk |
+| 9 | Takk + anmeldelse dagen etter | Rob | **Ett klikk** ✅ (kan bli tidsstyrt) |
 
-Steg 3–9 er **seks manuelle handlinger per booking**. Det fungerer ved to
-bookinger i måneden og er uholdbart ved tjue. Se `ROADMAP.md` prioritet 3.
+Seks manuelle handlinger per booking er blitt **fem klikk fra menyen
+«NorwayRob»** i regnearket, hver med forhåndsvisning før sending. Kun steg 5 er
+fortsatt ekte manuelt arbeid, fordi det krever at Rob ser i nettbanken.
 
 **Automasjonsfilosofi:** systemet forbereder alt, Rob godkjenner hvert tilbud
-før det sendes. Godkjenningssteget skal være en bryter, ikke en ombygging, slik
-at det kan slås av gradvis når prismodellen er moden.
+før det sendes. Godkjenningssteget er én boolsk bryter
+(`GODKJENNING_PAAKREVD`), ikke en ombygging — det kan slås av gradvis når
+prismodellen er moden.
+
+**Sikkerhetsbryter:** `TESTMODUS = true` sender all e-post til Rob selv i
+stedet for kunden, med `[TEST → kunde@…]` i emnefeltet. Den står på til bussen
+er kjøpt og løyvet innvilget, slik at hele flyten kan kjøres gjennom uten at
+noen ekte kunde får en betalingsoppfordring vi ikke kan innfri.
 
 ## 6. Regnearket
 

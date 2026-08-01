@@ -74,7 +74,21 @@ gjetning, og vi vet ikke om en tur er lønnsom.
 - **Må være på plass før første ekte tilbud sendes**
 - **Blokkert på:** kjøp av buss
 
-### 1.2 Regneark-automasjon, godkjenningsstyrt 🔴
+### 1.2 Regneark-automasjon, godkjenningsstyrt ✅ FERDIG 1. august 2026
+
+Bygget og enhetstestet. `NorwayRob`-meny i regnearket med seks handlinger,
+forhåndsvisning før hver sending, automatisk statusoppdatering og
+sendingslogg. Malene ligger nå i `Code.gs` som funksjoner, ikke som filer som
+må kopieres for hånd.
+
+**`TESTMODUS = true`** til bussen er kjøpt og løyvet innvilget — all e-post går
+til Rob selv, aldri til kunden.
+
+**Gjenstår i denne delen:** tidsstyrte utløsere for påminnelse før tur og takk
+etter tur (de to som ikke handler om penger). Krever at `Sendt`-loggen har vært
+i bruk en stund så vi vet at den er til å stole på.
+
+<details><summary>Opprinnelig kravspesifikasjon</summary>
 
 Det du eksplisitt ba om: skriv prisen i regnearket, trykk send, e-posten går ut.
 
@@ -91,6 +105,8 @@ Design i `ARCHITECTURE.md` §8. Omfang:
 - Vakthund: sender aldri fra en rad uten pris og gyldig e-post
 
 **Effekt:** seks manuelle handlinger per booking blir fem klikk.
+
+</details>
 
 ### 1.3 Skjemaet skal ikke miste kunder i stillhet 🔴
 

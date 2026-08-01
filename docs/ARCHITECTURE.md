@@ -337,8 +337,52 @@ function onOpen() {
 
 Every action operates on **the currently selected row**.
 
-> **Status: not yet implemented. This is `ROADMAP.md` priority 3** and the
-> largest single piece of pending work.
+> **Status: implemented 1 Aug 2026.** All five steps are live in `Code.gs`.
+
+### The safety switch: `TESTMODUS`
+
+A second boolean sits above the approval gate:
+
+```js
+var TESTMODUS = true;   // ALL mail goes to VARSEL_EPOST, never to the customer
+```
+
+When on, every email — including the automatic reply on form submission — is
+delivered to Rob with `[TEST → kunde@…]` prefixed to the subject. The real
+recipient is visible but never contacted.
+
+This exists because the bus is not bought and the licence is not granted. The
+quote email asks for payment to a bank account; sending it to a real customer
+before we can deliver would mean holding someone's money for a trip that cannot
+happen. `TESTMODUS` lets the entire flow be exercised end to end with zero
+exposure.
+
+**It must stay `true` until the bus is purchased and the licence granted.**
+
+### Actual column layout after implementation
+
+Three columns appended (never inserted — see §5):
+
+| Column | Purpose |
+|---|---|
+| `Pris (kr)` | The quoted price. Required before a quote can be sent. |
+| `Timer` | Trip duration, auto-derived from `Tidsrom`, editable when the end time was left blank. Drives the price suggestion. |
+| `Sendt` | Append-only log, one line per email: `Tilbud · 01.08.2026 14:22`. Prevents accidental double sends and is what future time-driven triggers will read. |
+
+### Migration safety
+
+`hentEllerLagArk()` previously archived the whole sheet whenever the header did
+not match, which would have moved existing bookings to `Bestillinger (gammel)`
+the moment these columns were added. It now classifies the header three ways:
+
+| Result | Action |
+|---|---|
+| `lik` | Header matches exactly — nothing to do |
+| `eldre` | Existing header is a **prefix** of `KOLONNER` — append the missing columns in place, keep all data, backfill `Timer` where computable |
+| `ukjent` | Genuinely different layout — archive as before |
+
+**Any future column addition must preserve this property: append only, never
+insert or rename.**
 
 ---
 
