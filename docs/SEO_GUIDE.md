@@ -73,6 +73,16 @@ and font preconnects.
 ### Rules
 
 - Title ≤ 60 characters, keyword first, brand last after a `|`.
+- **Capitalise the first word of every segment.** Google rewrites and reorders
+  titles in roughly half of all results, and will happily promote a middle
+  segment to the front. `… – bussutleie med sjåfør` was rendered by Google as
+  `bussutleie med sjåfør | NorwayRob: Leie buss i Bergen` — lowercase, first
+  thing a searcher sees. Every fragment between `–`, `|` and `:` must be able to
+  stand first. Check with:
+  ```bash
+  grep -o '<title>[^<]*</title>' *.html | grep -E '[–|:] +[a-zæøå]'
+  ```
+  Any output is a fragment that will look wrong if Google leads with it.
 - Description 140–160 characters, contains the keyword, ends with a reason to
   click — not a summary of the page.
 - `canonical` is absolute and always `https://norwayrob.no/…`.
