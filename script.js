@@ -174,12 +174,17 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
+  // Bygg tidsrommet på nytt her. Stoler vi bare på change-hendelsen, kan
+  // feltet være tomt eller utdatert hvis den aldri fyrte.
+  oppdaterTidsrom();
+
   const data = collectData();
   const ref = lagRef();
   data["Ref"] = ref;
 
   submitBtn.disabled = true;
   submitBtn.textContent = "Sender…";
+  meldStatus("Sender forespørselen …");
 
   try {
     if (!BOOKING_ENDPOINT) {
@@ -193,6 +198,7 @@ form.addEventListener("submit", async (e) => {
     if (await sjekkMottatt(ref, 6000)) {
       glemUbekreftet(ref);
       maal("innsendt");
+      meldStatus("Forespørselen er sendt. Du hører fra oss innen 24 timer.");
       form.reset();
       resetChips();
       apneOverlay();
@@ -308,6 +314,7 @@ function glemUbekreftet(ref) {
 /* Ærlig melding når vi ikke fikk bekreftelse – med ferdig utfylt e-post,
    så forespørselen når fram likevel. Skjemaet nullstilles ikke. */
 function visIkkeBekreftet(data) {
+  meldStatus("Vi fikk ikke bekreftet at forespørselen kom fram.");
   formError.textContent =
     "Vi fikk ikke bekreftet at forespørselen kom fram. Send den på e-post i stedet — alt du fylte ut ligger klart: ";
   const lenke = document.createElement("a");
@@ -340,6 +347,13 @@ function resetChips() {
   anledningInput.value = "";
   followupWrap.hidden = true;
   followupWrap.innerHTML = "";
+}
+
+/* Sendetilstanden endrer seg visuelt i knappeteksten, men det leses ikke opp
+   av seg selv. Denne regionen annonserer den for skjermlesere. */
+function meldStatus(tekst) {
+  const el = document.getElementById("form-status");
+  if (el) el.textContent = tekst;
 }
 
 function showError(msg) {
@@ -447,19 +461,46 @@ overlay.addEventListener("click", (e) => {
   });
 })();
 
-/* ---------------- Klokkeslett fra–til → Tidsrom ---------------- */
-(function tidsromFelt() {
+/* ---------------- Klokkeslett fra–til → Tidsrom ----------------
+   Merk: sluttid FØR starttid er helt normalt her – en tur 19:00–01:00 går
+   over midnatt. Vi validerer derfor ikke rekkefølgen, bare at feltet aldri
+   blir tomt.                                                              */
+function oppdaterTidsrom() {
   const fra = document.getElementById("tid-fra");
   const til = document.getElementById("tid-til");
   const tidsrom = document.getElementById("tid");
   if (!fra || !til || !tidsrom) return;
-  function oppdater() {
-    if (fra.value && til.value) tidsrom.value = "kl. " + fra.value + "–" + til.value;
-    else if (fra.value) tidsrom.value = "fra kl. " + fra.value + " (sluttid ikke oppgitt)";
-    else tidsrom.value = "";
-  }
-  fra.addEventListener("change", oppdater);
-  til.addEventListener("change", oppdater);
+  if (fra.value && til.value) tidsrom.value = "kl. " + fra.value + "–" + til.value;
+  else if (fra.value) tidsrom.value = "fra kl. " + fra.value + " (sluttid ikke oppgitt)";
+  else tidsrom.value = "";
+}
+
+(function tidsromFelt() {
+  const fra = document.getElementById("tid-fra");
+  const til = document.getElementById("tid-til");
+  if (!fra || !til) return;
+  fra.addEventListener("change", oppdaterTidsrom);
+  til.addEventListener("change", oppdaterTidsrom);
+  fra.addEventListener("input", oppdaterTidsrom);
+  til.addEventListener("input", oppdaterTidsrom);
+})();
+
+/* ---------------- Valgfri blokk ----------------
+   Skjult til man ber om den, så skjemaet ser kortere ut der folk bestemmer
+   seg for om de orker å begynne. */
+(function valgfriBlokk() {
+  const knapp = document.getElementById("vis-valgfritt");
+  const felt = document.getElementById("valgfrie-felt");
+  if (!knapp || !felt) return;
+  knapp.addEventListener("click", () => {
+    const apen = knapp.getAttribute("aria-expanded") === "true";
+    knapp.setAttribute("aria-expanded", String(!apen));
+    felt.hidden = apen;
+    if (!apen) {
+      const forste = felt.querySelector("textarea, input, select");
+      if (forste) forste.focus();
+    }
+  });
 })();
 
 /* ---------------- Sett minimum-dato til i dag ---------------- */
