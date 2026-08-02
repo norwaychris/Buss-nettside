@@ -35,7 +35,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="image" href="images/hero.jpg" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=29" />
+  <link rel="stylesheet" href="styles.css?v=30" />
 </head>
 <body>
   <a href="#booking" class="skip-link">Hopp til bestillingsskjemaet</a>
@@ -201,7 +201,7 @@
               <label for="antall">Antall personer <span class="req">*</span>
                 <button type="button" class="hint-btn" id="antall-hint-btn" aria-expanded="false" aria-controls="antall-hint" aria-label="Usikker på antallet?">?</button>
               </label>
-              <input type="number" id="antall" name="Antall personer" inputmode="numeric" min="1" max="70" value="20" required />
+              <input type="number" id="antall" name="Antall personer" inputmode="numeric" min="1" max="70" placeholder="F.eks. 25" required />
               <p class="field-hint" id="antall-hint" hidden>Usikre på om dere blir 32 eller 34? Helt greit — oppgi cirka antall. Et avvik på et par personer gjør ingenting, så lenge dere holder dere innenfor bussens antall plasser.</p>
             </div>
 
@@ -223,9 +223,14 @@
             <div id="occasion-followup" class="followup" hidden></div>
           </fieldset>
 
-          <!-- TIL SLUTT -->
-          <fieldset class="form-block">
-            <legend class="block-label">Til slutt</legend>
+          <!-- VALGFRITT – skjult til man ber om det, så skjemaet ser
+               kortere ut i det øyeblikket folk bestemmer seg for om de orker -->
+          <button type="button" class="valgfri-knapp" id="vis-valgfritt"
+                  aria-expanded="false" aria-controls="valgfrie-felt">
+            <span class="valgfri-tegn" aria-hidden="true"></span>
+            Legg til ekstra ønsker <span class="opt">(valgfritt)</span>
+          </button>
+          <div id="valgfrie-felt" class="valgfrie-felt" hidden>
             <div class="field">
               <label for="onsker">Ekstra ønsker <span class="opt">(lyd, pynt, stopp…)</span></label>
               <textarea id="onsker" name="Ekstra ønsker" rows="3" placeholder="Fortell oss hva som gjør kvelden perfekt"></textarea>
@@ -233,6 +238,10 @@
             <div class="field">
               <label for="kilde">Hvordan hørte du om oss?</label>
               <select id="kilde" name="Kilde">
+                <!-- Tom som standard. Blokken er skjult til man ber om den, og
+                     et forhåndsvalgt alternativ ville gitt feil kilde på alle
+                     forespørsler der ingen åpnet den. -->
+                <option value="">Velg …</option>
                 <option>TikTok</option>
                 <option>Instagram</option>
                 <option>Google-søk</option>
@@ -240,11 +249,19 @@
                 <option>Annet</option>
               </select>
             </div>
-          </fieldset>
+          </div>
 
           <button type="submit" class="btn btn-primary btn-block btn-lg" id="submit-btn">Få fast pris — uforpliktende</button>
           <p class="form-note">Vi går gjennom hver forespørsel og svarer <strong>innen 24 timer</strong> med en fast pris — helt uforpliktende. Ingenting er bindende før dere har bekreftet.</p>
           <p class="form-error" id="form-error" role="alert" hidden></p>
+          <!-- Annonserer sendetilstanden for skjermlesere. Knappeteksten
+               endrer seg visuelt, men det leses ikke opp av seg selv. -->
+          <p class="kun-skjermleser" id="form-status" role="status" aria-live="polite"></p>
+          <noscript>
+            <p class="notice">Skjemaet trenger JavaScript for å virke. Er det slått av,
+            send oss en e-post på <a href="mailto:norwayrob@outlook.com">norwayrob@outlook.com</a>
+            med dato, tidsrom, hentested og antall — så får du samme faste pris.</p>
+          </noscript>
         </form>
       </div>
     </section>
@@ -557,6 +574,6 @@
   }
   </script>
 
-  <script src="script.js?v=13"></script>
+  <script src="script.js?v=14"></script>
 </body>
 </html>
