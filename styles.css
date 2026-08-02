@@ -425,7 +425,24 @@ input:focus, textarea:focus, select:focus {
   box-shadow: 0 0 0 3px var(--red-soft);
 }
 textarea { resize: vertical; }
-input[type="date"], input[type="time"] { color-scheme: dark; }
+/* iOS Safari ignorerer box-sizing: border-box på date- og time-felt så lenge
+   de har standard utseende. Da legges polstringen UTENPÅ width: 100%, og
+   datoboksen stikker 26 px ut til høyre for skjemakortet. appearance: none
+   slår av det innebygde utseendet, og da regnes bredden som overalt ellers.
+   Pickeren åpnes fortsatt ved trykk – det er selve feltet som er trykkflaten. */
+input[type="date"], input[type="time"] {
+  color-scheme: dark;
+  -webkit-appearance: none;
+  appearance: none;
+  max-width: 100%;
+}
+/* Uten appearance vil iOS sentrere verdien og la feltet kollapse i høyden når
+   det er tomt. Disse to holder den venstrestilt og høyden stabil. */
+input[type="date"]::-webkit-date-and-time-value,
+input[type="time"]::-webkit-date-and-time-value {
+  text-align: left;
+  min-height: 1.4em;
+}
 .time-range { display: flex; align-items: center; gap: 10px; }
 .time-range input { flex: 1; min-width: 0; }
 .time-sep { color: var(--muted-2); font-size: 14px; flex: none; }
