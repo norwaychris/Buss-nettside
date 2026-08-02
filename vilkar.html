@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vilkår og avbestilling | NorwayRob</title>
-  <meta name="description" content="Vilkår for booking, betaling og avbestilling hos NorwayRob – buss til leie med sjåfør i Bergen." />
+  <meta name="description" content="Vilkår for booking, betaling og avbestilling hos NorwayRob. Gratis avbestilling inntil 14 dager før, og fri flytting av dato i samme periode." />
   <link rel="canonical" href="https://norwayrob.no/vilkar.html" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0a0a0b" />
@@ -17,10 +17,14 @@
   <link rel="icon" href="/favicon.ico" sizes="32x32" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=32" />
+  <!-- Skriftene ligger nå på vårt eget domene (se fonts/LES-MEG.md).
+       @font-face står i styles.css, som selv blokkerer visningen – uten
+       preload ville nedlastingen ikke starte før CSS-en var framme. Disse
+       tre er de eneste som brukes over skjermkanten. -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/anton-400.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-400.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-700.woff2" crossorigin />
+  <link rel="stylesheet" href="styles.css?v=33" />
 </head>
 <body>
   <a href="#top" class="skip-link">Hopp til innholdet</a>

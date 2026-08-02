@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Om Rob – Bussjåføren fra Bergen | NorwayRob</title>
-  <meta name="description" content="Møt Rob – erfaren bussjåfør fra Bergen, kjent fra TikTok. 15 år bak rattet, og et kjent fjes når gjengen skal ut." />
+  <meta name="description" content="Møt Rob – bussjåfør i Bergen gjennom 15 år, kjent fra TikTok med 2,2 millioner følgere. Et kjent fjes bak rattet når hele gjengen skal ut på tur." />
   <link rel="canonical" href="https://norwayrob.no/om.html" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0a0a0b" />
@@ -16,10 +16,14 @@
   <link rel="icon" href="/favicon.ico" sizes="32x32" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=32" />
+  <!-- Skriftene ligger nå på vårt eget domene (se fonts/LES-MEG.md).
+       @font-face står i styles.css, som selv blokkerer visningen – uten
+       preload ville nedlastingen ikke starte før CSS-en var framme. Disse
+       tre er de eneste som brukes over skjermkanten. -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/anton-400.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-400.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-700.woff2" crossorigin />
+  <link rel="stylesheet" href="styles.css?v=33" />
 </head>
 <body>
   <a href="#top" class="skip-link">Hopp til innholdet</a>

@@ -38,10 +38,17 @@ jobs:
         run: |
           mkdir -p _site
           cp -r *.html styles.css script.js favicon.svg favicon.ico \
-                apple-touch-icon.png robots.txt sitemap.xml CNAME images _site/
-          rm -f _site/images/README.md
+                apple-touch-icon.png robots.txt sitemap.xml CNAME images fonts _site/
+          rm -f _site/images/README.md _site/fonts/LES-MEG.md
           echo "--- Dette publiseres ---"
           find _site -type f | sort
+          # Skriftene MÅ komme med. Uten dem faller siden tilbake på Arial
+          # uten å feile noe sted – den ser bare billig ut, og ingen får vite
+          # det. Derfor stopper vi her i stedet.
+          for f in anton-400 inter-400 inter-600 inter-700; do
+            test -s "_site/fonts/$f.woff2" || { echo "MANGLER fonts/$f.woff2"; exit 1; }
+          done
+          echo "--- Alle fire skriftfiler er med ---"
 
       - name: Last opp nettsiden
         uses: actions/upload-pages-artifact@v3

@@ -21,13 +21,22 @@ second.
 | `favicon.svg` | 745 B | NR-merket som vektor |
 | `favicon.ico` | 6 KB | 16/32/48, kun for eldre klienter og Google |
 | `apple-touch-icon.png` | 7 KB | 180×180, kun iOS hjemskjerm |
-| Google Fonts | ~45 KB | Anton + Inter (5 weights) |
-| **Total, front page** | **~310 KB** | |
+| `fonts/*.woff2` | 160 KB | Anton 400 + Inter 400/600/700, latin only, self-hosted |
+| **Total, front page** | **~425 KB** | Fonts are cached after the first visit |
 
-**Third-party requests: 2** — both to Google Fonts. No analytics script, no tag
+**Third-party requests: 0.** No fonts from Google, no analytics script, no tag
 manager, no CDN library, no tracking pixel, no chat widget, no A/B testing tool.
+The one request that leaves the origin is our own measurement beacon to Apps
+Script, and it is `sendBeacon` — fire-and-forget, off the critical path.
 
-That number is the most valuable performance property this site has. Protect it.
+That zero is the most valuable performance property this site has. Protect it.
+
+> The font bytes went *up* on paper (160 KB in the table versus ~45 KB
+> estimated for Google Fonts) because that old estimate was wrong: the browser
+> actually fetched the latin subset of five Inter weights plus Anton, about
+> 254 KB. Dropping the two unused weights and self-hosting brought the real
+> number down to 160 KB and removed two DNS lookups and two TLS handshakes on
+> a cold connection.
 
 ## 2. Budgets
 
@@ -114,22 +123,33 @@ is CSS, each round was a one-line change rather than a new binary in git history
 
 ## 4. Fonts
 
+Self-hosted from `fonts/`. `@font-face` sits at the top of `styles.css`; each
+page preloads the three faces used above the fold:
+
 ```html
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="preload" as="font" type="font/woff2" href="/fonts/anton-400.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="/fonts/inter-400.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="/fonts/inter-700.woff2" crossorigin />
 ```
 
-- **One request** for both families. Never split them into two `<link>` tags.
-- `display=swap` — text renders immediately in the fallback, then swaps. A flash
-  of unstyled text is better than invisible text.
-- `preconnect` to both hosts saves the DNS + TLS round trip.
+- **The preloads are load-bearing.** `@font-face` lives inside `styles.css`,
+  which is render-blocking, so without them the fonts cannot start downloading
+  until the CSS has arrived. Removing them costs a full round trip.
+- `crossorigin` is required on font preloads even same-origin. Without it the
+  browser fetches the file twice.
+- `font-display: swap` — text renders immediately in the fallback, then swaps.
+  A flash of unstyled text is better than invisible text.
+- Latin subset only. Norwegian æ, ø and å live in latin (U+0000–00FF);
+  latin-ext is twice the weight and buys nothing.
+- The deploy workflow **fails the build** if any of the four files is missing.
+  Without that check a missing font degrades silently to Arial and nobody
+  finds out.
 - Fallbacks are metric-adjacent: `"Arial Narrow"` for Anton,
   `system-ui, -apple-system, "Segoe UI", Roboto` for Inter.
 
 ### Do not add font weights casually
 
-Inter loads five weights (400, 500, 600, 700, 800). Each additional weight is
+Inter loads three weights (400, 600, 700). Each additional weight is
 another download. Before adding one, check whether an existing weight works.
 
 ### Considered and rejected: self-hosting
