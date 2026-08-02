@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Personvern | NorwayRob</title>
-  <meta name="description" content="Personvernerklæring for NorwayRob – hvilke opplysninger vi samler når du sender en bussforespørsel, hvorfor, og dine rettigheter." />
+  <meta name="description" content="Slik behandler NorwayRob personopplysninger: hva vi samler når du ber om pris, hvorfor, hvor lenge vi lagrer det, og hvilke rettigheter du har." />
   <link rel="canonical" href="https://norwayrob.no/personvern.html" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0a0a0b" />
@@ -17,10 +17,14 @@
   <link rel="icon" href="/favicon.ico" sizes="32x32" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=32" />
+  <!-- Skriftene ligger nå på vårt eget domene (se fonts/LES-MEG.md).
+       @font-face står i styles.css, som selv blokkerer visningen – uten
+       preload ville nedlastingen ikke starte før CSS-en var framme. Disse
+       tre er de eneste som brukes over skjermkanten. -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/anton-400.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-400.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-700.woff2" crossorigin />
+  <link rel="stylesheet" href="styles.css?v=33" />
 </head>
 <body>
   <a href="#top" class="skip-link">Hopp til innholdet</a>
@@ -44,7 +48,7 @@
         <p class="eyebrow">Personvern</p>
         <h1>Personvernerklæring</h1>
         <p class="page-lead">Slik behandler vi personopplysningene du oppgir når du sender en forespørsel til NorwayRob.</p>
-        <p class="updated">Sist oppdatert: 1. august 2026</p>
+        <p class="updated">Sist oppdatert: 2. august 2026</p>
       </div>
     </section>
 
@@ -74,7 +78,20 @@
           <p>Vi bruker opplysningene til å gi deg et pristilbud, svare på henvendelsen din og gjennomføre en eventuell booking. Behandlingen skjer for å kunne inngå og oppfylle en avtale med deg, og ut fra vår berettigede interesse i å besvare forespørsler.</p>
 
           <h2>Hvordan opplysningene lagres</h2>
-          <p>Forespørsler mottas via e-post og lagres i vårt bookingsystem, som er bygget på Google-tjenester (Google Regneark og e-post). Google fungerer som databehandler og behandler opplysningene på våre vegne. Nettsiden er en enkel, statisk side og bruker Google Fonts for skrifttyper; når fontene lastes, kan IP-adressen din bli registrert av Google.</p>
+          <p>Forespørsler mottas via e-post og lagres i vårt bookingsystem, som er bygget på Google-tjenester (Google Regneark og e-post). Google fungerer som databehandler og behandler opplysningene på våre vegne.</p>
+          <p>Selve nettsiden er en enkel, statisk side. Den <strong>henter ingenting fra andre nettsteder</strong> — skriftene ligger på vårt eget domene, og det finnes ingen annonsenettverk, sporingspiksler eller innebygde tjenester fra andre. Det eneste som sendes ut, er den anonyme besøksstatistikken beskrevet under.</p>
+
+          <h2>Besøksstatistikk</h2>
+          <p>Vi teller hvordan siden brukes, slik at vi vet hva som fungerer. Målingen er <strong>helt uten informasjonskapsler</strong>: vi lagrer og leser ingenting på enheten din, og vi bruker ingen identifikator som kan følge deg mellom besøk eller mellom nettsteder.</p>
+          <p>For hver hendelse registreres bare fire ting:</p>
+          <ul>
+            <li>Hvilken hendelse det var — for eksempel at en side ble åpnet, eller at et skjema ble sendt</li>
+            <li>Hvilken side på norwayrob.no du var på</li>
+            <li>Om du kom fra TikTok, Instagram, et søk, eller direkte</li>
+            <li>Om skjermen er mobilstørrelse eller større</li>
+          </ul>
+          <p>Vi registrerer <strong>ikke</strong> IP-adresse, nettleser-signatur eller noe annet som peker tilbake på deg, og opplysningene kan ikke knyttes til en enkeltperson. Fordi vi verken lagrer eller leser noe på enheten din, kreves det ikke samtykke etter ekomloven § 2-7 b.</p>
+          <p>Statistikken sendes til det samme Google-regnearket som forespørslene, og Google er databehandler også her. Som ved all bruk av internett vil Google som teknisk mottaker kunne se IP-adressen forespørselen kommer fra — den lagres ikke av oss, og inngår ikke i statistikken.</p>
 
           <h2>Deling med andre</h2>
           <p>Vi selger ikke personopplysninger, og vi deler dem ikke med andre enn det som er nødvendig for å levere tjenesten (f.eks. leverandøren av bookingsystemet nevnt over). Vi kan utlevere opplysninger dersom vi er lovpålagt å gjøre det.</p>

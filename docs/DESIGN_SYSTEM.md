@@ -70,14 +70,31 @@ it below 12px, and never for anything the user must read to complete a task.
 
 | Token | Value | Used for |
 |---|---|---|
-| `--red` | `#ff3b3b` | Actions and emphasis only |
-| `--red-dark` | `#e12b2b` | Hover on primary button |
+| `--red` | `#ff3b3b` | Red **text**, accents, the logo, icons. Never behind white text. |
+| `--red-fyll` | `#e12b2b` | Every red **fill that carries white text**: primary button, active chip, skip link, success check |
+| `--red-fyll-hover` | `#c41f28` | Hover on those fills |
+| `--red-dark` | `#e12b2b` | Legacy alias of `--red-fyll`. Do not use in new code. |
 | `--red-soft` | `rgba(255,59,59,.12)` | Tinted backgrounds behind red icons and numerals |
 
-> `--red` on `--bg` is roughly **4.6:1** — it passes AA for normal text but is
-> not comfortable for long reading. Use it for short strings only. White on
-> `--red` (the primary button) is **3.5:1**, which is why button text is always
-> ≥16px and bold — large-text AA.
+### Why there are two reds
+
+`--red` on `--bg` measures **5.60:1** and is safe as text.
+
+White on `--red` measures **3.53:1**, and the primary button used it on every
+page. This document previously justified that as large-text AA. **That was
+wrong.** The large-text exemption needs ≥18.66px *and* bold, or ≥24px; the
+buttons render at 15px and 17px. They were a straightforward AA failure, and
+axe-core flagged them on all six pages.
+
+There is no way to fix it while keeping `#ff3b3b` — the red channel alone puts
+luminance above the threshold, so even pure `#ff0000` only reaches 4.0:1. The
+fill has to be darker. `#e12b2b` reaches **4.58:1** and was already in the
+system as the hover shade, so the brand did not change — the two states simply
+shifted down one step.
+
+**The rule:** red *text* uses `--red`. Red *behind* white text uses
+`--red-fyll`. If you catch yourself writing `background: var(--red)` with
+`color: #fff`, that is the bug.
 
 ### Borders
 
@@ -88,11 +105,24 @@ it below 12px, and never for anything the user must read to complete a task.
 
 ## 3. Typography
 
-Two families, loaded together in a single Google Fonts request on every page:
+Two families, **self-hosted** from `fonts/` — see `fonts/LES-MEG.md` for the
+licence and the reasoning. `@font-face` lives at the top of `styles.css`, and
+each page preloads the three faces used above the fold:
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="preload" as="font" type="font/woff2" href="/fonts/anton-400.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="/fonts/inter-400.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="/fonts/inter-700.woff2" crossorigin />
 ```
+
+The preloads are not optional. `@font-face` sits inside `styles.css`, which is
+itself render-blocking, so without them the download cannot start until the CSS
+has arrived.
+
+Only **Anton 400 and Inter 400/600/700**, latin subset only. Inter 500 used to
+be downloaded and was never referenced anywhere; Inter 800 was used for one
+checkmark glyph. Both are gone. Adding a weight to the CSS without adding the
+file gives you a synthesised fake — it looks nearly right and is easy to miss.
 
 | Family | Weights | Role |
 |---|---|---|

@@ -49,19 +49,47 @@ catches most defects.
 
 ## 3. Colour contrast
 
+Measured, not estimated. Every figure below comes from the WCAG relative-
+luminance formula applied to the actual computed colours in the browser.
+
 | Combination | Ratio | AA |
 |---|---|---|
-| `--ink` `#f5f5f6` on `--bg` `#0a0a0b` | 18.4:1 | ✅ |
-| `--muted` `#a1a1aa` on `--bg` | 8.2:1 | ✅ |
-| `--muted-2` `#7a7a83` on `--bg` | 4.9:1 | ✅ (normal text) |
-| `--red` `#ff3b3b` on `--bg` | 4.6:1 | ✅ (normal text) |
-| White on `--red` (primary button) | 3.5:1 | ✅ **large text only** |
-| `--red` on `--card` `#141417` | 4.3:1 | ⚠️ borderline |
+| `--ink` `#f5f5f6` on `--bg` | 18.16:1 | ✅ |
+| `--muted` `#a1a1aa` on `--bg` | 7.72:1 | ✅ |
+| `--muted-2` `#82828c` on `--bg` | 5.20:1 | ✅ |
+| `--muted-2` `#82828c` on `--card` | 4.83:1 | ✅ |
+| `--red` `#ff3b3b` on `--bg` | 5.60:1 | ✅ |
+| `--red` `#ff3b3b` on `--card` | 5.20:1 | ✅ |
+| White on `--red-fyll` `#e12b2b` | 4.58:1 | ✅ |
+| White on `--red-fyll-hover` `#c41f28` | 5.88:1 | ✅ |
+
+### Two failures this table used to hide
+
+Both were found by axe-core on 2 August 2026, and both had been documented here
+as passing.
+
+**White on `--red` was 3.53:1, on the primary button, on every page.** This
+document called it "✅ large text only". The large-text exemption needs ≥18.66px
+*and* bold, or ≥24px. The buttons render at 15px and 17px, so the exemption
+never applied. Fixed by introducing `--red-fyll` `#e12b2b` (4.58:1) for red
+fills that carry white text. See `DESIGN_SYSTEM.md` §2.
+
+**`--muted-2` was `#7a7a83`, measured only against `--bg`.** Against `--bg` it
+is 4.65:1 and passes. But it is used on `.form-note`, `.field-note` and
+`.time-sep`, which sit on `--card` — and there it was **4.32:1**, below AA.
+Fixed by lightening to `#82828c`.
+
+> **The lesson worth keeping:** measure a colour against the background it is
+> actually rendered on, not against the darkest background in the system. The
+> old figures in this table were not typos; they were measured against the
+> wrong surface.
 
 ### Rules that follow
 
-- **Button text is always ≥ 16px and bold.** White on red only passes as large
-  text. Shrinking a red button's label breaks compliance.
+- **Red text uses `--red`. Red behind white text uses `--red-fyll`.** Writing
+  `background: var(--red)` together with `color: #fff` is the bug, every time.
+- **Check both `--bg` and `--card`** when adding or changing a text colour.
+  Most text on this site sits on a card, not on the page background.
 - **`--muted-2` never below 12px**, and never for text required to complete a
   task.
 - **Red is never the only signal.** Selected chips also change background and
@@ -209,6 +237,17 @@ function overlayTaster(e) {
 
 ### Quarterly
 
-6. Full keyboard pass across all five pages.
-7. Re-verify contrast if any colour changed.
+6. Full keyboard pass across all six pages.
+7. Re-verify contrast if any colour changed — **against `--card` as well as
+   `--bg`**.
 8. Re-check that the FAQ markup and `FAQPage` JSON-LD still match.
+
+### Current automated status
+
+As of 2 August 2026, axe-core (WCAG 2.1 A + AA + best-practice) reports
+**0 violations across all six pages**, and every tap target measures ≥24 px
+(WCAG 2.2, 2.5.8). Both were verified with Playwright against a local server.
+
+That is a floor, not a ceiling. Automated tools catch roughly a third of real
+problems — a screen-reader pass through the booking form still finds things no
+checker will.

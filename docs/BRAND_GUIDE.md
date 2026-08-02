@@ -59,13 +59,21 @@ Disse er låst. De ble valgt bevisst og skal bevares gjennom enhver redesign:
 | Tekst | `--ink` | `#f5f5f6` | All primærtekst |
 | Tekst, dempet | `--muted` | `#a1a1aa` | Brødtekst i kort, sekundær informasjon |
 | Tekst, svakest | `--muted-2` | `#7a7a83` | Etiketter, hjelpetekst, fotnoter |
-| **Aksent** | `--red` | `#ff3b3b` | **Kun handling og aksent** |
-| Aksent, mørk | `--red-dark` | `#e12b2b` | Hover på primærknapp |
+| **Aksent** | `--red` | `#ff3b3b` | Rød **tekst**, logo, ikoner |
+| **Handlingsfyll** | `--red-fyll` | `#e12b2b` | Rød **flate bak hvit tekst** — knapper, valgt chip |
+| Handlingsfyll, hover | `--red-fyll-hover` | `#c41f28` | Hover på de flatene |
 | Aksent, svak | `--red-soft` | `rgba(255,59,59,.12)` | Bakgrunn bak røde ikoner og tall |
 
 ### Regelen for rødt
 
 Rødt betyr **handling eller viktighet**. Ingenting annet.
+
+Og rødt kommer i to nyanser med hver sin jobb. `--red` er merkevarerødt og
+brukes som tekst og aksent. `--red-fyll` er den samme rødfargen gjort mørk nok
+til at hvit tekst oppå er lesbar. Merkevaren er uendret — den lyse rødfargen
+står nøyaktig der den alltid har stått. Men hvit tekst på `#ff3b3b` gir bare
+3,53:1, og kravet er 4,5:1, så knappene måtte ned ett hakk. Se
+`DESIGN_SYSTEM.md` §2 for målingene.
 
 ✅ Primærknapper · aktive chips · ikoner · tall i tillitsstripen · understrek
 i navigasjon · den røde linjen i e-postmalene · det ene ordet i en overskrift

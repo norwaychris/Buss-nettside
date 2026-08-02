@@ -115,10 +115,12 @@ both, in the same commit.
 
 ### Known issues
 
-- `priceRange: "$$"` is an unsubstantiated guess on a site that deliberately
-  refuses to state price levels. Remove it or justify it.
-- `LocalBusiness` should carry the organisation number (via `identifier` or
-  `vatID`) and a `telephone` once one exists publicly. Neither does today.
+- ~~`priceRange: "$$"`~~ — removed. It was an unsubstantiated guess on a site
+  that deliberately refuses to state price levels.
+- ~~`LocalBusiness` should carry the organisation number~~ — added as an
+  `identifier` PropertyValue (931870106).
+- `telephone` still absent, and correctly so: Rob's number is deliberately not
+  public. Add it only if that decision changes.
 
 ## 5. Content and on-page
 
@@ -153,6 +155,9 @@ Every page → back to the front page. Descriptive anchor text always; never
 | Item | Status |
 |---|---|
 | HTTPS | ✅ Enforced by Pages |
+| Third-party requests | ✅ **Zero.** Fonts self-hosted since 2 Aug 2026 |
+| WCAG 2.1 AA (axe-core) | ✅ 0 violations across all six pages |
+| Tap targets (WCAG 2.2, 2.5.8) | ✅ All ≥24 px |
 | Mobile-friendly | ✅ Responsive, 16px+ inputs |
 | Core Web Vitals | ✅ See `PERFORMANCE.md` |
 | `robots.txt` | ✅ Allows all, points at the sitemap |

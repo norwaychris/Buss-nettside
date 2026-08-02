@@ -503,7 +503,7 @@ it.
 | Customer data | Google Sheet on Rob's account. Backup tracked in `ROADMAP.md` 1.4 |
 | Transport | HTTPS everywhere; Pages enforces it |
 | XSS | Low surface — `followupWrap.innerHTML` is built from the hardcoded `FOLLOWUPS` object, never from user input. **Keep it that way.** |
-| Dependencies | Two Google Fonts requests. Nothing else. |
+| Dependencies | **None.** Fonts are self-hosted; no third-party request leaves the page. |
 
 ---
 
