@@ -35,7 +35,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="image" href="images/hero.jpg" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=31" />
+  <link rel="stylesheet" href="styles.css?v=32" />
 </head>
 <body>
   <a href="#booking" class="skip-link">Hopp til bestillingsskjemaet</a>
@@ -105,7 +105,7 @@
         <h2 class="section-title">Leie buss i Bergen — med sjåfør</h2>
         <p class="section-lead">
           NorwayRob tilbyr <strong>bussutleie med sjåfør i Bergen</strong> og omegn — charterbuss til fest og arrangement. Enten det
-          er utdrikningslag, fadderuke, blåtur, bursdag, firmatur eller julebord — vi henter
+          er <a href="utdrikningslag.html">buss til utdrikningslag</a>, fadderuke, blåtur, bursdag, firmatur eller julebord — vi henter
           hele gjengen på ett sted, kjører dere dit dere skal, og sørger for at kvelden blir
           stemning fra første stopp. Du får <strong>fast pris</strong>, en proff sjåfør,
           og vasking inkludert. Ingen i gjengen trenger å tenke på kjøring eller
@@ -352,34 +352,46 @@
             <div class="faq-answer"><p>Dere får en <strong>fast pris</strong> ut fra dato, tidsrom, antall og rute — ingen skjulte tillegg. Prisen avhenger av hvor lenge og hvor langt dere skal. Fyll ut skjemaet, så skreddersyr vi et tilbud og svarer raskt.</p></div>
           </details>
           <details class="faq-item">
-            <summary>Passer det for bedrifter og firmaturer?<span class="faq-icon" aria-hidden="true"></span></summary>
-            <div class="faq-answer"><p>Absolutt. Vi kjører firmaturer, julebord, kickoff og events. <strong>Bedrifter kan få faktura</strong> mot organisasjonsnummer — bare oppgi det i skjemaet, så ordner vi resten.</p></div>
-          </details>
-          <details class="faq-item">
-            <summary>Hvor lenge i forveien bør vi booke?<span class="faq-icon" aria-hidden="true"></span></summary>
-            <div class="faq-answer"><p>Jo før, jo tryggere — spesielt i høysesong som sommer og fadderuke. Vi anbefaler <strong>4–6 uker før</strong> for populære datoer, men spør gjerne uansett; noen ganger har vi ledig på kort varsel.</p></div>
-          </details>
-          <details class="faq-item">
-            <summary>Kan vi feste og ha musikk om bord?<span class="faq-icon" aria-hidden="true"></span></summary>
-            <div class="faq-answer"><p>Absolutt — det er jo hele poenget! Lydanlegg om bord, spill deres egen playlist, og kos dere. Sjåføren tar rattet, så ingen i gjengen trenger å tenke på kjøring.</p></div>
-          </details>
-          <details class="faq-item">
-            <summary>Hvor kjører dere?<span class="faq-icon" aria-hidden="true"></span></summary>
-            <div class="faq-answer"><p>Hele Bergensområdet — blant annet Bergen sentrum, Åsane, Fana, Ytrebygda, Laksevåg, Arna, Askøy, Sotra &amp; Øygarden, Os / Bjørnafjorden, Nordhordland, Flesland flyplass og Voss. Dere sier hvor dere vil hentes og hvor turen skal gå, så legger vi ruta sammen. Henting fra ett sted, levering der dere vil.</p><p>Skal dere <strong>lenger enn Bergen og omegn</strong> — til en annen by, til fjells eller et arrangement langt unna? Det ordner vi også. Lengre turer koster naturlig nok mer, men gi oss detaljene, så får dere en fast pris.</p></div>
-          </details>
-          <details class="faq-item">
             <summary>Hvordan og når betaler vi?<span class="faq-icon" aria-hidden="true"></span></summary>
             <div class="faq-answer"><p>Først får dere en fast pris — helt uforpliktende. Passer den, bekrefter vi turen sammen. <strong>Privatpersoner betaler hele summen i forkant</strong> med bankoverføring, og datoen er sikret så snart betalingen er registrert. <strong>Bedrifter</strong> kan få faktura mot organisasjonsnummer.</p></div>
-          </details>
-          <details class="faq-item">
-            <summary>Hvor raskt får vi svar, og hvordan bekrefter vi?<span class="faq-icon" aria-hidden="true"></span></summary>
-            <div class="faq-answer"><p>Vi går gjennom hver eneste forespørsel selv, og svarer <strong>innen 24 timer</strong> med en fast pris tilpasset turen deres. Passer den, bekrefter vi datoen sammen — privat ved å betale i forkant, bedrift ved å avtale faktura.</p></div>
           </details>
           <details class="faq-item">
             <summary>Hva om planene endrer seg?<span class="faq-icon" aria-hidden="true"></span></summary>
             <div class="faq-answer"><p>Avbestill <strong>gratis inntil 14 dager før</strong>, så får dere hele beløpet tilbake — ingen spørsmål. Frem til da kan dere også flytte datoen så mange ganger dere trenger, kostnadsfritt. Nærmere avreise enn 14 dager refunderes ikke beløpet — se <a href="vilkar.html">vilkårene</a> for detaljer.</p></div>
           </details>
+
+          <!-- Resten ligger bak en knapp. Alle ti står fortsatt i markupen, så
+               FAQPage-blokken og det synlige innholdet er identisk — det er
+               bare visningen som er sammenslått. -->
+          <div id="faq-mer" class="faq-mer" hidden>
+            <details class="faq-item">
+              <summary>Passer det for bedrifter og firmaturer?<span class="faq-icon" aria-hidden="true"></span></summary>
+              <div class="faq-answer"><p>Absolutt. Vi kjører firmaturer, julebord, kickoff og events. <strong>Bedrifter kan få faktura</strong> mot organisasjonsnummer — bare oppgi det i skjemaet, så ordner vi resten.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Hvor lenge i forveien bør vi booke?<span class="faq-icon" aria-hidden="true"></span></summary>
+              <div class="faq-answer"><p>Jo før, jo tryggere — spesielt i høysesong som sommer og fadderuke. Vi anbefaler <strong>4–6 uker før</strong> for populære datoer, men spør gjerne uansett; noen ganger har vi ledig på kort varsel.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Kan vi feste og ha musikk om bord?<span class="faq-icon" aria-hidden="true"></span></summary>
+              <div class="faq-answer"><p>Absolutt — det er jo hele poenget! Lydanlegg om bord, spill deres egen playlist, og kos dere. Sjåføren tar rattet, så ingen i gjengen trenger å tenke på kjøring.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Hvor kjører dere?<span class="faq-icon" aria-hidden="true"></span></summary>
+              <div class="faq-answer"><p>Hele Bergensområdet — blant annet Bergen sentrum, Åsane, Fana, Ytrebygda, Laksevåg, Arna, Askøy, Sotra &amp; Øygarden, Os / Bjørnafjorden, Nordhordland, Flesland flyplass og Voss. Dere sier hvor dere vil hentes og hvor turen skal gå, så legger vi ruta sammen. Henting fra ett sted, levering der dere vil.</p><p>Skal dere <strong>lenger enn Bergen og omegn</strong> — til en annen by, til fjells eller et arrangement langt unna? Det ordner vi også. Lengre turer koster naturlig nok mer, men gi oss detaljene, så får dere en fast pris.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Hvor raskt får vi svar, og hvordan bekrefter vi?<span class="faq-icon" aria-hidden="true"></span></summary>
+              <div class="faq-answer"><p>Vi går gjennom hver eneste forespørsel selv, og svarer <strong>innen 24 timer</strong> med en fast pris tilpasset turen deres. Passer den, bekrefter vi datoen sammen — privat ved å betale i forkant, bedrift ved å avtale faktura.</p></div>
+            </details>
+          </div>
         </div>
+
+        <button type="button" class="vis-mer" id="vis-flere-sporsmal"
+                aria-expanded="false" aria-controls="faq-mer">
+          <span class="vis-mer-tekst">Vis fem spørsmål til</span>
+          <span class="vis-mer-pil" aria-hidden="true"></span>
+        </button>
       </div>
     </section>
   </main>
@@ -399,6 +411,7 @@
         <h3>Snarveier</h3>
         <ul>
           <li><a href="/#top">Hjem</a></li>
+          <li><a href="/utdrikningslag.html">Buss til utdrikningslag</a></li>
           <li><a href="/#slik-booker-du">Slik booker du</a></li>
           <li><a href="/#faq">Spørsmål &amp; svar</a></li>
           <li><a href="/om.html">Om Rob</a></li>
@@ -537,6 +550,16 @@
       },
       {
         "@type": "Question",
+        "name": "Hvordan og når betaler vi?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Først får dere en fast pris – helt uforpliktende. Passer den, bekrefter vi turen sammen. Privatpersoner betaler hele summen i forkant med bankoverføring, og datoen er sikret så snart betalingen er registrert. Bedrifter kan få faktura mot organisasjonsnummer." }
+      },
+      {
+        "@type": "Question",
+        "name": "Hva om planene endrer seg?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Avbestill gratis inntil 14 dager før, så får dere hele beløpet tilbake – ingen spørsmål. Frem til da kan dere også flytte datoen så mange ganger dere trenger, kostnadsfritt. Nærmere avreise enn 14 dager refunderes ikke beløpet." }
+      },
+      {
+        "@type": "Question",
         "name": "Passer det for bedrifter og firmaturer?",
         "acceptedAnswer": { "@type": "Answer", "text": "Absolutt. Vi kjører firmaturer, julebord, kickoff og events. Bedrifter kan få faktura mot organisasjonsnummer – bare oppgi det i skjemaet, så ordner vi resten." }
       },
@@ -557,23 +580,13 @@
       },
       {
         "@type": "Question",
-        "name": "Hvordan og når betaler vi?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Først får dere en fast pris – helt uforpliktende. Passer den, bekrefter vi turen sammen. Privatpersoner betaler hele summen i forkant med bankoverføring, og datoen er sikret så snart betalingen er registrert. Bedrifter kan få faktura mot organisasjonsnummer." }
-      },
-      {
-        "@type": "Question",
         "name": "Hvor raskt får vi svar, og hvordan bekrefter vi?",
         "acceptedAnswer": { "@type": "Answer", "text": "Vi går gjennom hver eneste forespørsel selv, og svarer innen 24 timer med en fast pris tilpasset turen deres. Passer den, bekrefter vi datoen sammen – privat ved å betale i forkant, bedrift ved å avtale faktura." }
-      },
-      {
-        "@type": "Question",
-        "name": "Hva om planene endrer seg?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Avbestill gratis inntil 14 dager før, så får dere hele beløpet tilbake – ingen spørsmål. Frem til da kan dere også flytte datoen så mange ganger dere trenger, kostnadsfritt. Nærmere avreise enn 14 dager refunderes ikke beløpet." }
       }
     ]
   }
   </script>
 
-  <script src="script.js?v=14"></script>
+  <script src="script.js?v=15"></script>
 </body>
 </html>

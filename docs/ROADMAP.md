@@ -247,14 +247,27 @@ Detaljer og ferdig kode i `ACCESSIBILITY.md` §4–6.
 
 Ikke før grunndriften går rundt.
 
-### 5.1 Landingssider per anledning 🟠
+### 5.1 Landingssider per anledning 🟠 — én av fire ute
 
-`/utdrikningslag.html`, `/fadderuke.html`, `/firmatur.html`, `/blatur.html`.
 Mindre konkurranse enn «leie buss bergen» og bedre konvertering. **Må ha ekte,
 særegent innhold** — fire tynne kopier er verre enn én god side. Se
 `SEO_GUIDE.md` §7.
 
-`/fadderuke.html` bør ligge ute innen juni for å rekke augustsesongen.
+| Side | Status |
+|---|---|
+| `/utdrikningslag.html` | ✅ Publisert 2. august 2026, 653 ord, egen FAQ og `Service`-skjema |
+| `/fadderuke.html` | Åpen — **bør ligge ute innen juni** for å rekke augustsesongen |
+| `/firmatur.html` | Åpen |
+| `/blatur.html` | Åpen |
+
+**Mønsteret er satt av den første siden, og bør gjenbrukes:** egen `<h1>`,
+400–600 ord som faktisk handler om anledningen, 4–5 spørsmål som bare gjelder
+den, `Service`-skjema, og lenker begge veier med forsiden. Knappene peker på
+`/?anledning=<Anledning>#booking`, slik at skjemaet på forsiden står ferdig
+utfylt med riktig anledning. Da finnes skjemaet fortsatt bare ett sted.
+
+Merk at forhåndsvalget bevisst **ikke** teller som `anledning_valgt` i
+trakten — det er ikke et valg kunden har tatt.
 
 ### 5.2 Bedriftsmarkedet 🟠
 

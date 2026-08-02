@@ -135,6 +135,31 @@ Loosely: layout → box → typography → colour → effects.
 - `rgba()` for translucency; never `opacity` on a container (it fades children).
 - `clamp()` for responsive type. No font-size media queries.
 
+### Browser quirks that have actually bitten us
+
+Only verified ones belong here. Each cost real debugging, and none of them
+reproduce in the sandbox's Chromium — that is precisely why they are written
+down rather than rediscovered.
+
+- **`input[type="date"]` and `input[type="time"]` need `appearance: none`.**
+  iOS Safari ignores `box-sizing: border-box` on these two while they carry
+  their default appearance, so padding lands *outside* `width: 100%`. At 390 px
+  the date field was 26 px wider than the form card and got clipped at the
+  screen edge by `overflow-x: clip` — it read as a rendering bug, not a layout
+  slip. `appearance: none` restores normal width maths. Pair it with
+  `::-webkit-date-and-time-value { text-align: left; min-height: 1.4em; }`,
+  or iOS centres the value and collapses the height while the field is empty.
+  The picker still opens on tap; the whole field is the tap target, not the
+  icon. *Confirmed on a real iPhone, 2 August 2026.*
+- **`overflow-x: clip` on `html`, never `hidden`.** `hidden` breaks
+  `position: sticky`, and the header is sticky.
+- **`object-position` on the Y axis does nothing** for a landscape image in a
+  portrait box under `object-fit: cover` — the image is scaled by height, so
+  there is no vertical overflow left to position. Use `transform: translate()`.
+- **Grid and flex children need `min-width: 0`** before they will shrink below
+  their content's intrinsic width. Two `input[type="time"]` side by side
+  overflowed at 360 px until `.field-row > * { min-width: 0 }` was added.
+
 ## 5. JavaScript
 
 ### Two shapes, and when to use each
