@@ -15,7 +15,7 @@ buss bergen" is going to rent a bus from someone.
 | Domain | `norwayrob.no` — new, no history, no backlinks |
 | Search Console | Verified via `googleb42a97d75978e695.html` — **never delete this file** |
 | Indexing | Confirmed indexed ("Nettadressen er på Google — Siden er indeksert") |
-| Sitemap | `sitemap.xml`, 4 URLs, submitted |
+| Sitemap | `sitemap.xml`, 5 URLs, submitted |
 | Rankings | Effectively none — expected for a domain this young |
 | Google Business Profile | Exists; review link live. **Incomplete** — see §8 |
 
@@ -65,6 +65,7 @@ and font preconnects.
 | Page | Title | Robots |
 |---|---|---|
 | `index.html` | `Leie buss i Bergen – bussutleie med sjåfør \| NorwayRob` | `index, follow, max-image-preview:large` |
+| `utdrikningslag.html` | `Buss til utdrikningslag i Bergen \| NorwayRob` | `index, follow` |
 | `om.html` | `Om Rob – bussjåføren fra Bergen \| NorwayRob` | `index, follow` |
 | `vilkar.html` | `Vilkår og avbestilling \| NorwayRob` | `index, follow` |
 | `personvern.html` | `Personvern \| NorwayRob` | `index, follow` |
@@ -155,7 +156,7 @@ Every page → back to the front page. Descriptive anchor text always; never
 | Mobile-friendly | ✅ Responsive, 16px+ inputs |
 | Core Web Vitals | ✅ See `PERFORMANCE.md` |
 | `robots.txt` | ✅ Allows all, points at the sitemap |
-| `sitemap.xml` | ✅ 4 URLs — **`lastmod` is stale** (2026-07-30) |
+| `sitemap.xml` | ✅ 5 URLs, `lastmod` current (2026-08-02) |
 | Canonicals | ✅ All pages |
 | 404 | ✅ Branded, `noindex` |
 | Structured data | ✅ Five types |
@@ -176,7 +177,7 @@ Proposed, in priority order:
 
 | URL | Target | Season |
 |---|---|---|
-| `/utdrikningslag.html` | `buss utdrikningslag bergen` | Year-round, peaks in summer |
+| ~~`/utdrikningslag.html`~~ | `buss utdrikningslag bergen` | **Live since 2 Aug 2026** |
 | `/fadderuke.html` | `buss fadderuke bergen` | Publish by June for August |
 | `/firmatur.html` | `buss firmatur bergen`, `buss julebord bergen` | The low-season fix |
 | `/blatur.html` | `buss blåtur bergen` | Year-round |
@@ -189,6 +190,22 @@ both ways with the front page.
 **Do not create these as thin duplicates.** Four near-identical pages are worse
 than one good one — that is exactly what triggers a thin-content demotion. Each
 needs real, specific content.
+
+### The pattern the first page established
+
+`utdrikningslag.html` is the reference implementation. Copy its shape, not its
+prose: 653 words about that occasion specifically, five FAQ entries that apply
+to nothing else, `Service` schema pointing at the business `@id`, its own
+`FAQPage`, and links both ways with the front page.
+
+**The form is not duplicated.** Calls to action link to
+`/?anledning=<Occasion>#booking`, and `script.js` preselects the matching chip
+on load. One form, one place to change it. The value must match a chip's
+`data-value` exactly; unknown values are ignored rather than guessed at.
+
+Preselection deliberately does **not** emit `anledning_valgt` — only a real
+click does. Counting a prefilled choice as a funnel step would inflate the
+metric with actions no visitor took.
 
 ## 8. Off-page
 

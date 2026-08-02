@@ -115,19 +115,25 @@ const chipsWrap = document.getElementById("occasion-chips");
 const anledningInput = document.getElementById("anledning");
 const followupWrap = document.getElementById("occasion-followup");
 
-chipsWrap.addEventListener("click", (e) => {
-  const chip = e.target.closest(".chip");
+/* Selve valget, uten måling. Brukes både når kunden trykker og når en
+   landingsside har valgt anledningen på forhånd via lenke. */
+function velgAnledning(chip) {
   if (!chip) return;
-  const value = chip.dataset.value;
-
   chipsWrap.querySelectorAll(".chip").forEach((c) => {
     const active = c === chip;
     c.classList.toggle("active", active);
     c.setAttribute("aria-checked", active ? "true" : "false");
   });
+  anledningInput.value = chip.dataset.value;
+  renderFollowup(chip.dataset.value);
+}
 
-  anledningInput.value = value;
-  renderFollowup(value);
+chipsWrap.addEventListener("click", (e) => {
+  const chip = e.target.closest(".chip");
+  if (!chip) return;
+  velgAnledning(chip);
+  // Måles bare her. Et forhåndsvalg fra en lenke er ikke et valg kunden tok,
+  // og ville blåst opp trakten med steg ingen faktisk gjennomførte.
   maal("anledning_valgt");
 });
 
@@ -501,6 +507,46 @@ function oppdaterTidsrom() {
       if (forste) forste.focus();
     }
   });
+})();
+
+/* ---------------- Flere spørsmål ----------------
+   Fem av ti spørsmål er skjult til man ber om dem. Ingenting fjernes fra
+   markupen, så FAQPage-blokken og innholdet stemmer fortsatt overens. */
+(function flereSporsmal() {
+  const knapp = document.getElementById("vis-flere-sporsmal");
+  const mer = document.getElementById("faq-mer");
+  if (!knapp || !mer) return;
+  const tekst = knapp.querySelector(".vis-mer-tekst");
+  knapp.addEventListener("click", () => {
+    const apen = knapp.getAttribute("aria-expanded") === "true";
+    knapp.setAttribute("aria-expanded", String(!apen));
+    mer.hidden = apen;
+    if (tekst) tekst.textContent = apen ? "Vis fem spørsmål til" : "Vis færre";
+    // Lukker man igjen, kan knappen ha havnet utenfor skjermen fordi
+    // innholdet over den forsvant. Da hentes den tilbake i syne.
+    if (apen && knapp.getBoundingClientRect().top < 0) {
+      knapp.scrollIntoView({ block: "center" });
+    }
+  });
+})();
+
+/* ---------------- Anledning forhåndsvalgt fra lenke ----------------
+   Landingssidene for anledning lenker hit med ?anledning=Utdrikningslag.
+   Da er valget gjort før skjemaet vises, og oppfølgingsfeltene er allerede
+   riktige. Verdien må treffe en chip nøyaktig – ukjente verdier ignoreres. */
+(function anledningFraLenke() {
+  const chips = document.getElementById("occasion-chips");
+  if (!chips) return;
+  let onsket;
+  try {
+    onsket = new URLSearchParams(window.location.search).get("anledning");
+  } catch (e) {
+    return;
+  }
+  if (!onsket) return;
+  const treff = [...chips.querySelectorAll(".chip")]
+    .find((c) => c.dataset.value === onsket);
+  if (treff) velgAnledning(treff);
 })();
 
 /* ---------------- Sett minimum-dato til i dag ---------------- */

@@ -580,6 +580,30 @@ input[type="time"]::-webkit-date-and-time-value {
 .faq-answer p { margin: 0; }
 .faq-answer strong { color: var(--ink); }
 
+/* De fem siste spørsmålene ligger bak en knapp. De står fortsatt i markupen,
+   så FAQPage-blokken og innholdet er identisk — det er bare visningen som er
+   slått sammen. [hidden] må gjentas her, ellers vinner display: flex. */
+.faq-mer { display: flex; flex-direction: column; gap: 12px; }
+.faq-mer[hidden] { display: none; }
+.vis-mer {
+  display: flex; align-items: center; justify-content: center; gap: 9px;
+  margin: 18px auto 0; padding: 13px 24px;
+  background: transparent; border: 1px solid var(--border-2);
+  border-radius: 999px;
+  color: var(--muted); font-family: var(--sans);
+  font-size: 15px; font-weight: 600; cursor: pointer;
+  transition: color .15s ease, border-color .15s ease;
+}
+.vis-mer:hover { color: var(--ink); border-color: var(--muted-2); }
+.vis-mer-pil {
+  flex: none; width: 8px; height: 8px;
+  border-right: 2px solid var(--red); border-bottom: 2px solid var(--red);
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform .2s ease;
+}
+.vis-mer[aria-expanded="true"] .vis-mer-pil { transform: translateY(1px) rotate(-135deg); }
+@media (prefers-reduced-motion: reduce) { .vis-mer-pil { transition: none; } }
+
 /* ===================== FOOTER ===================== */
 .site-footer { border-top: 1px solid var(--border); background: #0c0c0e; padding: 60px 0 30px; }
 .footer-grid {
