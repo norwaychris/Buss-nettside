@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Breakz – Pokémon-kort, slabs og sealed | NorwayRobs butikk</title>
+<meta name="description" content="Breakz selger Pokémon-kort, graderte slabs og sealed produkter. Rob reiser rundt og kjøper opp samlinger – vi selger dem videre.">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        ink:    '#0A0A0B',
+        panel:  '#121214',
+        card:   '#17171A',
+        line:   '#26262B',
+        line2:  '#34343B',
+        muted:  '#9A9AA3',
+        gul:    '#FFC400',
+        gul2:   '#FFD447'
+      },
+      fontFamily: {
+        sans: ['Inter','Helvetica Neue','Helvetica','Arial','system-ui','sans-serif']
+      }
+    }
+  }
+}
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { -webkit-font-smoothing: antialiased; background:#0A0A0B; }
+  .display { font-weight: 800; letter-spacing: -0.03em; line-height: 0.95; }
+  .eyebrow { font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; font-size: 11px; }
+  .noise::before{
+    content:''; position:absolute; inset:0; pointer-events:none; opacity:.5;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,.035) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+  .scrollbar-thin::-webkit-scrollbar{width:8px;height:8px}
+  .scrollbar-thin::-webkit-scrollbar-thumb{background:#34343B;border-radius:8px}
+  input[type=checkbox]{accent-color:#FFC400}
+  input[type=range]{accent-color:#FFC400}
+  .prodimg{transition: transform .35s cubic-bezier(.2,.7,.3,1)}
+  .group:hover .prodimg{transform: scale(1.04)}
+  ::selection{background:#FFC400;color:#0A0A0B}
+</style>
+</head>
+<body class="bg-ink text-white font-sans antialiased">
+
+<!-- ══════════════════ TOPPBANNER ══════════════════ -->
+<div class="bg-gul text-ink text-[12px] sm:text-[13px] font-semibold">
+  <div class="mx-auto max-w-[1400px] px-4 py-2 flex items-center justify-center gap-2 text-center">
+    <span>Fri frakt over 999 kr · Sendes fra Bergen · Alle kort sjekkes for hånd før pakking</span>
+  </div>
+</div>
+
+<!-- ══════════════════ HEADER ══════════════════ -->
+<header class="sticky top-0 z-50 bg-ink/95 backdrop-blur border-b border-line">
+  <div class="mx-auto max-w-[1400px] px-4">
+    <div class="h-16 sm:h-20 flex items-center gap-3 sm:gap-6">
+
+      <!-- Meny mobil -->
+      <button id="menuBtn" class="lg:hidden -ml-1 p-2 text-white/80 hover:text-white" aria-label="Åpne meny">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+
+      <!-- Logo -->
+      <a href="#/" class="flex items-center gap-2 shrink-0" aria-label="Breakz forside">
+        <span class="grid place-items-center w-9 h-9 sm:w-10 sm:h-10 bg-gul text-ink rounded-md font-black text-xl">B</span>
+        <span class="display text-2xl sm:text-[28px]">BREAKZ<span class="text-gul">.</span></span>
+      </a>
+
+      <!-- Søk -->
+      <div class="hidden md:flex flex-1 max-w-xl">
+        <div class="relative w-full">
+          <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+          <input type="search" placeholder="Søk etter kort, sett eller gradering…"
+                 class="w-full bg-panel border border-line rounded-lg pl-10 pr-4 py-2.5 text-sm placeholder-muted focus:outline-none focus:border-gul focus:ring-1 focus:ring-gul">
+        </div>
+      </div>
+
+      <div class="ml-auto flex items-center gap-1 sm:gap-2">
+        <button class="md:hidden p-2 text-white/80 hover:text-white" aria-label="Søk">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+        </button>
+        <button class="relative p-2 text-white/80 hover:text-white" aria-label="Handlekurv">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16l-1.4 11.2a2 2 0 0 1-2 1.8H7.4a2 2 0 0 1-2-1.8L4 7Z"/><path d="M9 7V5.5a3 3 0 0 1 6 0V7"/></svg>
+          <span class="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 grid place-items-center bg-gul text-ink text-[11px] font-bold rounded-full">2</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Nav desktop -->
+    <nav class="hidden lg:flex items-center gap-7 h-12 text-[14px] font-semibold border-t border-line/60">
+      <a href="#nytt" class="text-white/80 hover:text-gul transition">Singler</a>
+      <a href="#nytt" class="text-white/80 hover:text-gul transition">Slabs</a>
+      <a href="#nytt" class="text-white/80 hover:text-gul transition">Sealed</a>
+      <a href="#nytt" class="text-white/80 hover:text-gul transition">Tilbehør</a>
+      <a href="#/utvalg" class="text-gul hover:text-gul2 transition flex items-center gap-1.5">
+        NorwayRobs utvalg
+        <span class="text-[10px] font-bold bg-gul text-ink px-1.5 py-0.5 rounded">12 KORT</span>
+      </a>
+      <a href="#om" class="text-white/80 hover:text-gul transition">Om oss</a>
+    </nav>
+  </div>
+
+  <!-- Nav mobil -->
+  <div id="mobileNav" class="lg:hidden hidden border-t border-line bg-panel">
+    <div class="px-4 py-3">
+      <div class="relative mb-3 md:hidden">
+        <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+        <input type="search" placeholder="Søk etter kort…" class="w-full bg-ink border border-line rounded-lg pl-10 pr-4 py-2.5 text-sm placeholder-muted focus:outline-none focus:border-gul">
+      </div>
+      <nav class="grid text-[15px] font-semibold">
+        <a href="#nytt" class="py-3 border-b border-line/70">Singler</a>
+        <a href="#nytt" class="py-3 border-b border-line/70">Slabs</a>
+        <a href="#nytt" class="py-3 border-b border-line/70">Sealed</a>
+        <a href="#nytt" class="py-3 border-b border-line/70">Tilbehør</a>
+        <a href="#/utvalg" class="py-3 border-b border-line/70 text-gul">NorwayRobs utvalg</a>
+        <a href="#om" class="py-3">Om oss</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- ══════════════════ FORSIDE ══════════════════ -->
+<!-- ══════════════════════════════════════════════════════ -->
+<main id="page-home">
+
+  <!-- ─────────── HERO ─────────── -->
+  <section class="relative border-b border-line noise overflow-hidden">
+    <div class="mx-auto max-w-[1400px] px-4 py-10 sm:py-16 lg:py-20 grid lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-16 items-center relative">
+      <div>
+        <div class="inline-flex items-center gap-2 border border-gul/40 bg-gul/10 text-gul rounded-full px-3 py-1.5 mb-6">
+          <span class="w-1.5 h-1.5 rounded-full bg-gul animate-pulse"></span>
+          <span class="eyebrow">Nytt innkjøp lagt ut i dag</span>
+        </div>
+
+        <h1 class="display text-[42px] sm:text-6xl lg:text-7xl mb-5">
+          Rob kjøper opp<br>
+          <span class="text-gul">hele Norge.</span><br>
+          Kortene havner her.
+        </h1>
+
+        <p class="text-[17px] sm:text-lg text-white/70 max-w-xl mb-8 leading-relaxed">
+          Vi kjører rundt i landet og kjøper samlinger, permer og loftfunn. Alt blir sjekket,
+          priset ærlig og lagt ut i butikken – singler, slabs, sealed og tilbehør.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-3 mb-10">
+          <a href="#/utvalg" class="inline-flex items-center justify-center gap-2 bg-gul hover:bg-gul2 text-ink font-bold px-7 py-4 rounded-lg transition text-[15px]">
+            NorwayRobs utvalg
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#nytt" class="inline-flex items-center justify-center gap-2 border border-line2 hover:border-white/60 hover:bg-white/5 font-bold px-7 py-4 rounded-lg transition text-[15px]">
+            Se alle singler
+          </a>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-white/60">
+          <div class="flex items-center gap-2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFC400" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg> 4 300+ pakker sendt</div>
+          <div class="flex items-center gap-2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFC400" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg> Sendes samme dag før kl. 14</div>
+          <div class="flex items-center gap-2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFC400" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg> Vipps og kort</div>
+        </div>
+      </div>
+
+      <!-- Hero-bilde -->
+      <div class="relative">
+        <div class="absolute -inset-3 border border-gul/20 rounded-2xl hidden sm:block"></div>
+        <div class="relative rounded-xl overflow-hidden border border-line bg-panel aspect-[4/5] sm:aspect-[5/5]">
+          <img data-photo="Rob i bussen med to slabs i hånda" data-w="1000" data-h="1100" alt="NorwayRob med Pokémon-kort i hånda" class="w-full h-full object-cover">
+          <div class="absolute left-0 bottom-0 right-0 p-4 sm:p-5 bg-gradient-to-t from-ink via-ink/70 to-transparent">
+            <div class="flex items-center gap-3">
+              <img data-avatar="R" alt="" class="w-11 h-11 rounded-full border-2 border-gul">
+              <div>
+                <div class="font-bold leading-tight">NorwayRob</div>
+                <div class="text-[13px] text-white/60 leading-tight">2,2 mill. følgere · bussjåfør på fritida</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── NORWAYROBS UTVALG ─────────── -->
+  <section class="border-b border-line">
+    <div class="mx-auto max-w-[1400px] px-4 py-14 sm:py-20">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-9">
+        <div>
+          <div class="eyebrow text-gul mb-3">Håndplukket av Rob</div>
+          <h2 class="display text-4xl sm:text-5xl">NorwayRobs utvalg</h2>
+          <p class="text-white/60 mt-3 max-w-xl">Kort Rob har tatt til side fra innkjøpene sine – med begrunnelsen hans på hvert enkelt kort.</p>
+        </div>
+        <a href="#/utvalg" class="shrink-0 inline-flex items-center gap-2 text-gul font-bold hover:gap-3 transition-all">
+          Se hele utvalget (12)
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <div id="robGrid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5"></div>
+
+      <a href="#/utvalg" class="sm:hidden mt-6 flex items-center justify-center gap-2 border border-line2 rounded-lg py-4 font-bold">
+        Se hele utvalget
+      </a>
+    </div>
+  </section>
+
+  <!-- ─────────── SISTE INNKJØP ─────────── -->
+  <section class="border-b border-line bg-panel">
+    <div class="mx-auto max-w-[1400px] px-4 py-14 sm:py-20">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-9">
+        <div>
+          <div class="eyebrow text-gul mb-3">Fra TikTok og Instagram</div>
+          <h2 class="display text-4xl sm:text-5xl">Siste innkjøp</h2>
+          <p class="text-white/60 mt-3 max-w-xl">Se videoen først, kjøp kortene etterpå. Alt vi filmer havner i butikken.</p>
+        </div>
+      </div>
+
+      <div id="videoGrid" class="grid grid-cols-1 md:grid-cols-3 gap-5"></div>
+    </div>
+  </section>
+
+  <!-- ─────────── NYTT I BUTIKKEN ─────────── -->
+  <section id="nytt" class="border-b border-line scroll-mt-32">
+    <div class="mx-auto max-w-[1400px] px-4 py-14 sm:py-20">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-5 mb-9">
+        <div>
+          <div class="eyebrow text-gul mb-3">Oppdatert i dag</div>
+          <h2 class="display text-4xl sm:text-5xl">Nytt i butikken</h2>
+        </div>
+        <div class="flex gap-2 overflow-x-auto scrollbar-thin -mx-4 px-4 sm:mx-0 sm:px-0" id="shopTabs">
+          <button data-cat="alle"     class="shrink-0 px-4 py-2 rounded-lg text-sm font-bold border border-gul bg-gul text-ink">Alle</button>
+          <button data-cat="Singler"  class="shrink-0 px-4 py-2 rounded-lg text-sm font-bold border border-line2 text-white/80 hover:border-white/60">Singler</button>
+          <button data-cat="Slabs"    class="shrink-0 px-4 py-2 rounded-lg text-sm font-bold border border-line2 text-white/80 hover:border-white/60">Slabs</button>
+          <button data-cat="Tilbehør" class="shrink-0 px-4 py-2 rounded-lg text-sm font-bold border border-line2 text-white/80 hover:border-white/60">Tilbehør</button>
+        </div>
+      </div>
+
+      <div id="shopGrid" class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5"></div>
+    </div>
+  </section>
+
+  <!-- ─────────── SELG SAMLINGEN DIN ─────────── -->
+  <section id="selg" class="border-b border-line scroll-mt-32">
+    <div class="mx-auto max-w-[1400px] px-4 py-14 sm:py-20">
+      <div class="rounded-2xl border border-line bg-panel overflow-hidden grid lg:grid-cols-2">
+
+        <div class="p-6 sm:p-10 lg:p-12 border-b lg:border-b-0 lg:border-r border-line">
+          <div class="eyebrow text-gul mb-3">Vi kjøper</div>
+          <h2 class="display text-4xl sm:text-5xl mb-4">Selg samlingen din</h2>
+          <p class="text-white/70 leading-relaxed mb-8">
+            Har du en perm på loftet, en eske i kjelleren eller en hel samling du vil bli kvitt?
+            Rob kjøper opp store og små samlinger over hele landet – og betaler kontant eller på Vipps samme dag.
+          </p>
+
+          <ol class="space-y-5 mb-8">
+            <li class="flex gap-4">
+              <span class="shrink-0 w-8 h-8 grid place-items-center bg-gul text-ink font-black rounded-md">1</span>
+              <div><div class="font-bold mb-1">Send oss noen bilder</div><div class="text-sm text-white/60">Mobilbilder holder lenge. Vis permen, esken eller stabelen.</div></div>
+            </li>
+            <li class="flex gap-4">
+              <span class="shrink-0 w-8 h-8 grid place-items-center bg-gul text-ink font-black rounded-md">2</span>
+              <div><div class="font-bold mb-1">Du får et prisanslag</div><div class="text-sm text-white/60">Vanligvis innen 24 timer, med forklaring på hva som er verdt hva.</div></div>
+            </li>
+            <li class="flex gap-4">
+              <span class="shrink-0 w-8 h-8 grid place-items-center bg-gul text-ink font-black rounded-md">3</span>
+              <div><div class="font-bold mb-1">Vi henter eller du sender</div><div class="text-sm text-white/60">Er samlingen stor nok, kjører Rob og henter den selv.</div></div>
+            </li>
+          </ol>
+
+          <div class="flex items-center gap-3 text-sm text-white/60 border-t border-line pt-6">
+            <img data-avatar="R" alt="" class="w-9 h-9 rounded-full border border-gul">
+            «Ingen samling er for liten, og ingen kjøretur er for lang.» – Rob
+          </div>
+        </div>
+
+        <div class="p-6 sm:p-10 lg:p-12">
+          <form id="selgForm" class="space-y-4">
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-semibold mb-2" for="f-navn">Navn</label>
+                <input id="f-navn" required placeholder="Ola Nordmann" class="w-full bg-ink border border-line rounded-lg px-4 py-3 text-sm placeholder-muted focus:outline-none focus:border-gul">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold mb-2" for="f-tlf">Telefon</label>
+                <input id="f-tlf" required placeholder="Telefonnummer" class="w-full bg-ink border border-line rounded-lg px-4 py-3 text-sm placeholder-muted focus:outline-none focus:border-gul">
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold mb-2" for="f-epost">E-post</label>
+              <input id="f-epost" type="email" required placeholder="deg@epost.no" class="w-full bg-ink border border-line rounded-lg px-4 py-3 text-sm placeholder-muted focus:outline-none focus:border-gul">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold mb-2" for="f-sted">Hvor i landet er du?</label>
+              <input id="f-sted" placeholder="F.eks. Trondheim" class="w-full bg-ink border border-line rounded-lg px-4 py-3 text-sm placeholder-muted focus:outline-none focus:border-gul">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold mb-2" for="f-hva">Hva har du?</label>
+              <textarea id="f-hva" rows="4" placeholder="Fortell kort hva samlingen består av – sett, årstall, antall kort, graderte kort…" class="w-full bg-ink border border-line rounded-lg px-4 py-3 text-sm placeholder-muted focus:outline-none focus:border-gul resize-none"></textarea>
+            </div>
+            <div class="border border-dashed border-line2 rounded-lg px-4 py-6 text-center">
+              <svg class="mx-auto mb-2 text-muted" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4m0 0L7 9m5-5 5 5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+              <div class="text-sm font-semibold">Legg ved bilder</div>
+              <div class="text-xs text-muted mt-1">JPG eller PNG, maks 10 filer</div>
+            </div>
+            <button type="submit" class="w-full bg-gul hover:bg-gul2 text-ink font-bold py-4 rounded-lg transition">Send inn – få prisanslag</button>
+            <p id="selgKvittering" class="hidden text-sm text-gul font-semibold text-center">Takk! Vi svarer deg vanligvis innen 24 timer.</p>
+            <p class="text-xs text-muted text-center">Du binder deg ikke til noe. Vi tar kontakt med et uforpliktende anslag.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── OM OSS ─────────── -->
+  <section id="om" class="border-b border-line scroll-mt-32">
+    <div class="mx-auto max-w-[1400px] px-4 py-14 sm:py-20 grid lg:grid-cols-[1fr_1.1fr] gap-10 items-center">
+      <div class="rounded-xl overflow-hidden border border-line aspect-[4/3] bg-panel">
+        <img data-photo="Pakkebordet på lageret i Bergen" alt="Lageret til Breakz" class="w-full h-full object-cover">
+      </div>
+      <div>
+        <div class="eyebrow text-gul mb-3">Om Breakz</div>
+        <h2 class="display text-4xl sm:text-5xl mb-5">En kortbutikk drevet av folk som faktisk samler</h2>
+        <p class="text-white/70 leading-relaxed mb-4">
+          Breakz startet med en bussjåfør, en perm fra 1999 og altfor mange timer på veien.
+          I dag er vi fire stykker på et lager i Bergen som kjøper, sjekker, priser og sender kort hver eneste dag.
+        </p>
+        <p class="text-white/70 leading-relaxed mb-8">
+          Vi tar bilder av det faktiske kortet du kjøper, skriver ærlig om tilstand, og sender alt i stiv beskyttelse.
+          Ingen mystiske pakker, ingen tilfeldighet – du ser hva du får før du betaler.
+        </p>
+        <div class="grid grid-cols-3 gap-4 max-w-lg">
+          <div class="border border-line rounded-lg p-4"><div class="display text-3xl text-gul">4 300+</div><div class="text-xs text-white/60 mt-1">pakker sendt</div></div>
+          <div class="border border-line rounded-lg p-4"><div class="display text-3xl text-gul">190+</div><div class="text-xs text-white/60 mt-1">samlinger kjøpt</div></div>
+          <div class="border border-line rounded-lg p-4"><div class="display text-3xl text-gul">4,9</div><div class="text-xs text-white/60 mt-1">av 5 i vurdering</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- ══════════ UNDERSIDE: NORWAYROBS UTVALG ══════════ -->
+<!-- ══════════════════════════════════════════════════════ -->
+<main id="page-utvalg" class="hidden">
+
+  <!-- Intro -->
+  <section class="border-b border-line noise relative">
+    <div class="mx-auto max-w-[1400px] px-4 py-10 sm:py-16 relative">
+      <nav class="text-sm text-muted mb-6">
+        <a href="#/" class="hover:text-white">Forside</a>
+        <span class="mx-2">/</span>
+        <span class="text-white">NorwayRobs utvalg</span>
+      </nav>
+
+      <div class="grid lg:grid-cols-[1.2fr_1fr] gap-8 lg:gap-14 items-center">
+        <div>
+          <div class="eyebrow text-gul mb-4">Håndplukket</div>
+          <h1 class="display text-[40px] sm:text-6xl mb-5">NorwayRobs utvalg</h1>
+          <p class="text-[17px] text-white/70 leading-relaxed max-w-2xl">
+            Når Rob kjøper opp en samling, er det alltid noen kort han blir stående og se ekstra lenge på.
+            De legges til side, sjekkes en gang til og havner her – med kommentaren hans på hvorfor akkurat dette kortet er verdt plassen.
+            Alt er kort vi selv har kjøpt inn, filmet og lagt ut. Ingenting er på kommisjon.
+          </p>
+        </div>
+        <div class="flex items-center gap-4 border border-line bg-panel rounded-xl p-5">
+          <img data-avatar="R" alt="" class="w-16 h-16 shrink-0 rounded-full border-2 border-gul">
+          <div>
+            <div class="font-bold">NorwayRob</div>
+            <div class="text-sm text-white/60 leading-snug mt-1">
+              «Jeg plukker aldri ut noe jeg ikke ville hatt i min egen perm. Det er hele greia.»
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filter + grid -->
+  <section>
+    <div class="mx-auto max-w-[1400px] px-4 py-8 sm:py-12">
+      <div class="grid lg:grid-cols-[260px_1fr] gap-8">
+
+        <!-- Sidepanel -->
+        <aside class="lg:sticky lg:top-36 lg:self-start">
+          <button id="filterToggle" class="lg:hidden w-full flex items-center justify-between border border-line2 rounded-lg px-4 py-3 font-bold mb-4">
+            <span class="flex items-center gap-2">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h18M6 12h12M10 19h4"/></svg>
+              Filtrer
+            </span>
+            <span id="filterCount" class="text-gul text-sm"></span>
+          </button>
+
+          <div id="filterPanel" class="hidden lg:block border border-line rounded-xl bg-panel p-5 space-y-7">
+            <div class="flex items-center justify-between">
+              <h2 class="font-bold text-lg">Filtrer</h2>
+              <button id="clearFilters" class="text-sm text-gul hover:underline">Nullstill</button>
+            </div>
+
+            <!-- Pris -->
+            <div>
+              <h3 class="eyebrow text-white/50 mb-3">Pris</h3>
+              <div class="space-y-2.5" id="fPris">
+                <label class="flex items-center gap-3 text-sm cursor-pointer"><input type="checkbox" value="0-5000" class="w-4 h-4 bg-ink border-line rounded"> Under 5 000 kr</label>
+                <label class="flex items-center gap-3 text-sm cursor-pointer"><input type="checkbox" value="5000-20000" class="w-4 h-4"> 5 000 – 20 000 kr</label>
+                <label class="flex items-center gap-3 text-sm cursor-pointer"><input type="checkbox" value="20000-50000" class="w-4 h-4"> 20 000 – 50 000 kr</label>
+                <label class="flex items-center gap-3 text-sm cursor-pointer"><input type="checkbox" value="50000-999999" class="w-4 h-4"> Over 50 000 kr</label>
+              </div>
+            </div>
+
+            <div class="h-px bg-line"></div>
+
+            <!-- Gradering -->
+            <div>
+              <h3 class="eyebrow text-white/50 mb-3">Gradering</h3>
+              <div class="space-y-2.5" id="fGrad"></div>
+            </div>
+
+            <div class="h-px bg-line"></div>
+
+            <!-- Sett -->
+            <div>
+              <h3 class="eyebrow text-white/50 mb-3">Sett</h3>
+              <div class="space-y-2.5 max-h-64 overflow-y-auto scrollbar-thin pr-1" id="fSett"></div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Resultater -->
+        <div>
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+            <p class="text-sm text-white/60"><span id="resultCount" class="text-white font-bold">12</span> kort i utvalget</p>
+            <div class="flex items-center gap-2">
+              <label for="sortSelect" class="text-sm text-white/60">Sorter:</label>
+              <select id="sortSelect" class="bg-panel border border-line rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-gul">
+                <option value="nyest">Nyeste innkjøp</option>
+                <option value="lav">Pris: lav til høy</option>
+                <option value="hoy">Pris: høy til lav</option>
+                <option value="grad">Høyeste gradering</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="utvalgGrid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5"></div>
+
+          <div id="ingenTreff" class="hidden text-center py-20 border border-dashed border-line rounded-xl">
+            <p class="font-bold text-lg mb-2">Ingen kort matcher filtrene</p>
+            <p class="text-white/60 text-sm mb-5">Prøv å fjerne et filter eller to.</p>
+            <button onclick="document.getElementById('clearFilters').click()" class="bg-gul text-ink font-bold px-5 py-2.5 rounded-lg">Nullstill filtre</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bånd nederst -->
+  <section class="border-t border-line bg-panel">
+    <div class="mx-auto max-w-[1400px] px-4 py-14 text-center">
+      <h2 class="display text-3xl sm:text-4xl mb-3">Har du noe Rob burde se?</h2>
+      <p class="text-white/60 mb-7 max-w-lg mx-auto">Vi kjøper opp samlinger over hele landet – fra én perm til hele loftet.</p>
+      <a href="#/#selg" class="inline-flex bg-gul hover:bg-gul2 text-ink font-bold px-7 py-4 rounded-lg transition">Selg samlingen din</a>
+    </div>
+  </section>
+</main>
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<footer class="border-t border-line bg-panel">
+  <div class="mx-auto max-w-[1400px] px-4 py-12 sm:py-16">
+    <div class="grid grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 mb-12">
+
+      <div class="col-span-2 lg:col-span-1">
+        <a href="#/" class="flex items-center gap-2 mb-4">
+          <span class="grid place-items-center w-9 h-9 bg-gul text-ink rounded-md font-black text-xl">B</span>
+          <span class="display text-2xl">BREAKZ<span class="text-gul">.</span></span>
+        </a>
+        <p class="text-sm text-white/55 leading-relaxed">
+          Pokémon-kort kjøpt inn på veien og sendt fra Bergen. Drevet sammen med NorwayRob.
+        </p>
+      </div>
+
+      <div>
+        <h3 class="eyebrow text-white/50 mb-4">Kategorier</h3>
+        <ul class="space-y-2.5 text-sm text-white/75">
+          <li><a href="#nytt" class="hover:text-gul">Singler</a></li>
+          <li><a href="#nytt" class="hover:text-gul">Slabs</a></li>
+          <li><a href="#nytt" class="hover:text-gul">Sealed</a></li>
+          <li><a href="#nytt" class="hover:text-gul">Tilbehør</a></li>
+          <li><a href="#/utvalg" class="hover:text-gul">NorwayRobs utvalg</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="eyebrow text-white/50 mb-4">Kundeservice</h3>
+        <ul class="space-y-2.5 text-sm text-white/75">
+          <li><a href="#" class="hover:text-gul">Frakt og levering</a></li>
+          <li><a href="#" class="hover:text-gul">Retur og angrerett</a></li>
+          <li><a href="#" class="hover:text-gul">Slik graderer vi</a></li>
+          <li><a href="#" class="hover:text-gul">Spørsmål og svar</a></li>
+          <li><a href="#" class="hover:text-gul">Kontakt oss</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="eyebrow text-white/50 mb-4">Om Breakz</h3>
+        <ul class="space-y-2.5 text-sm text-white/75">
+          <li><a href="#om" class="hover:text-gul">Historien vår</a></li>
+          <li><a href="#selg" class="hover:text-gul">Selg samlingen din</a></li>
+          <li><a href="#" class="hover:text-gul">Jobbe hos oss</a></li>
+          <li><a href="#" class="hover:text-gul">Personvern</a></li>
+          <li><a href="#" class="hover:text-gul">Vilkår</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="eyebrow text-white/50 mb-4">Følg Rob</h3>
+        <ul class="space-y-2.5 text-sm text-white/75">
+          <li><a href="#" class="hover:text-gul flex items-center gap-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.4 2.4 1.9 4 4.2 4.2v3c-1.6.1-3-.4-4.3-1.2v6.1c0 3.6-2.6 6-5.9 5.9-3-.1-5.4-2.6-5.4-5.6 0-3.4 2.9-6.1 6.5-5.5v3.1c-.5-.2-1-.2-1.5-.1-1.2.2-2 1.2-1.9 2.4.1 1.3 1.2 2.2 2.5 2.1 1.3-.1 2.1-1.1 2.1-2.4V3h3.7Z"/></svg>
+            TikTok</a></li>
+          <li><a href="#" class="hover:text-gul flex items-center gap-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            Instagram</a></li>
+          <li><a href="#" class="hover:text-gul flex items-center gap-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2s-.2-1.4-.8-2c-.8-.8-1.6-.8-2-.9C15.9 4 12 4 12 4s-3.9 0-6.8.3c-.4.1-1.2.1-2 .9-.6.6-.8 2-.8 2S2 8.8 2 10.5v1.6c0 1.7.2 3.3.2 3.3s.2 1.4.8 2c.8.8 1.8.8 2.2.9 1.6.1 6.8.3 6.8.3s3.9 0 6.8-.3c.4-.1 1.2-.1 2-.9.6-.6.8-2 .8-2s.2-1.6.2-3.3v-1.6c0-1.7-.2-3.3-.2-3.3ZM10 14.6V8.9l5 2.9-5 2.8Z"/></svg>
+            YouTube</a></li>
+          <li><a href="#" class="hover:text-gul">Nyhetsbrev</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t border-line pt-7 flex flex-col-reverse sm:flex-row items-center justify-between gap-5">
+      <p class="text-xs text-white/45 text-center sm:text-left">
+        © 2026 Breakz AS · Org.nr 927 118 442 · Denne siden er en mockup og selger ingenting på ekte.
+      </p>
+      <div class="flex items-center gap-2.5">
+        <!-- Vipps -->
+        <div class="h-8 px-3 grid place-items-center bg-white rounded" title="Vipps">
+          <span class="text-[13px] font-black tracking-tight" style="color:#FF5B24">Vipps</span>
+        </div>
+        <!-- Visa -->
+        <div class="h-8 px-3 grid place-items-center bg-white rounded" title="Visa">
+          <span class="text-[13px] font-black italic tracking-tight" style="color:#1A1F71">VISA</span>
+        </div>
+        <!-- Mastercard -->
+        <div class="h-8 px-3 grid place-items-center bg-white rounded" title="Mastercard">
+          <svg width="34" height="21" viewBox="0 0 34 21" aria-label="Mastercard">
+            <circle cx="13" cy="10.5" r="7.5" fill="#EB001B"/>
+            <circle cx="21" cy="10.5" r="7.5" fill="#F79E1B" fill-opacity=".9"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ══════════════ PLACEHOLDER-GRAFIKK (SVG, ingen eksterne bilder) ══════════════ */
+const PALETTES = [
+  ['#2A2118','#3D2E1C','#FFC400'], ['#141F2E','#1D2E44','#5FA8FF'],
+  ['#241628','#38213D','#C77DFF'], ['#14261C','#1D3A29','#4ADE80'],
+  ['#2A1618','#3D2023','#FF6B6B'], ['#1B1B2E','#282844','#8B9DFF'],
+  ['#2B2410','#3E351A','#FFD447'], ['#101F1F','#183030','#3EE0C9']
+];
+const hash = s => [...s].reduce((a,c)=>(a*31 + c.charCodeAt(0))>>>0, 7);
+const svgURI = s => 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(s);
+
+function cardArt(name, set){
+  const p = PALETTES[hash(name+set) % PALETTES.length];
+  const seed = hash(set+name);
+  const esc = t => String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  const kort = t => t.length > 24 ? t.slice(0,23).trim() + '…' : t;
+  return svgURI(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500">
+  <defs>
+    <pattern id="h" width="30" height="30" patternTransform="rotate(35)" patternUnits="userSpaceOnUse">
+      <rect width="11" height="30" fill="#ffffff" fill-opacity=".05"/>
+    </pattern>
+  </defs>
+  <rect width="400" height="500" fill="#101014"/>
+  <rect x="16" y="16" width="368" height="468" rx="14" fill="${p[0]}"/>
+  <rect x="16" y="16" width="368" height="468" rx="14" fill="url(#h)"/>
+  <rect x="16" y="16" width="368" height="468" rx="14" fill="none" stroke="${p[2]}" stroke-opacity=".35" stroke-width="2"/>
+  <rect x="40" y="46" width="320" height="290" rx="6" fill="${p[1]}" stroke="${p[2]}" stroke-opacity=".25"/>
+  <circle cx="200" cy="191" r="${64 + seed%24}" fill="${p[2]}" fill-opacity=".18"/>
+  <circle cx="200" cy="191" r="${36 + seed%16}" fill="${p[2]}" fill-opacity=".3"/>
+  <path d="M${120+seed%30} 330 L200 ${150+seed%36} L${290-seed%30} 330 Z" fill="${p[2]}" fill-opacity=".22"/>
+  <rect x="40" y="356" width="240" height="13" rx="6.5" fill="#ffffff" fill-opacity=".14"/>
+  <rect x="40" y="379" width="170" height="13" rx="6.5" fill="#ffffff" fill-opacity=".09"/>
+  <rect x="40" y="410" width="320" height="1" fill="#ffffff" fill-opacity=".12"/>
+  <text x="40" y="440" font-family="Helvetica,Arial,sans-serif" font-size="17" font-weight="bold" fill="#ffffff" fill-opacity=".8">${esc(kort(name))}</text>
+  <text x="40" y="462" font-family="Helvetica,Arial,sans-serif" font-size="13" fill="#ffffff" fill-opacity=".45">${esc(kort(set))}</text>
+</svg>`);
+}
+
+function photo(label, w=1200, h=900){
+  const s = Math.min(w,h), cx = w/2, cy = h*0.44, kw = s*0.32, kh = s*0.44, f = s/900;
+  const esc = t => String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  const kort = (dx,dy,rot,op) => `<rect x="${cx-kw/2+dx}" y="${cy-kh/2+dy}" width="${kw}" height="${kh}" rx="${s*0.02}"
+      fill="#FFC400" fill-opacity="${op}" stroke="#FFC400" stroke-opacity=".4" stroke-width="${s*0.004}"
+      transform="rotate(${rot} ${cx+dx} ${cy+dy})"/>`;
+  return svgURI(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}">
+  <defs>
+    <pattern id="g" width="${s*0.06}" height="${s*0.06}" patternUnits="userSpaceOnUse">
+      <path d="M${s*0.06} 0H0v${s*0.06}" fill="none" stroke="#ffffff" stroke-opacity=".05"/>
+    </pattern>
+  </defs>
+  <rect width="${w}" height="${h}" fill="#151519"/>
+  <rect width="${w}" height="${h}" fill="url(#g)"/>
+  ${kort(-kw*0.62, kh*0.06, -11, .05)}
+  ${kort(kw*0.62, kh*0.04, 12, .05)}
+  ${kort(0, 0, -2, .1)}
+  <circle cx="${cx}" cy="${cy}" r="${s*0.09}" fill="#FFC400" fill-opacity=".16"/>
+  <text x="${cx}" y="${cy + kh*0.78}" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="${34*f}" font-weight="bold" letter-spacing="${6*f}" fill="#ffffff" fill-opacity=".5">FOTO</text>
+  <text x="${cx}" y="${cy + kh*0.78 + 46*f}" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="${28*f}" fill="#ffffff" fill-opacity=".33">${esc(label)}</text>
+</svg>`);
+}
+
+function avatar(letter){
+  return svgURI(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <rect width="100" height="100" fill="#1E1E24"/>
+    <circle cx="50" cy="40" r="18" fill="#FFC400" fill-opacity=".8"/>
+    <path d="M14 100c0-20 16-32 36-32s36 12 36 32Z" fill="#FFC400" fill-opacity=".55"/>
+  </svg>`);
+}
+
+/* ══════════════ DATA ══════════════ */
+const kr = n => n.toLocaleString('nb-NO').replace(/ /g,' ') + ' kr';
+
+const ROB = [
+  { navn:'Charizard', sett:'Base Set (1999)', nr:'4/102', grad:'PSA 9', pris:89000, video:'Kjøpte hele samlingen til en pensjonist i Ålesund',
+    sitat:'Denne lå i en skoeske under en trapp på Sunnmøre, og eieren trodde den var verdiløs. Jeg satt i bussen i to timer etterpå og bare stirret på den.' },
+  { navn:'Umbreon VMAX (Alt Art)', sett:'Evolving Skies', nr:'215/203', grad:'PSA 10', pris:42500, video:'Fyren hadde slabs i garasjen bak dekkene',
+    sitat:'Moonbreon i tier med perfekte hjørner er ikke noe man snubler over på Finn. Jeg måtte betale godt for den, og den er fortsatt verdt hver krone.' },
+  { navn:'Lugia', sett:'Neo Genesis', nr:'9/111', grad:'PSA 9', pris:18500, video:'Buss-tur til Sverige for én eske Base Set',
+    sitat:'Neo Genesis Lugia er kortet halve gjengen min lette etter som unger uten å finne. Sentreringen på denne er bedre enn på de fleste tiere jeg har sett.' },
+  { navn:'Dark Charizard', sett:'Team Rocket', nr:'4/82', grad:'PSA 8', pris:9800, video:'Kjøpte hele samlingen til en pensjonist i Ålesund',
+    sitat:'Åttere blir undervurdert hele tiden, og denne har overflate som en niser. Hvis du vil ha Team Rocket-Charizard uten å tømme sparekontoen, er det denne.' },
+  { navn:'Blastoise', sett:'Base Set (1999)', nr:'2/102', grad:'PSA 8', pris:12900, video:'Buss-tur til Sverige for én eske Base Set',
+    sitat:'Ryggen på denne er så ren at jeg måtte se to ganger på karakteren. Base Set Blastoise er det kortet folk husker best etter Charizard.' },
+  { navn:'Rayquaza VMAX (Alt Art)', sett:'Evolving Skies', nr:'218/203', grad:'PSA 10', pris:14900, video:'Fyren hadde slabs i garasjen bak dekkene',
+    sitat:'Dette er det peneste moderne kortet som er laget, og det er ikke engang diskutabelt. Kjøpte tre, beholder én selv.' },
+  { navn:'Mewtwo', sett:'Base Set (1999)', nr:'10/102', grad:'PSA 9', pris:4900, video:'Kjøpte hele samlingen til en pensjonist i Ålesund',
+    sitat:'Perfekt førstekort hvis du vil inn i gradert Base Set uten å ta opp lån. Holo-mønsteret på denne er helt uten skraper.' },
+  { navn:'Espeon', sett:'Skyridge', nr:'H10/H32', grad:'PSA 7', pris:21000, video:'Loftrydding i Tromsø ble til fire timer med kort',
+    sitat:'Skyridge-holoer er beryktet vanskelige, så en sjuer er ærlig talt normalen her. Prisen reflekterer det, og kortet ser strålende ut i hånda.' },
+  { navn:'Charizard ex', sett:'151', nr:'199/165', grad:'PSA 10', pris:3400, video:'Loftrydding i Tromsø ble til fire timer med kort',
+    sitat:'Den beste inngangsporten til gradert Charizard som finnes akkurat nå. Kjøpte en hel stabel og gradert dem selv.' },
+  { navn:'Gyarados', sett:'Base Set (1999)', nr:'6/102', grad:'PSA 9', pris:3200, video:'Buss-tur til Sverige for én eske Base Set',
+    sitat:'Undervurdert holo som alltid selger fort når folk først ser den. Kanten er skarp hele veien rundt.' },
+  { navn:'Charizard', sett:'Hidden Fates', nr:'SV49/SV94', grad:'PSA 10', pris:7600, video:'Fyren hadde slabs i garasjen bak dekkene',
+    sitat:'Shiny Vault-Charizard er sånn som stiger sakte men sikkert hvert eneste år. Denne kom rett fra en uåpnet tin fra 2019.' },
+  { navn:'Snorlax', sett:'Jungle', nr:'11/64', grad:'PSA 9', pris:2400, video:'Loftrydding i Tromsø ble til fire timer med kort',
+    sitat:'Jungle-Snorlax er kortet alle vil ha når de skal bygge om barndomspermen. Billig nok til at du kan kjøpe den uten å tenke deg om.' }
+];
+
+const VIDEOER = [
+  { tittel:'Kjøpte hele samlingen til en pensjonist i Ålesund', visninger:'2,1 mill. visninger', lengde:'4:12', antall:38, plattform:'TikTok' },
+  { tittel:'Buss-tur til Sverige for én eske Base Set', visninger:'1,2 mill. visninger', lengde:'6:40', antall:21, plattform:'YouTube' },
+  { tittel:'Loftrydding i Tromsø ble til fire timer med kort', visninger:'840 000 visninger', lengde:'3:05', antall:26, plattform:'Instagram' }
+];
+
+const BUTIKK = [
+  { navn:'Charizard ex (Special Illustration)', sett:'Obsidian Flames', kat:'Singler',  pris:1890, lager:'På lager' },
+  { navn:'Pikachu VMAX (Rainbow)',              sett:'Vivid Voltage',   kat:'Singler',  pris:1240, lager:'Kun 2 igjen' },
+  { navn:'Blastoise',                            sett:'Base Set (1999)', kat:'Slabs',    pris:12900, lager:'Kun 1 igjen', grad:'PSA 8' },
+  { navn:'Mew ex (Ultra Rare)',                  sett:'151',             kat:'Singler',  pris:640,  lager:'På lager' },
+  { navn:'Gengar VMAX (Alt Art)',                sett:'Fusion Strike',   kat:'Slabs',    pris:8450, lager:'Kun 1 igjen', grad:'PSA 10' },
+  { navn:'Ultra Pro toploaders, 25 stk.',        sett:'Tilbehør',        kat:'Tilbehør', pris:149,  lager:'På lager' },
+  { navn:'Perm med 480 lommer, svart',           sett:'Tilbehør',        kat:'Tilbehør', pris:399,  lager:'Utsolgt' },
+  { navn:'Umbreon VMAX (Alt Art)',               sett:'Evolving Skies',  kat:'Slabs',    pris:42500, lager:'Kun 1 igjen', grad:'PSA 10' }
+];
+
+/* ══════════════ RENDERING ══════════════ */
+document.querySelectorAll('[data-photo]').forEach(el =>
+  el.src = photo(el.dataset.photo, +(el.dataset.w || 1200), +(el.dataset.h || 900)));
+document.querySelectorAll('[data-avatar]').forEach(el => el.src = avatar(el.dataset.avatar));
+
+const gradBadge = g => `<span class="inline-flex items-center gap-1.5 bg-gul text-ink text-[11px] font-black px-2 py-1 rounded">${g}</span>`;
+
+function robKort(k, kompakt){
+  return `
+  <article class="group flex flex-col bg-card border border-line rounded-xl overflow-hidden hover:border-gul/60 transition">
+    <div class="relative bg-panel overflow-hidden">
+      <img src="${cardArt(k.navn, k.sett)}" alt="${k.navn} – ${k.sett}" class="prodimg w-full aspect-[4/5] object-cover">
+      <div class="absolute top-3 left-3">${gradBadge(k.grad)}</div>
+      <div class="absolute top-3 right-3 bg-ink/85 backdrop-blur text-[11px] font-bold px-2 py-1 rounded border border-line">Robs valg</div>
+    </div>
+
+    <div class="p-4 sm:p-5 flex flex-col flex-1">
+      <h3 class="font-bold text-[17px] leading-snug">${k.navn}</h3>
+      <p class="text-[13px] text-white/50 mt-1">${k.sett} · ${k.nr}</p>
+
+      <!-- SITATET: hovedelementet -->
+      <blockquote class="relative mt-4 border-l-2 border-gul pl-4 py-1">
+        <span class="absolute -top-3 left-3 text-gul/30 text-4xl font-black leading-none select-none">”</span>
+        <p class="relative text-[15px] leading-relaxed text-white/90 font-medium">${k.sitat}</p>
+        <footer class="flex items-center gap-2 mt-3">
+          <img src="${avatar('R')}" alt="" class="w-6 h-6 rounded-full border border-gul/60">
+          <span class="text-[12px] text-white/50 font-semibold">NorwayRob</span>
+        </footer>
+      </blockquote>
+
+      <div class="mt-auto pt-5">
+        ${kompakt ? '' : `<a href="#/utvalg" class="inline-flex items-center gap-1.5 text-[12px] text-gul hover:underline mb-4">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7Z"/></svg>
+            Se videoen der Rob kjøpte dette
+          </a>`}
+        <div class="flex items-end justify-between gap-3">
+          <div>
+            <div class="text-[11px] text-white/45">Pris</div>
+            <div class="display text-2xl">${kr(k.pris)}</div>
+          </div>
+          <button class="bg-gul hover:bg-gul2 text-ink font-bold text-sm px-4 py-2.5 rounded-lg transition">Kjøp</button>
+        </div>
+      </div>
+    </div>
+  </article>`;
+}
+
+function utvalgKort(k){
+  return `
+  <article class="group flex flex-col bg-card border border-line rounded-xl overflow-hidden hover:border-gul/60 transition">
+    <div class="relative bg-panel overflow-hidden">
+      <img src="${cardArt(k.navn, k.sett)}" alt="${k.navn} – ${k.sett}" class="prodimg w-full aspect-[4/5] object-cover">
+      <div class="absolute top-3 left-3">${gradBadge(k.grad)}</div>
+    </div>
+    <div class="p-5 flex flex-col flex-1">
+      <h3 class="font-bold text-[17px] leading-snug">${k.navn}</h3>
+      <p class="text-[13px] text-white/50 mt-1">${k.sett} · ${k.nr}</p>
+
+      <blockquote class="relative mt-4 bg-panel border-l-2 border-gul rounded-r-lg pl-4 pr-3 py-3">
+        <p class="text-[15px] leading-relaxed text-white/90 font-medium">${k.sitat}</p>
+        <footer class="flex items-center gap-2 mt-3">
+          <img src="${avatar('R')}" alt="" class="w-6 h-6 rounded-full border border-gul/60">
+          <span class="text-[12px] text-white/50 font-semibold">NorwayRob</span>
+        </footer>
+      </blockquote>
+
+      <a href="#" class="inline-flex items-center gap-1.5 text-[12px] text-gul hover:underline mt-4">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7Z"/></svg>
+        Se videoen der Rob kjøpte dette
+      </a>
+      <p class="text-[11px] text-white/35 mt-1.5 leading-snug">${k.video}</p>
+
+      <div class="mt-auto pt-5 flex items-end justify-between gap-3">
+        <div>
+          <div class="text-[11px] text-white/45">Pris</div>
+          <div class="display text-2xl">${kr(k.pris)}</div>
+        </div>
+        <button class="bg-gul hover:bg-gul2 text-ink font-bold text-sm px-4 py-2.5 rounded-lg transition">Kjøp</button>
+      </div>
+    </div>
+  </article>`;
+}
+
+function videoKort(v){
+  return `
+  <article class="group">
+    <a href="#" class="block relative rounded-xl overflow-hidden border border-line bg-panel aspect-video">
+      <img src="${photo(v.tittel.slice(0,42), 1200, 675)}" alt="${v.tittel}" class="prodimg w-full h-full object-cover">
+      <span class="absolute inset-0 grid place-items-center">
+        <span class="w-14 h-14 grid place-items-center bg-gul text-ink rounded-full shadow-lg group-hover:scale-110 transition">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7Z"/></svg>
+        </span>
+      </span>
+      <span class="absolute top-3 left-3 bg-ink/85 backdrop-blur border border-line text-[11px] font-bold px-2 py-1 rounded">${v.plattform}</span>
+      <span class="absolute bottom-3 right-3 bg-ink/85 backdrop-blur text-[11px] font-bold px-2 py-1 rounded">${v.lengde}</span>
+    </a>
+    <h3 class="font-bold text-[17px] leading-snug mt-4">${v.tittel}</h3>
+    <p class="text-[13px] text-white/50 mt-1.5">${v.visninger}</p>
+    <a href="#/utvalg" class="inline-flex items-center gap-2 mt-3 text-sm font-bold text-gul hover:gap-3 transition-all">
+      Se de ${v.antall} kortene fra dette innkjøpet
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </article>`;
+}
+
+function lagerPille(status){
+  if(status === 'Utsolgt') return `<span class="inline-flex items-center gap-1.5 text-[12px] text-white/45"><span class="w-1.5 h-1.5 rounded-full bg-white/30"></span>Utsolgt</span>`;
+  if(status.startsWith('Kun'))  return `<span class="inline-flex items-center gap-1.5 text-[12px] text-gul"><span class="w-1.5 h-1.5 rounded-full bg-gul"></span>${status}</span>`;
+  return `<span class="inline-flex items-center gap-1.5 text-[12px] text-white/60"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>${status}</span>`;
+}
+
+function butikkKort(p){
+  const utsolgt = p.lager === 'Utsolgt';
+  return `
+  <article class="group flex flex-col bg-card border border-line rounded-xl overflow-hidden hover:border-gul/60 transition">
+    <div class="relative bg-panel overflow-hidden">
+      <img src="${cardArt(p.navn, p.sett)}" alt="${p.navn}" class="prodimg w-full aspect-[4/5] object-cover ${utsolgt ? 'opacity-45' : ''}">
+      <div class="absolute top-2.5 left-2.5 flex flex-col gap-1.5 items-start">
+        <span class="bg-ink/85 backdrop-blur border border-line text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded">${p.kat}</span>
+        ${p.grad ? gradBadge(p.grad) : ''}
+      </div>
+      ${utsolgt ? '<span class="absolute inset-0 grid place-items-center"><span class="bg-ink/85 border border-line text-xs font-bold px-3 py-1.5 rounded">Utsolgt</span></span>' : ''}
+    </div>
+    <div class="p-3.5 sm:p-4 flex flex-col flex-1">
+      <h3 class="font-bold text-[14px] sm:text-[15px] leading-snug">${p.navn}</h3>
+      <p class="text-[12px] text-white/45 mt-1">${p.sett}</p>
+      <div class="mt-3">${lagerPille(p.lager)}</div>
+      <div class="mt-auto pt-4 flex items-center justify-between gap-2">
+        <div class="display text-lg sm:text-xl">${kr(p.pris)}</div>
+        <button ${utsolgt ? 'disabled' : ''} class="${utsolgt
+          ? 'border border-line text-white/35 cursor-not-allowed'
+          : 'bg-gul hover:bg-gul2 text-ink'} font-bold text-[13px] px-3.5 py-2 rounded-lg transition">
+          ${utsolgt ? 'Varsle meg' : 'Kjøp'}
+        </button>
+      </div>
+    </div>
+  </article>`;
+}
+
+document.getElementById('robGrid').innerHTML   = ROB.slice(0,4).map(k => robKort(k, true)).join('');
+document.getElementById('videoGrid').innerHTML = VIDEOER.map(videoKort).join('');
+
+/* Kategori-tabs på forsiden */
+const shopGrid = document.getElementById('shopGrid');
+function tegnButikk(kat){
+  const liste = kat === 'alle' ? BUTIKK : BUTIKK.filter(p => p.kat === kat);
+  shopGrid.innerHTML = liste.map(butikkKort).join('');
+}
+tegnButikk('alle');
+document.querySelectorAll('#shopTabs button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#shopTabs button').forEach(b => {
+      b.className = 'shrink-0 px-4 py-2 rounded-lg text-sm font-bold border border-line2 text-white/80 hover:border-white/60';
+    });
+    btn.className = 'shrink-0 px-4 py-2 rounded-lg text-sm font-bold border border-gul bg-gul text-ink';
+    tegnButikk(btn.dataset.cat);
+  });
+});
+
+/* ══════════════ FILTRE PÅ UNDERSIDEN ══════════════ */
+const gradOrder = ['PSA 10','PSA 9','PSA 8','PSA 7'];
+const grader = gradOrder.filter(g => ROB.some(k => k.grad === g));
+const sett   = [...new Set(ROB.map(k => k.sett))].sort((a,b)=>a.localeCompare(b,'no'));
+
+const boks = (v, n) => `<label class="flex items-center justify-between gap-3 text-sm cursor-pointer group">
+  <span class="flex items-center gap-3"><input type="checkbox" value="${v}" class="w-4 h-4"> <span class="group-hover:text-gul transition">${v}</span></span>
+  <span class="text-xs text-muted">${n}</span></label>`;
+
+document.getElementById('fGrad').innerHTML = grader.map(g => boks(g, ROB.filter(k=>k.grad===g).length)).join('');
+document.getElementById('fSett').innerHTML = sett.map(s => boks(s, ROB.filter(k=>k.sett===s).length)).join('');
+
+const grid   = document.getElementById('utvalgGrid');
+const tomt   = document.getElementById('ingenTreff');
+const teller = document.getElementById('resultCount');
+const sorter = document.getElementById('sortSelect');
+
+const valgte = id => [...document.querySelectorAll('#'+id+' input:checked')].map(i => i.value);
+
+function tegnUtvalg(){
+  const pris = valgte('fPris'), grad = valgte('fGrad'), st = valgte('fSett');
+  let liste = ROB.filter(k =>
+    (!grad.length || grad.includes(k.grad)) &&
+    (!st.length   || st.includes(k.sett))   &&
+    (!pris.length || pris.some(r => { const [a,b] = r.split('-').map(Number); return k.pris >= a && k.pris < b; }))
+  );
+
+  const s = sorter.value;
+  if(s === 'lav')  liste = [...liste].sort((a,b) => a.pris - b.pris);
+  if(s === 'hoy')  liste = [...liste].sort((a,b) => b.pris - a.pris);
+  if(s === 'grad') liste = [...liste].sort((a,b) => gradOrder.indexOf(a.grad) - gradOrder.indexOf(b.grad));
+
+  grid.innerHTML = liste.map(utvalgKort).join('');
+  teller.textContent = liste.length;
+  tomt.classList.toggle('hidden', liste.length > 0);
+  grid.classList.toggle('hidden', liste.length === 0);
+
+  const antall = pris.length + grad.length + st.length;
+  document.getElementById('filterCount').textContent = antall ? antall + ' aktive' : '';
+}
+
+document.querySelectorAll('#filterPanel input[type=checkbox]').forEach(i => i.addEventListener('change', tegnUtvalg));
+sorter.addEventListener('change', tegnUtvalg);
+document.getElementById('clearFilters').addEventListener('click', () => {
+  document.querySelectorAll('#filterPanel input[type=checkbox]').forEach(i => i.checked = false);
+  tegnUtvalg();
+});
+document.getElementById('filterToggle').addEventListener('click', () => {
+  document.getElementById('filterPanel').classList.toggle('hidden');
+});
+tegnUtvalg();
+
+/* ══════════════ NAVIGASJON MELLOM SIDENE ══════════════ */
+const hjem   = document.getElementById('page-home');
+const under  = document.getElementById('page-utvalg');
+const mobnav = document.getElementById('mobileNav');
+
+function rute(){
+  const h = location.hash;
+  const påUtvalg = h.startsWith('#/utvalg');
+  hjem.classList.toggle('hidden', påUtvalg);
+  under.classList.toggle('hidden', !påUtvalg);
+  mobnav.classList.add('hidden');
+
+  const anker = h.includes('#selg') ? 'selg' : (h.startsWith('#') && !h.startsWith('#/') ? h.slice(1) : null);
+  const mål = anker && document.getElementById(anker);
+  if(mål && !påUtvalg){ mål.scrollIntoView({behavior:'smooth'}); }
+  else { window.scrollTo({top:0}); }
+}
+window.addEventListener('hashchange', rute);
+rute();
+
+document.getElementById('menuBtn').addEventListener('click', () => mobnav.classList.toggle('hidden'));
+
+document.getElementById('selgForm').addEventListener('submit', e => {
+  e.preventDefault();
+  document.getElementById('selgKvittering').classList.remove('hidden');
+  e.target.querySelector('button[type=submit]').textContent = 'Sendt inn';
+});
+</script>
+</body>
+</html>
