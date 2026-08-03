@@ -89,8 +89,12 @@ den må på plass **før** første ekte tilbud sendes.
 
 ### Hva som alltid er inkludert i prisen
 
-Sjåfør · drivstoff · bompenger · vanlig vask etter turen · lydanlegg ·
+Sjåfør · drivstoff · bompenger · vanlig vask etter turen ·
 henting fra ett sted og levering der gruppen vil.
+
+**«Lydanlegg» sto her til 2. august 2026 og er fjernet.** Det blir ikke
+installert noe musikkanlegg i bussen. Kunden tar med egen høyttaler. Påstanden
+lå ute på nettsiden som et løfte og er rettet der også.
 
 Dette er et bevisst salgsargument: ingen skjulte tillegg er den vanligste
 irritasjonen i bransjen.
@@ -240,7 +244,8 @@ ingenting kan antyde garantert tilgjengelighet eller automatisk reservasjon.
 | Påstand | Problem | Løsning |
 |---|---|---|
 | «Svar innen 24 timer» | Løfte uten operasjonelt sikkerhetsnett | Behold, men bygg en påminnelse så det faktisk holdes |
-| «Vasking inkludert», «lydanlegg» | Egenskaper ved en buss som ikke er kjøpt | Behold generisk, ikke spesifiser utstyr |
+| ~~«lydanlegg»~~ | Blir ikke installert. Fjernet fra nettsiden og fra lista over | ✅ Ryddet 2. august 2026 |
+| «Vasking inkludert» | Egenskap ved en buss som ikke er kjøpt | Behold generisk, ikke spesifiser utstyr |
 
 ## 11. Nøkkeltall vi må begynne å måle
 

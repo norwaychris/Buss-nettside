@@ -45,6 +45,12 @@ Disse er låst. De ble valgt bevisst og skal bevares gjennom enhver redesign:
 - **Anton som display-font.** Tett, høy, kondensert, store bokstaver.
 - **Kinematisk følelse.** Store bilder, dybde, glød, rom rundt ting.
 - **Premium transportselskap**, ikke «lokal buss til leie».
+- **Vanlig buss, ikke russebuss.** Bussen skal se ut som en buss — ingen
+  LED-lys, ingen folie, ingen dansestang. Konkurrentene i Bergen ser alle
+  like ut; dette er den ene posisjonen ingen av dem kan kopiere uten å skrote
+  bussen sin. Og det er den bussen 2,2 millioner følgere allerede kjenner fra
+  TikTok. Sitatet «I'm not a hero, I'm just a bus driver» faller sammen i det
+  øyeblikket bussen får neonlys.
 
 ## 4. Farger
 

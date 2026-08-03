@@ -336,6 +336,13 @@ a { color: inherit; text-decoration: none; }
   margin: 0 auto 8px; line-height: 1.7;
 }
 
+/* «Ikke en russebuss» – forventningsavklaringen før skjemaet.
+   Egen bakgrunn fordi den skal leses som en påstand, ikke som enda et
+   avsnitt. Den siste linja er poenget, så den får litt ekstra luft. */
+.ikke-russebuss { background: var(--bg-2); }
+.ikke-russebuss .section-lead + .section-lead { margin-top: 18px; }
+.ikke-russebuss .section-lead strong { color: var(--ink); }
+
 /* Tillitsstripe under hero */
 .trust-strip { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg-2); }
 .trust-strip ul {
