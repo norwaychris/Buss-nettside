@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Breakz – stream-overlay</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: { ink:'#0A0A0B', panel:'#121214', card:'#17171A', line:'#26262B', line2:'#34343B', muted:'#9A9AA3', gul:'#FFC400', gul2:'#FFD447' },
+    fontFamily: { sans: ['Inter','Helvetica Neue','Helvetica','Arial','system-ui','sans-serif'] }
+  } }
+}
+</script>
+<style>
+  html,body{margin:0;background:transparent}
+  body.forhandsvis{background:#141418}
+  body.forhandsvis::before{
+    content:''; position:fixed; inset:0; z-index:-1;
+    background-image:
+      linear-gradient(45deg,#1b1b20 25%,transparent 25%,transparent 75%,#1b1b20 75%),
+      linear-gradient(45deg,#1b1b20 25%,transparent 25%,transparent 75%,#1b1b20 75%);
+    background-size:40px 40px; background-position:0 0,20px 20px;
+  }
+  .display{font-weight:800;letter-spacing:-.03em;line-height:.95}
+  .eyebrow{font-weight:700;letter-spacing:.18em;text-transform:uppercase;font-size:11px}
+  .skygge{filter:drop-shadow(0 12px 32px rgba(0,0,0,.65))}
+
+  /* inn/ut-animasjon */
+  .anim{transition:transform .4s cubic-bezier(.2,.8,.25,1),opacity .3s ease}
+  .ut-venstre{transform:translateX(-115%);opacity:0}
+  .ut-hoyre{transform:translateX(115%);opacity:0}
+  .inne{transform:translateX(0);opacity:1}
+
+  .puls{animation:puls 1.6s ease-in-out infinite}
+  @keyframes puls{0%,100%{opacity:1}50%{opacity:.45}}
+  .tickerband{animation:rulle 26s linear infinite}
+  @keyframes rulle{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  ::selection{background:#FFC400;color:#0A0A0B}
+  .scrollbar-thin::-webkit-scrollbar{width:8px}
+  .scrollbar-thin::-webkit-scrollbar-thumb{background:#34343B;border-radius:8px}
+</style>
+</head>
+<body class="font-sans text-white antialiased overflow-hidden">
+
+<!-- ══════════════════════════ OVERLAY (OBS browser source 1920×1080) ══════════════════════════ -->
+<div id="overlay" class="fixed inset-0 pointer-events-none">
+
+  <!-- ── Kortvisning: nede til venstre ── -->
+  <div id="kortBoks" class="anim ut-venstre absolute left-10 bottom-10 w-[620px] skygge" style="transition:transform .4s cubic-bezier(.2,.8,.25,1),opacity .3s ease,bottom .3s ease">
+    <div class="bg-ink/95 border border-line2 rounded-2xl overflow-hidden">
+      <div class="flex items-center gap-3 bg-gul text-ink px-5 py-2.5">
+        <span id="kSpill" class="eyebrow">POKÉMON</span>
+        <span class="w-1 h-1 rounded-full bg-ink/50"></span>
+        <span id="kSett" class="text-[13px] font-bold">Evolving Skies</span>
+        <span id="kSjelden" class="ml-auto text-[11px] font-black bg-ink text-gul px-2 py-1 rounded">ALT ART</span>
+      </div>
+
+      <div class="p-5">
+        <h2 id="kNavn" class="display text-[34px] leading-none mb-1">Umbreon VMAX</h2>
+        <p id="kNr" class="text-[13px] text-white/45 mb-5">215/203</p>
+
+        <div class="flex items-end gap-6">
+          <div class="flex-1">
+            <div class="eyebrow text-gul mb-1.5">Rå · uten gradering</div>
+            <div id="kRaw" class="display text-[52px] leading-none">9 800 kr</div>
+            <div id="kSpenn" class="text-[13px] text-white/45 mt-1.5">8 400 – 11 200 kr siste 30 dager</div>
+          </div>
+          <div class="border-l border-line pl-6 pb-1">
+            <div class="eyebrow text-white/40 mb-1.5">Gradert PSA 10</div>
+            <div id="kPsa" class="display text-[30px] leading-none text-white/80">42 500 kr</div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2.5 mt-5 pt-4 border-t border-line text-[12px] text-white/40">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+          <span id="kKilde">14 solgte · PriceCharting · oppdatert 05.08.2026</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Settpanel: oppe til høyre. Hva ligger i pakka ── -->
+  <div id="settBoks" class="anim ut-hoyre absolute right-10 top-10 w-[420px] skygge">
+    <div class="bg-ink/95 border border-line2 rounded-2xl overflow-hidden">
+      <div class="px-5 py-3.5 border-b border-line">
+        <div class="eyebrow text-gul mb-1.5">Dette kan ligge i pakka</div>
+        <div class="flex items-end justify-between gap-3">
+          <h3 id="sNavn" class="display text-2xl leading-none">Evolving Skies</h3>
+          <div class="text-right shrink-0">
+            <div class="text-[10px] text-white/40 uppercase tracking-wider">Pakkepris</div>
+            <div id="sPris" class="font-bold text-gul leading-tight">149 kr</div>
+          </div>
+        </div>
+      </div>
+      <ul id="sListe" class="divide-y divide-line"></ul>
+      <div class="px-5 py-3 bg-panel border-t border-line flex items-center justify-between">
+        <span class="text-[12px] text-white/45">Toppkort i settet, rå pris</span>
+        <span class="text-[11px] text-white/30">Kilde: PriceCharting</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Kveldens hits: ticker nederst ── -->
+  <div id="tickerBoks" class="anim ut-venstre absolute left-0 right-0 bottom-0">
+    <div class="bg-ink/95 border-t border-line2 flex items-stretch">
+      <div class="bg-gul text-ink px-6 py-3 flex items-center gap-3 shrink-0">
+        <span class="w-2 h-2 rounded-full bg-ink puls"></span>
+        <span class="eyebrow">Kveldens hits</span>
+        <span id="tSum" class="display text-2xl leading-none">0 kr</span>
+      </div>
+      <div class="flex-1 overflow-hidden relative">
+        <div id="tRull" class="tickerband flex items-center gap-8 whitespace-nowrap py-3 px-6 text-[15px]"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Hit-varsel: midt på skjermen ── -->
+  <div id="hitBoks" class="absolute inset-0 grid place-items-center opacity-0 transition-opacity duration-300">
+    <div class="text-center skygge">
+      <div class="inline-block bg-gul text-ink px-10 py-6 rounded-2xl -rotate-2">
+        <div class="eyebrow mb-2">Hit!</div>
+        <div id="hNavn" class="display text-6xl mb-2">Umbreon VMAX</div>
+        <div id="hPris" class="display text-5xl">9 800 kr</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ KONTROLLPANEL ══════════════════════════ -->
+<div id="kontroll" class="hidden fixed inset-0 bg-ink overflow-y-auto scrollbar-thin">
+  <div class="max-w-[1100px] mx-auto p-6">
+
+    <header class="flex flex-wrap items-center gap-4 mb-6">
+      <span class="grid place-items-center w-10 h-10 bg-gul text-ink rounded-md font-black text-xl">B</span>
+      <div>
+        <h1 class="display text-2xl">Kontrollpanel</h1>
+        <p class="text-[13px] text-muted">Klikk et kort for å legge det på skjermen</p>
+      </div>
+      <div class="ml-auto flex items-center gap-2">
+        <span id="sync" class="text-[12px] text-muted"></span>
+        <a href="#overlay" target="_blank" class="border border-line2 hover:border-white/60 rounded-lg px-4 py-2 text-sm font-bold">Åpne overlay</a>
+      </div>
+    </header>
+
+    <!-- Status -->
+    <div class="grid sm:grid-cols-4 gap-3 mb-6">
+      <div class="border border-line rounded-xl p-4 bg-panel">
+        <div class="eyebrow text-white/40 mb-1.5">På skjermen</div>
+        <div id="statusKort" class="font-bold truncate">Ingenting</div>
+      </div>
+      <div class="border border-line rounded-xl p-4 bg-panel">
+        <div class="eyebrow text-white/40 mb-1.5">Hits i kveld</div>
+        <div id="statusAntall" class="font-bold">0</div>
+      </div>
+      <div class="border border-line rounded-xl p-4 bg-panel">
+        <div class="eyebrow text-white/40 mb-1.5">Sum hits</div>
+        <div id="statusSum" class="font-bold text-gul">0 kr</div>
+      </div>
+      <div class="border border-line rounded-xl p-4 bg-panel">
+        <div class="eyebrow text-white/40 mb-1.5">Pakker åpnet</div>
+        <div class="flex items-center gap-2">
+          <button data-pakke="-1" class="w-7 h-7 grid place-items-center border border-line2 rounded font-bold hover:border-white/60">−</button>
+          <span id="statusPakker" class="font-bold w-8 text-center">0</span>
+          <button data-pakke="1" class="w-7 h-7 grid place-items-center border border-line2 rounded font-bold hover:border-white/60">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Brytere -->
+    <div class="flex flex-wrap gap-2 mb-6">
+      <button data-vis="kort"   class="bryter">Kortvisning <kbd>K</kbd></button>
+      <button data-vis="sett"   class="bryter">Settpanel <kbd>S</kbd></button>
+      <button data-vis="ticker" class="bryter">Kveldens hits <kbd>T</kbd></button>
+      <button id="skjulAlt" class="border border-line2 hover:border-white/60 rounded-lg px-4 py-2.5 text-sm font-bold">Skjul alt <kbd>Esc</kbd></button>
+      <button id="nullstillHits" class="ml-auto text-sm text-muted hover:text-white underline">Nullstill kvelden</button>
+    </div>
+
+    <!-- Søk -->
+    <div class="relative mb-4">
+      <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+      <input id="sok" type="search" placeholder="Søk etter kort, sett eller spill…" class="w-full bg-panel border border-line rounded-lg pl-10 pr-4 py-3 text-sm placeholder-muted focus:outline-none focus:border-gul">
+    </div>
+
+    <!-- Spillfilter -->
+    <div id="spillTabs" class="flex flex-wrap gap-2 mb-5"></div>
+
+    <!-- Kortliste -->
+    <div id="liste" class="grid sm:grid-cols-2 gap-3 mb-10"></div>
+
+    <!-- Hjelp -->
+    <details class="border border-line rounded-xl bg-panel p-5 mb-10">
+      <summary class="font-bold cursor-pointer">Slik kobler du det til OBS</summary>
+      <div class="text-sm text-white/70 leading-relaxed mt-4 space-y-3">
+        <p><strong class="text-white">Alternativ 1 – to faner i samme nettleser (enklest å teste).</strong>
+        Åpne <code class="text-gul">stream-overlay.html#overlay</code> i én fane og <code class="text-gul">#kontroll</code> i en annen.
+        De snakker sammen med det samme, og du fanger overlay-fanen med «Window Capture» i OBS.</p>
+        <p><strong class="text-white">Alternativ 2 – Browser Source.</strong>
+        Legg til en Browser Source i OBS med lokal fil, 1920×1080, og huk av for gjennomsiktig bakgrunn.
+        Styr den fra «Interact»-vinduet i OBS.</p>
+        <p class="text-white/50">Merk: OBS kjører sin egen nettleser i en egen prosess, så kontrollpanelet i Chrome når
+        ikke inn i en Browser Source. Skal du styre overlayet fra en annen maskin eller skjerm, trengs en liten
+        server mellom – si fra, så setter jeg den opp.</p>
+      </div>
+    </details>
+
+    <p class="text-xs text-muted pb-10">
+      Prisene under er eksempeldata for oppsettet. Hentes fra PriceCharting/solgt-historikk før sending – alltid solgte priser, aldri prisantydninger.
+    </p>
+  </div>
+</div>
+
+<style>
+  .bryter{border:1px solid #34343B;border-radius:.5rem;padding:.625rem 1rem;font-size:.875rem;font-weight:700}
+  .bryter:hover{border-color:rgba(255,255,255,.6)}
+  .bryter.aktiv{background:#FFC400;border-color:#FFC400;color:#0A0A0B}
+  kbd{font-size:10px;border:1px solid currentColor;border-radius:4px;padding:1px 5px;margin-left:6px;opacity:.55;font-family:inherit}
+</style>
+
+<script>
+/* ═══════════ DATA – byttes ut med ekte tall før sending ═══════════ */
+const kr = n => n.toLocaleString('nb-NO').replace(/ /g,' ') + ' kr';
+
+const SETT = [
+  { spill:'Pokémon',  sett:'Evolving Skies',        pakkepris:149, oppdatert:'05.08.2026' },
+  { spill:'Pokémon',  sett:'Obsidian Flames',       pakkepris:69,  oppdatert:'05.08.2026' },
+  { spill:'Lorcana',  sett:'The First Chapter',     pakkepris:129, oppdatert:'04.08.2026' },
+  { spill:'One Piece',sett:'OP-05 Awakening',       pakkepris:89,  oppdatert:'05.08.2026' },
+  { spill:'Riftbound',sett:'Origins',               pakkepris:79,  oppdatert:'05.08.2026' }
+];
+
+const KORT = [
+  { spill:'Pokémon',   sett:'Evolving Skies',    navn:'Umbreon VMAX',        nr:'215/203', sjelden:'Alt Art',  raw:9800, lav:8400,  hoy:11200, psa10:42500, salg:14 },
+  { spill:'Pokémon',   sett:'Evolving Skies',    navn:'Rayquaza VMAX',       nr:'218/203', sjelden:'Alt Art',  raw:2100, lav:1850,  hoy:2600,  psa10:14900, salg:31 },
+  { spill:'Pokémon',   sett:'Evolving Skies',    navn:'Sylveon VMAX',        nr:'212/203', sjelden:'Alt Art',  raw:1450, lav:1200,  hoy:1700,  psa10:5200,  salg:22 },
+  { spill:'Pokémon',   sett:'Obsidian Flames',   navn:'Charizard ex',        nr:'223/197', sjelden:'SIR',      raw:1890, lav:1650,  hoy:2150,  psa10:4900,  salg:48 },
+  { spill:'Pokémon',   sett:'Obsidian Flames',   navn:'Pidgeot ex',          nr:'225/197', sjelden:'SIR',      raw:640,  lav:540,   hoy:720,   psa10:1900,  salg:35 },
+
+  { spill:'Lorcana',   sett:'The First Chapter',  navn:'Mickey Mouse – Brave Little Tailor', nr:'1/204', sjelden:'Enchanted', raw:12400, lav:10800, hoy:14000, psa10:28000, salg:9 },
+  { spill:'Lorcana',   sett:'The First Chapter',  navn:'Elsa – Snow Queen',   nr:'42/204',  sjelden:'Enchanted', raw:3200, lav:2800, hoy:3900, psa10:9100, salg:12 },
+  { spill:'Lorcana',   sett:'The First Chapter',  navn:'Maleficent – Sorceress', nr:'52/204', sjelden:'Enchanted', raw:1750, lav:1500, hoy:2050, psa10:4600, salg:17 },
+
+  { spill:'One Piece', sett:'OP-05 Awakening',   navn:'Shanks',              nr:'OP05-118', sjelden:'Manga',    raw:4300, lav:3700, hoy:5100, psa10:11500, salg:19 },
+  { spill:'One Piece', sett:'OP-05 Awakening',   navn:'Monkey D. Luffy',     nr:'OP05-119', sjelden:'Parallel', raw:980,  lav:820,  hoy:1150, psa10:2900,  salg:26 },
+
+  { spill:'Riftbound', sett:'Origins',           navn:'Jinx – Loose Cannon', nr:'ORI-241',  sjelden:'Overnumbered', raw:2600, lav:1900, hoy:3400, psa10:0, salg:6 },
+  { spill:'Riftbound', sett:'Origins',           navn:'Ahri – Nine-Tailed',  nr:'ORI-238',  sjelden:'Overnumbered', raw:1400, lav:1050, hoy:1900, psa10:0, salg:5 }
+];
+
+/* ═══════════ TILSTAND, DELT MELLOM FANER ═══════════ */
+const START = { kortIndeks:null, settNavn:null, vis:{kort:false,sett:false,ticker:false}, hits:[], pakker:0, hitVarsel:null };
+let S = { ...START };
+
+const kanal = 'BroadcastChannel' in window ? new BroadcastChannel('breakz-overlay') : null;
+const NOKKEL = 'breakz-overlay-state';
+
+function lagre(){
+  try { localStorage.setItem(NOKKEL, JSON.stringify(S)); } catch(e){}
+  if(kanal) kanal.postMessage(S);
+  tegn();
+}
+function hent(){
+  try { const r = localStorage.getItem(NOKKEL); if(r) S = { ...START, ...JSON.parse(r) }; } catch(e){}
+}
+if(kanal) kanal.onmessage = e => { S = e.data; tegn(); };
+window.addEventListener('storage', e => { if(e.key === NOKKEL && e.newValue){ S = JSON.parse(e.newValue); tegn(); } });
+
+/* ═══════════ OVERLAY ═══════════ */
+const $ = id => document.getElementById(id);
+
+function tegnOverlay(){
+  const k = S.kortIndeks != null ? KORT[S.kortIndeks] : null;
+
+  if(k){
+    $('kSpill').textContent   = k.spill.toUpperCase();
+    $('kSett').textContent    = k.sett;
+    $('kSjelden').textContent = k.sjelden.toUpperCase();
+    $('kNavn').textContent    = k.navn;
+    $('kNr').textContent      = k.nr;
+    $('kRaw').textContent     = kr(k.raw);
+    $('kSpenn').textContent   = `${kr(k.lav).replace(' kr','')} – ${kr(k.hoy)} siste 30 dager`;
+    $('kPsa').textContent     = k.psa10 ? kr(k.psa10) : 'Ingen data';
+    const s = SETT.find(s => s.sett === k.sett);
+    $('kKilde').textContent   = `${k.salg} solgte · PriceCharting · oppdatert ${s ? s.oppdatert : '–'}`;
+  }
+  bytt($('kortBoks'), S.vis.kort && k, 'ut-venstre');
+  // løft kortboksen over tickeren når den er på
+  $('kortBoks').style.bottom = S.vis.ticker ? '104px' : '40px';
+
+  const settNavn = S.settNavn || (k && k.sett);
+  const st = SETT.find(s => s.sett === settNavn);
+  if(st){
+    $('sNavn').textContent = st.sett;
+    $('sPris').textContent = kr(st.pakkepris);
+    $('sListe').innerHTML = KORT
+      .filter(c => c.sett === st.sett)
+      .sort((a,b) => b.raw - a.raw)
+      .slice(0,5)
+      .map((c,i) => `<li class="flex items-center gap-3 px-5 py-3">
+        <span class="w-5 text-[13px] font-black text-white/25">${i+1}</span>
+        <span class="flex-1 min-w-0">
+          <span class="block text-[15px] font-bold truncate">${c.navn}</span>
+          <span class="block text-[11px] text-white/40">${c.sjelden}</span>
+        </span>
+        <span class="display text-lg ${i === 0 ? 'text-gul' : ''}">${kr(c.raw)}</span>
+      </li>`).join('');
+  }
+  bytt($('settBoks'), S.vis.sett && st, 'ut-hoyre');
+
+  const sum = S.hits.reduce((a,h) => a + h.raw, 0);
+  $('tSum').textContent = kr(sum);
+  const band = S.hits.length
+    ? S.hits.map(h => `<span class="flex items-center gap-2.5">
+        <span class="text-white/40 text-[11px] uppercase tracking-wider">${h.spill}</span>
+        <span class="font-bold">${h.navn}</span>
+        <span class="text-gul font-bold">${kr(h.raw)}</span>
+        <span class="text-white/20">•</span></span>`).join('')
+    : '<span class="text-white/40">Ingen hits registrert ennå i kveld</span>';
+  $('tRull').innerHTML = band + band;
+  $('tRull').style.animationPlayState = S.hits.length > 2 ? 'running' : 'paused';
+  bytt($('tickerBoks'), S.vis.ticker, 'ut-venstre');
+
+  const hv = S.hitVarsel;
+  if(hv){ $('hNavn').textContent = hv.navn; $('hPris').textContent = kr(hv.raw); }
+  $('hitBoks').style.opacity = hv ? '1' : '0';
+}
+
+function bytt(el, synlig, utKlasse){
+  el.classList.toggle('inne', !!synlig);
+  el.classList.toggle(utKlasse, !synlig);
+}
+
+/* ═══════════ KONTROLLPANEL ═══════════ */
+const spill = [...new Set(KORT.map(k => k.spill))];
+let filterSpill = 'alle', sokeord = '';
+
+$('spillTabs').innerHTML = ['alle', ...spill]
+  .map(s => `<button data-spill="${s}" class="bryter ${s === 'alle' ? 'aktiv' : ''}">${s === 'alle' ? 'Alle spill' : s}</button>`).join('');
+
+$('spillTabs').addEventListener('click', e => {
+  const b = e.target.closest('[data-spill]'); if(!b) return;
+  filterSpill = b.dataset.spill;
+  [...$('spillTabs').children].forEach(c => c.classList.toggle('aktiv', c === b));
+  tegnListe();
+});
+$('sok').addEventListener('input', e => { sokeord = e.target.value.toLowerCase(); tegnListe(); });
+
+function tegnListe(){
+  const treff = KORT
+    .map((k,i) => ({...k, i}))
+    .filter(k => (filterSpill === 'alle' || k.spill === filterSpill) &&
+      (k.navn + k.sett + k.spill + k.sjelden).toLowerCase().includes(sokeord));
+
+  $('liste').innerHTML = treff.map(k => `
+    <div class="border ${S.kortIndeks === k.i ? 'border-gul' : 'border-line'} bg-panel rounded-xl p-4 flex gap-4 items-center">
+      <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-white/40">${k.spill}</span>
+          <span class="text-[10px] font-black bg-gul text-ink px-1.5 py-0.5 rounded">${k.sjelden}</span>
+        </div>
+        <div class="font-bold truncate">${k.navn}</div>
+        <div class="text-[12px] text-white/45">${k.sett} · ${k.nr}</div>
+        <div class="mt-2 flex items-baseline gap-3">
+          <span class="display text-xl">${kr(k.raw)}</span>
+          <span class="text-[12px] text-white/40">${k.psa10 ? 'PSA 10 ' + kr(k.psa10) : 'ingen PSA-data'}</span>
+        </div>
+      </div>
+      <div class="flex flex-col gap-2 shrink-0">
+        <button data-velg="${k.i}" class="bg-gul hover:bg-gul2 text-ink font-bold text-[13px] px-3.5 py-2 rounded-lg">Vis</button>
+        <button data-hit="${k.i}" class="border border-line2 hover:border-gul text-[13px] font-bold px-3.5 py-2 rounded-lg">Hit!</button>
+      </div>
+    </div>`).join('') || '<p class="text-muted col-span-2 py-8 text-center">Ingen treff.</p>';
+}
+
+$('liste').addEventListener('click', e => {
+  const v = e.target.closest('[data-velg]'), h = e.target.closest('[data-hit]');
+  if(v){ velgKort(+v.dataset.velg); }
+  if(h){ registrerHit(+h.dataset.hit); }
+});
+
+function velgKort(i){
+  S.kortIndeks = i;
+  S.settNavn = KORT[i].sett;
+  S.vis.kort = true;
+  lagre();
+}
+
+function registrerHit(i){
+  const k = KORT[i];
+  S.hits.push({ navn:k.navn, spill:k.spill, raw:k.raw });
+  S.kortIndeks = i;
+  S.settNavn = k.sett;
+  S.vis.kort = true;
+  S.vis.ticker = true;
+  S.hitVarsel = { navn:k.navn, raw:k.raw };
+  lagre();
+  setTimeout(() => { S.hitVarsel = null; lagre(); }, 3200);
+}
+
+document.querySelectorAll('[data-vis]').forEach(b => b.addEventListener('click', () => {
+  S.vis[b.dataset.vis] = !S.vis[b.dataset.vis]; lagre();
+}));
+document.querySelectorAll('[data-pakke]').forEach(b => b.addEventListener('click', () => {
+  S.pakker = Math.max(0, S.pakker + (+b.dataset.pakke)); lagre();
+}));
+$('skjulAlt').addEventListener('click', () => { S.vis = {kort:false,sett:false,ticker:false}; S.hitVarsel = null; lagre(); });
+$('nullstillHits').addEventListener('click', () => {
+  if(confirm('Nullstille hits og pakketeller for kvelden?')){ S.hits = []; S.pakker = 0; lagre(); }
+});
+
+function tegnKontroll(){
+  const k = S.kortIndeks != null ? KORT[S.kortIndeks] : null;
+  $('statusKort').textContent   = S.vis.kort && k ? k.navn : 'Ingenting';
+  $('statusAntall').textContent = S.hits.length;
+  $('statusSum').textContent    = kr(S.hits.reduce((a,h) => a + h.raw, 0));
+  $('statusPakker').textContent = S.pakker;
+  document.querySelectorAll('[data-vis]').forEach(b => b.classList.toggle('aktiv', S.vis[b.dataset.vis]));
+  $('sync').textContent = kanal ? 'Synkroniserer mellom faner' : 'Synk via localStorage';
+  tegnListe();
+}
+
+/* ═══════════ HURTIGTASTER ═══════════ */
+document.addEventListener('keydown', e => {
+  if(e.target.matches('input,textarea')) return;
+  const t = e.key.toLowerCase();
+  if(t === 'k'){ S.vis.kort = !S.vis.kort; lagre(); }
+  if(t === 's'){ S.vis.sett = !S.vis.sett; lagre(); }
+  if(t === 't'){ S.vis.ticker = !S.vis.ticker; lagre(); }
+  if(e.key === 'Escape'){ S.vis = {kort:false,sett:false,ticker:false}; S.hitVarsel = null; lagre(); }
+  if(/^[1-9]$/.test(e.key)){ const i = +e.key - 1; if(KORT[i]) velgKort(i); }
+});
+
+/* ═══════════ VISNINGSMODUS ═══════════ */
+function tegn(){ tegnOverlay(); if(!$('kontroll').classList.contains('hidden')) tegnKontroll(); }
+
+function rute(){
+  const kontroll = location.hash.startsWith('#kontroll');
+  $('kontroll').classList.toggle('hidden', !kontroll);
+  $('overlay').classList.toggle('hidden', kontroll);
+  document.body.classList.toggle('forhandsvis', location.hash.startsWith('#forhandsvis'));
+  tegn();
+}
+window.addEventListener('hashchange', rute);
+hent(); rute();
+</script>
+</body>
+</html>
