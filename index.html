@@ -1,124 +1,332 @@
 <!DOCTYPE html>
-<html lang="no">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BussBestill – Bestill buss enkelt</title>
-  <meta name="description" content="Bestill buss med kart, legg til hentested og stopp, og få prisen beregnet automatisk." />
-
-  <!-- Leaflet (kart) -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <link rel="stylesheet" href="styles.css" />
+  <title>BREAKZ — The World's Most Exciting Trading Card Products</title>
+  <meta name="description" content="Premium trading card products featuring legendary chase cards across Pokémon, One Piece, Disney Lorcana, Dragon Ball, Magic and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90' fill='%23c9a961'>◆</text></svg>" />
 </head>
 <body>
-  <header class="site-header">
-    <div class="brand">
-      <span class="brand-logo" aria-hidden="true">🚌</span>
-      <span class="brand-name">BussBestill</span>
+
+  <!-- ===================== NAVIGATION ===================== -->
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a href="index.html" class="nav-logo">BREAK<span class="z">Z</span></a>
+      <nav class="nav-links">
+        <a href="#products">Products</a>
+        <a href="#mystery">Mystery Crates</a>
+        <a href="#categories">Categories</a>
+        <a href="japan.html">Japan Story</a>
+      </nav>
+      <div style="display:flex; align-items:center; gap:14px">
+        <a href="#products" class="nav-cart" data-toast="Your vault is empty — for now.">◆ Vault · 0</a>
+        <button class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
     </div>
-    <p class="tagline">Planlegg turen, sett stoppene – vi regner ut prisen</p>
   </header>
 
-  <main class="layout">
-    <!-- Venstre: planlegging -->
-    <section class="panel planner" aria-label="Planlegg reisen">
-      <h2>Planlegg reisen</h2>
-
-      <div class="search-row">
-        <label for="search-input" class="sr-only">Søk etter adresse eller sted</label>
-        <input type="text" id="search-input" placeholder="Søk adresse eller sted, f.eks. «Oslo S»" autocomplete="off" />
-        <button type="button" id="search-btn" class="btn btn-secondary">Søk</button>
+  <!-- ============================================================
+       SECTION 1 — JAPAN MYSTERY CRATES · LAUNCH PROMO
+       This section is fully self-contained. Delete everything
+       between the PROMO START / PROMO END markers to remove the
+       launch campaign — the permanent homepage below stands alone.
+       ============================================================ -->
+  <!-- PROMO START -->
+  <section class="japan-launch" id="japan-launch">
+    <div class="jl-scene" aria-hidden="true">
+      <div class="jl-sky"></div>
+      <div class="jl-signs">
+        <span class="jl-sign gold" style="top:8%; left:4%; font-size:26px">ポケモン</span>
+        <span class="jl-sign red" style="top:20%; left:11%; font-size:18px; animation-delay:1.4s">カードショップ</span>
+        <span class="jl-sign white" style="top:6%; right:6%; font-size:22px; animation-delay:2.6s">秋葉原</span>
+        <span class="jl-sign red" style="top:26%; right:13%; font-size:16px; animation-delay:0.7s">トレカ</span>
+        <span class="jl-sign gold" style="bottom:30%; left:2%; font-size:15px; animation-delay:3.2s">開封</span>
+        <span class="jl-sign white" style="bottom:34%; right:3%; font-size:14px; animation-delay:1.9s">限定</span>
       </div>
-      <ul id="search-results" class="search-results" hidden></ul>
+      <div class="jl-rain slow"></div>
+      <div class="jl-rain"></div>
+      <div class="jl-street"></div>
+      <div class="jl-vignette"></div>
+    </div>
 
-      <p class="hint">
-        Tips: Søk etter et sted, eller <strong>klikk direkte i kartet</strong> for å legge til et stopp.
+    <div class="wrap jl-content">
+      <div class="jl-badge reveal in"><span class="dot"></span> Limited Launch Event</div>
+      <h1 class="jl-title reveal in" style="--d:0.1s">
+        <span class="thin">NorwayRob · Tokyo → Kyoto → Osaka</span>
+        JAPAN <span class="gold-grad">MYSTERY</span> CRATES
+      </h1>
+      <p class="jl-sub reveal in" style="--d:0.22s">
+        Hand-picked collectibles sourced during our trip across Japan.
+        Every crate is filled with products we <strong>personally travelled across Japan</strong> to find.
       </p>
+      <div class="jl-cta-row reveal in" style="--d:0.34s">
+        <a href="#mystery" class="btn btn-gold">Reserve Yours</a>
+        <a href="japan.html" class="btn btn-ghost">Watch the Journey</a>
+      </div>
 
-      <h3>Stoppesteder</h3>
-      <p class="stops-help">Første stopp = hentested, siste = reisemål. Dra for å endre rekkefølge.</p>
-      <ol id="stops-list" class="stops-list" aria-live="polite"></ol>
-      <p id="stops-empty" class="stops-empty">Ingen stopp lagt til ennå.</p>
+      <div class="countdown reveal in" style="--d:0.46s" data-countdown="2026-08-30T18:00:00+02:00" aria-label="Time until launch">
+        <div class="cd-cell"><div class="cd-num" data-cd="d">00</div><div class="cd-label">Days</div></div>
+        <div class="cd-cell"><div class="cd-num" data-cd="h">00</div><div class="cd-label">Hours</div></div>
+        <div class="cd-cell"><div class="cd-num" data-cd="m">00</div><div class="cd-label">Minutes</div></div>
+        <div class="cd-cell"><div class="cd-num" data-cd="s">00</div><div class="cd-label">Seconds</div></div>
+      </div>
+    </div>
 
-      <button type="button" id="clear-stops" class="btn btn-ghost" hidden>Fjern alle stopp</button>
-    </section>
+    <div class="wrap jl-shelf-wrap reveal in" style="--d:0.58s">
+      <div class="jl-shelf-head">
+        <h3>Inside the crates</h3>
+        <a class="link-arrow" href="japan.html">The sourcing story <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="jl-shelf" data-drag-scroll>
+        <div class="shelf-card">
+          <div class="sc-visual" style="background:radial-gradient(70% 90% at 50% 110%, rgba(201,169,97,0.2), transparent 65%)">
+            <div class="mini-box" style="--mb-accent:#e8ce8f"><div class="mb-face"><span class="mb-emblem">P</span><span class="mb-line"></span><span class="mb-name">Japanese Booster Box</span></div></div>
+          </div>
+          <div class="sc-tag">Sealed Product</div>
+          <h4>Japanese Booster Boxes</h4>
+          <p>151, VSTAR Universe, Shiny Treasure — carried home in our own luggage.</p>
+        </div>
+        <div class="shelf-card">
+          <div class="sc-visual" style="background:radial-gradient(70% 90% at 50% 110%, rgba(192,58,43,0.16), transparent 65%)">
+            <div class="mini-box" style="--mb-accent:#e8a89a"><div class="mb-face"><span class="mb-emblem">◆</span><span class="mb-line"></span><span class="mb-name">Promo Card</span></div></div>
+          </div>
+          <div class="sc-tag">Promos</div>
+          <h4>Event Promo Cards</h4>
+          <p>Tournament and campaign promos that never leave Japan.</p>
+        </div>
+        <div class="shelf-card">
+          <div class="sc-visual" style="background:radial-gradient(70% 90% at 50% 110%, rgba(200,190,240,0.14), transparent 65%)">
+            <div class="mini-box" style="--mb-accent:#cabdf0"><div class="mb-face"><span class="mb-emblem">V</span><span class="mb-line"></span><span class="mb-name">Vintage Holo</span></div></div>
+          </div>
+          <div class="sc-tag">Vintage</div>
+          <h4>Vintage Collectibles</h4>
+          <p>Base Set era Japanese cards found in Kyoto's hidden shops.</p>
+        </div>
+        <div class="shelf-card">
+          <div class="sc-visual" style="background:radial-gradient(70% 90% at 50% 110%, rgba(201,169,97,0.2), transparent 65%)">
+            <div class="mini-box crate" style="--mb-accent:#e8ce8f"><div class="mb-face"><span class="mb-emblem">C</span><span class="mb-line"></span><span class="mb-name">Pokémon Center</span></div></div>
+          </div>
+          <div class="sc-tag">Exclusive</div>
+          <h4>Pokémon Center Exclusives</h4>
+          <p>Store-limited items you can only buy inside Japan.</p>
+        </div>
+        <div class="shelf-card">
+          <div class="sc-visual" style="background:radial-gradient(70% 90% at 50% 110%, rgba(160,170,210,0.14), transparent 65%)">
+            <div class="mini-box" style="--mb-accent:#c9d2ee"><div class="mb-face"><span class="mb-emblem">A</span><span class="mb-line"></span><span class="mb-name">Accessories</span></div></div>
+          </div>
+          <div class="sc-tag">Accessories</div>
+          <h4>Premium Accessories</h4>
+          <p>Japanese sleeves, binders and display cases from Akihabara.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- PROMO END -->
 
-    <!-- Midten: kart -->
-    <section class="panel map-panel" aria-label="Kart">
-      <div id="map"></div>
-      <div id="route-info" class="route-info" hidden>
-        <span id="route-distance">–</span> · <span id="route-duration">–</span>
+  <!-- ============================================================
+       SECTION 2 — PERMANENT HOMEPAGE
+       ============================================================ -->
+  <main id="homepage">
+
+    <!-- hero -->
+    <section class="hero">
+      <div class="hero-grid-lines" aria-hidden="true"></div>
+      <div class="wrap hero-inner">
+        <div>
+          <span class="eyebrow reveal">Premium Trading Card House</span>
+          <h1 class="hero-title reveal" style="--d:0.1s">
+            The World's Most <em>Exciting</em> Trading Card Products
+          </h1>
+          <p class="hero-sub reveal" style="--d:0.22s">
+            Discover premium trading card products featuring legendary chase cards
+            across Pokémon, One Piece, Disney Lorcana, Dragon Ball, Magic and more.
+          </p>
+          <div class="hero-cta reveal" style="--d:0.34s">
+            <a href="#products" class="btn btn-gold">Shop Products</a>
+            <a href="#products" class="btn btn-ghost">Explore Chase Cards</a>
+          </div>
+          <div class="hero-stats reveal" style="--d:0.46s">
+            <div class="hstat"><div class="n"><span data-countup="428000">0</span> <span>NOK</span></div><div class="l">Biggest possible pull</div></div>
+            <div class="hstat"><div class="n" data-countup="1400" data-suffix="+">0</div><div class="l">Chase cards tracked</div></div>
+            <div class="hstat"><div class="n">100<span>%</span></div><div class="l">Authentic &amp; sealed</div></div>
+          </div>
+        </div>
+        <div class="hero-cards" aria-hidden="true">
+          <div class="float-card"><div class="lux-card"><div class="lc-frame"><span class="lc-mono">Z</span></div><div class="lc-foot"><span>Breakz</span><span class="r">Grail</span></div></div></div>
+          <div class="float-card" data-tilt><div class="lux-card"><div class="lc-frame"><span class="lc-mono">◆</span></div><div class="lc-foot"><span>Chase</span><span class="r">1/1</span></div></div></div>
+          <div class="float-card"><div class="lux-card"><div class="lc-frame"><span class="lc-mono">B</span></div><div class="lc-foot"><span>Breakz</span><span class="r">Alt Art</span></div></div></div>
+        </div>
       </div>
     </section>
 
-    <!-- Høyre: bestilling og pris -->
-    <section class="panel booking" aria-label="Bestilling og pris">
-      <h2>Detaljer</h2>
-      <form id="booking-form" novalidate>
-        <div class="field">
-          <label for="passengers">Antall passasjerer</label>
-          <input type="number" id="passengers" min="1" max="60" value="10" required />
-        </div>
+    <!-- recent pulls ticker -->
+    <div class="ticker-band" id="pulls-ticker" aria-label="Recent pulls"></div>
 
-        <div class="field">
-          <label for="date">Dato</label>
-          <input type="date" id="date" required />
+    <!-- products -->
+    <section class="section-pad" id="products">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow reveal">The Collection</span>
+          <h2 class="section-title reveal" style="--d:0.08s">Every box hides <span class="accent-serif">a legend</span></h2>
+          <p class="section-sub reveal" style="--d:0.16s">
+            We don't sell boxes. We sell the moment before the reveal.
+            Every product is ranked by what's waiting inside.
+          </p>
         </div>
+        <div class="products-grid" id="products-grid"></div>
+      </div>
+    </section>
 
-        <div class="field">
-          <label for="time">Klokkeslett</label>
-          <input type="time" id="time" value="09:00" required />
+    <!-- mystery -->
+    <section class="section-pad mystery-section" id="mystery">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow reveal">Mystery</span>
+          <h2 class="section-title reveal" style="--d:0.08s">Sealed. Secret. <span class="accent-serif">Yours.</span></h2>
+          <p class="section-sub reveal" style="--d:0.16s">
+            Curated crates built from our sourcing trips. Every crate is packed by hand,
+            filmed behind the scenes, and holds at least one premium product.
+          </p>
         </div>
+        <div class="mystery-grid" id="mystery-grid"></div>
+      </div>
+    </section>
 
-        <div class="field">
-          <label for="return-trip" class="checkbox-label">
-            <input type="checkbox" id="return-trip" />
-            Tur/retur (samme rute tilbake)
-          </label>
+    <!-- categories -->
+    <section class="section-pad" id="categories">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow reveal">Categories</span>
+          <h2 class="section-title reveal" style="--d:0.08s">Enter the <span class="accent-serif">vaults</span></h2>
         </div>
-
-        <div class="field">
-          <label for="name">Navn</label>
-          <input type="text" id="name" placeholder="Ditt navn" required />
+        <div class="vault-grid">
+          <a href="product.html?id=pokemon-151-jp" class="vault reveal" style="--v-glow:rgba(201,169,97,0.14)">
+            <span class="v-glyph">P</span><h3>Pokémon</h3><p>The original chase</p><span class="v-enter">Enter Vault →</span>
+          </a>
+          <a href="product.html?id=op01-romance-dawn" class="vault reveal" style="--v-glow:rgba(192,58,43,0.13); --d:0.07s">
+            <span class="v-glyph">O</span><h3>One Piece</h3><p>Manga rare grails</p><span class="v-enter">Enter Vault →</span>
+          </a>
+          <a href="product.html?id=lorcana-first-chapter" class="vault reveal" style="--v-glow:rgba(150,130,210,0.14); --d:0.14s">
+            <span class="v-glyph">L</span><h3>Disney Lorcana</h3><p>Enchanted rarities</p><span class="v-enter">Enter Vault →</span>
+          </a>
+          <a href="product.html?id=dragonball-fusion-world" class="vault reveal" style="--v-glow:rgba(230,150,60,0.12); --d:0.21s">
+            <span class="v-glyph">D</span><h3>Dragon Ball</h3><p>Secret manga rares</p><span class="v-enter">Enter Vault →</span>
+          </a>
+          <a href="product.html?id=mtg-collector-lotr" class="vault reveal" style="--v-glow:rgba(120,160,130,0.13); --d:0.28s">
+            <span class="v-glyph">M</span><h3>Magic</h3><p>Mythic treatments</p><span class="v-enter">Enter Vault →</span>
+          </a>
+          <a href="#products" class="vault reveal" style="--v-glow:rgba(200,200,220,0.1); --d:0.35s">
+            <span class="v-glyph">S</span><h3>Sports Cards</h3><p>Coming soon</p><span class="v-enter">Join Waitlist →</span>
+          </a>
         </div>
+      </div>
+    </section>
 
-        <div class="field">
-          <label for="contact">E-post eller telefon</label>
-          <input type="text" id="contact" placeholder="deg@epost.no / 900 00 000" required />
+    <!-- japan story teaser -->
+    <section class="section-pad story-teaser" id="japan">
+      <div class="wrap story-teaser-inner">
+        <div>
+          <span class="eyebrow reveal">The Japan Story</span>
+          <h2 class="section-title reveal" style="--d:0.08s">Ten days.<br />Four cities.<br /><span class="accent-serif">One obsession.</span></h2>
+          <p class="section-sub reveal" style="--d:0.16s">
+            We flew to Japan and hunted through Akihabara's neon arcades, Kyoto's vintage
+            backstreets and Osaka's collector dens — to fill your crates with things
+            you simply cannot buy anywhere else.
+          </p>
+          <div class="reveal" style="--d:0.24s; margin-top:36px">
+            <a href="japan.html" class="btn btn-ghost">Watch the Documentary</a>
+          </div>
         </div>
-
-        <h2>Pris</h2>
-        <div class="price-box" id="price-box">
-          <div class="price-line"><span>Grunnpris</span><span id="p-base">–</span></div>
-          <div class="price-line"><span id="p-distance-label">Distanse</span><span id="p-distance">–</span></div>
-          <div class="price-line"><span id="p-stops-label">Ekstra stopp</span><span id="p-stops">–</span></div>
-          <div class="price-line"><span id="p-passengers-label">Passasjertillegg</span><span id="p-passengers">–</span></div>
-          <div class="price-line price-total"><span>Totalt (estimat)</span><span id="p-total">–</span></div>
-          <p class="price-note">Estimert pris inkl. mva. Endelig pris bekreftes ved bestilling.</p>
+        <div class="story-frames reveal-scale" style="--d:0.15s" aria-hidden="true">
+          <div class="story-frame">
+            <div class="scene">
+              <div class="sc-glow" style="width:70%; height:50%; top:8%; left:14%; background:rgba(192,58,43,0.3)"></div>
+              <div class="sc-glow" style="width:50%; height:36%; bottom:16%; right:-6%; background:rgba(201,169,97,0.28)"></div>
+              <div class="sc-floor"></div><div class="sc-grain"></div>
+            </div>
+            <span class="sf-label">Akihabara · 23:41</span>
+          </div>
+          <div class="story-frame">
+            <div class="scene">
+              <div class="sc-glow" style="width:80%; height:44%; top:20%; left:8%; background:rgba(201,169,97,0.26)"></div>
+              <div class="sc-floor"></div><div class="sc-grain"></div>
+            </div>
+            <span class="sf-label">Pokémon Center</span>
+          </div>
+          <div class="story-frame">
+            <div class="scene">
+              <div class="sc-glow" style="width:60%; height:40%; top:12%; right:4%; background:rgba(150,130,210,0.24)"></div>
+              <div class="sc-glow" style="width:40%; height:30%; bottom:10%; left:6%; background:rgba(192,58,43,0.18)"></div>
+              <div class="sc-floor"></div><div class="sc-grain"></div>
+            </div>
+            <span class="sf-label">Kyoto · Vintage</span>
+          </div>
+          <div class="story-frame">
+            <div class="scene">
+              <div class="sc-glow" style="width:76%; height:48%; top:16%; left:10%; background:rgba(201,169,97,0.3)"></div>
+              <div class="sc-floor"></div><div class="sc-grain"></div>
+            </div>
+            <span class="sf-label">Packing the crates</span>
+          </div>
         </div>
+      </div>
+    </section>
 
-        <button type="submit" id="book-btn" class="btn btn-primary" disabled>Bestill buss</button>
-      </form>
+    <!-- cta band -->
+    <section class="section-pad cta-band">
+      <div class="wrap">
+        <span class="eyebrow reveal" style="justify-content:center">The Inner Circle</span>
+        <h2 class="reveal" style="--d:0.08s">Never miss <span class="accent-serif">the drop</span></h2>
+        <p class="reveal" style="--d:0.16s">Early access to launches, restocks and one-of-one chase alerts. Quality over quantity — we email when it matters.</p>
+        <form class="newsletter reveal" style="--d:0.24s">
+          <input type="email" placeholder="your@email.com" aria-label="Email address" />
+          <button type="submit">Join</button>
+        </form>
+      </div>
     </section>
   </main>
 
-  <!-- Bekreftelse -->
-  <div id="confirm-overlay" class="overlay" hidden>
-    <div class="overlay-card" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
-      <h2 id="confirm-title">✅ Takk for bestillingen!</h2>
-      <p>Vi har mottatt reservasjonen din. En bekreftelse sendes til <strong id="confirm-contact"></strong>.</p>
-      <div id="confirm-summary" class="confirm-summary"></div>
-      <button type="button" id="confirm-close" class="btn btn-primary">Lukk</button>
+  <!-- footer -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <div class="f-brand">BREAK<span class="z">Z</span></div>
+          <p class="f-tag">The world's most premium collectible shopping experience. Every product, chosen for the legend inside it.</p>
+        </div>
+        <div>
+          <h5>Shop</h5>
+          <a href="#products">All Products</a>
+          <a href="#mystery">Mystery Crates</a>
+          <a href="#categories">Categories</a>
+        </div>
+        <div>
+          <h5>Breakz</h5>
+          <a href="japan.html">The Japan Story</a>
+          <a href="#" data-toast="Authenticity — every product verified before it ships.">Authenticity</a>
+          <a href="#" data-toast="Support — talk to a collector, not a bot.">Support</a>
+        </div>
+        <div>
+          <h5>Legal</h5>
+          <a href="#" data-toast="Terms of service.">Terms</a>
+          <a href="#" data-toast="Privacy policy.">Privacy</a>
+          <a href="#" data-toast="Shipping worldwide, fully insured.">Shipping</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 BREAKZ. All rights reserved.</span>
+        <span>Oslo · Tokyo</span>
+      </div>
     </div>
-  </div>
-
-  <footer class="site-footer">
-    <p>Demo-nettside · Kartdata © OpenStreetMap-bidragsytere · Ruter via OSRM</p>
   </footer>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="script.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/home.js"></script>
 </body>
 </html>

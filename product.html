@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Chase — BREAKZ</title>
+  <meta name="description" content="Explore the legendary chase cards inside this product — market values, rarity, price history and population reports." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90' fill='%23c9a961'>◆</text></svg>" />
+</head>
+<body>
+
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a href="index.html" class="nav-logo">BREAK<span class="z">Z</span></a>
+      <nav class="nav-links">
+        <a href="index.html#products">Products</a>
+        <a href="index.html#mystery">Mystery Crates</a>
+        <a href="index.html#categories">Categories</a>
+        <a href="japan.html">Japan Story</a>
+      </nav>
+      <div style="display:flex; align-items:center; gap:14px">
+        <a href="index.html#products" class="nav-cart" data-toast="Your vault is empty — for now.">◆ Vault · 0</a>
+        <button class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== THE CHASE ===================== -->
+  <section class="chase-hero" id="chase-hero">
+    <div class="wrap chase-hero-inner">
+      <div>
+        <span class="chase-kicker reveal in">The Chase</span>
+        <h1 class="chase-title reveal in" style="--d:0.08s" id="ch-card-name">—</h1>
+        <div class="chase-meta reveal in" style="--d:0.16s">
+          <span class="chip gold" id="ch-rarity">—</span>
+          <span class="chip" id="ch-odds">—</span>
+          <span class="chip" id="ch-set">—</span>
+        </div>
+        <div class="chase-value-panel reveal in" style="--d:0.26s">
+          <div class="cv-cell">
+            <div class="l">Current Market Value</div>
+            <div class="n" id="ch-value">—</div>
+            <div class="s up" id="ch-delta">—</div>
+          </div>
+          <div class="cv-cell">
+            <div class="l">Sales · Last 30 Days</div>
+            <div class="n white" id="ch-sales">—</div>
+            <div class="s" id="ch-lastsale">—</div>
+          </div>
+        </div>
+        <div class="reveal in" style="--d:0.36s; margin-top:44px; display:flex; gap:18px; flex-wrap:wrap">
+          <a href="#buy" class="btn btn-gold">Start the Chase</a>
+          <a href="#top10" class="btn btn-ghost">Top 10 Chase Cards</a>
+        </div>
+      </div>
+      <div class="chase-card-stage">
+        <div class="chase-glow" aria-hidden="true"></div>
+        <div class="chase-card-big" data-tilt id="chase-card-big">
+          <div class="lux-card">
+            <div class="lc-frame"><span class="lc-mono" id="ch-emblem">◆</span></div>
+            <div class="lc-foot"><span id="ch-foot-name">Chase</span><span class="r" id="ch-foot-rarity">—</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TOP 10 ===================== -->
+  <section class="section-pad chase-gallery" id="top10">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow reveal">The Vault List</span>
+        <h2 class="section-title reveal" style="--d:0.08s">Top 10 <span class="accent-serif">chase cards</span></h2>
+        <p class="section-sub reveal" style="--d:0.16s" id="top10-sub">—</p>
+      </div>
+      <div class="chase-list reveal" style="--d:0.2s" id="chase-list"></div>
+    </div>
+  </section>
+
+  <!-- ===================== MARKET DATA ===================== -->
+  <section class="section-pad">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow reveal">Market Intelligence</span>
+        <h2 class="section-title reveal" style="--d:0.08s">The numbers behind <span class="accent-serif">the legend</span></h2>
+      </div>
+      <div class="chart-panel reveal" style="--d:0.14s">
+        <div class="chart-head">
+          <h3 id="chart-title">Price history · 12 months</h3>
+          <span class="delta" id="chart-delta">—</span>
+        </div>
+        <svg class="price-chart" id="price-chart" viewBox="0 0 900 300" preserveAspectRatio="none" role="img" aria-label="Twelve month price history"></svg>
+        <div class="pop-grid" id="pop-grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DETAILS ===================== -->
+  <section class="section-pad detail-section">
+    <div class="wrap detail-grid">
+      <div class="reveal">
+        <h3>Description</h3>
+        <p id="p-description">—</p>
+        <h3 style="margin-top:48px">Shipping</h3>
+        <p>Shipped worldwide in rigid, discreet, fully insured packaging. Orders over 2 000 NOK ship free. Every sealed product is photographed and verified before dispatch.</p>
+      </div>
+      <div class="reveal" style="--d:0.12s">
+        <h3>Specifications</h3>
+        <ul class="spec-list" id="spec-list"></ul>
+        <h3 style="margin-top:48px">Collector Reviews</h3>
+        <p style="font-family:var(--font-accent); font-style:italic; font-size:20px; color:var(--text)">
+          "The most beautiful unboxing experience I've ever had. The box arrived like a watch, not a toy."
+        </p>
+        <p style="font-size:13px; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-faint)">— Verified collector, Oslo</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- sticky buy bar -->
+  <div class="buy-bar" id="buy">
+    <div>
+      <div class="bb-name" id="bb-name">—</div>
+      <div class="bb-price" id="bb-price">—</div>
+    </div>
+    <button class="btn btn-gold btn-sm" id="bb-buy">Add to Vault</button>
+  </div>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-bottom" style="margin-top:0; padding-top:0; border-top:none">
+        <span>© 2026 BREAKZ. All rights reserved.</span>
+        <a href="index.html" style="color:var(--gold)">← Back to the collection</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/product.js"></script>
+</body>
+</html>
