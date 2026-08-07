@@ -243,6 +243,20 @@ Detaljer og ferdig kode i `ACCESSIBILITY.md` §4–6.
 
 ---
 
+## ⏰ Datoavhengig tekst som må ryddes
+
+| Hvor | Hva som står | Når det må endres |
+|---|---|---|
+| `index.html`, varselet over skjemaet | «forespørsler for turer **fra oktober**» | Når dere faktisk kjører — eller straks, hvis oktober glipper |
+| `index.html`, FAQ «Hvor lenge i forveien» | «Bussen er ikke i drift ennå» | Samme |
+| `utdrikningslag.html`, «Når bør dere booke?» | Samme to setningene | Samme |
+
+Rob sa 2. august 2026 at han **håper** å være i gang innen oktober. Teksten er
+skrevet så den tåler at det glir: vi lover å ta imot forespørsler, ikke å kjøre
+en bestemt dato. Men står den uendret i desember, leser den feil uansett.
+
+**Sjekk denne lista hver gang du åpner repoet etter en pause.**
+
 ## Fase 5 — Vekst
 
 Ikke før grunndriften går rundt.
