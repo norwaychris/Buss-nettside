@@ -45,12 +45,22 @@ Disse er låst. De ble valgt bevisst og skal bevares gjennom enhver redesign:
 - **Anton som display-font.** Tett, høy, kondensert, store bokstaver.
 - **Kinematisk følelse.** Store bilder, dybde, glød, rom rundt ting.
 - **Premium transportselskap**, ikke «lokal buss til leie».
-- **Vanlig buss, ikke russebuss.** Bussen skal se ut som en buss — ingen
-  LED-lys, ingen folie, ingen dansestang. Konkurrentene i Bergen ser alle
-  like ut; dette er den ene posisjonen ingen av dem kan kopiere uten å skrote
-  bussen sin. Og det er den bussen 2,2 millioner følgere allerede kjenner fra
-  TikTok. Sitatet «I'm not a hero, I'm just a bus driver» faller sammen i det
-  øyeblikket bussen får neonlys.
+
+### Bussen ser ut som en vanlig buss
+
+Rob bekreftet 2. august 2026 at bussen kommer til å ligne en rutebuss, ikke
+festbussene konkurrentene i Bergen leier ut. Det er ikke en tilfeldighet — det
+er den bussen 2,2 millioner følgere kjenner fra TikTok, og «I'm not a hero,
+I'm just a bus driver» faller sammen i det øyeblikket bussen får neonlys.
+
+**Dette står som kontekst, ikke som en låst regel.** En egen seksjon på
+forsiden — «Ikke en russebuss» — ble skrevet og deretter fjernet igjen etter
+Robs ønske. Vurderer du å ta den opp igjen: argumentet for er at
+forventningsbrudd, ikke bussen, er det som lager dårlige anmeldelser. Men det
+er Robs avgjørelse, og han har sagt nei én gang.
+
+Det som *ikke* er valgfritt: siden skal ikke love utstyr bussen ikke har. Se
+`BUSINESS.md` §3.
 
 ## 4. Farger
 
