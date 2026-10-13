@@ -43,7 +43,7 @@ var GODKJENNING_PAAKREVD = true;
 var AUTOSVAR_PAA = true;
 
 // Vises av doGet() så du kan sjekke hvilken versjon som faktisk kjører.
-var VERSJON = "2026-08-01";
+var VERSJON = "2026-10-13";
 
 /* ========================== ARK OG KOLONNER ========================== */
 
@@ -77,7 +77,10 @@ var KJENTE_FELT = {
 // Kolonner som alltid starter tomme ved ny forespørsel:
 var TOMME_VED_START = { "Betalt (kr)": 1, "Notat": 1, "Pris (kr)": 1, "Sendt": 1 };
 
-var STATUS_VALG = ["Ny", "Tilbud sendt", "Betalt", "Fullført", "Avlyst"];
+/* «Ikke ledig» er ikke det samme som «Avlyst». Avlyst = en avtalt tur som ble
+   stoppet. Ikke ledig = en forespørsel vi takket nei til. Blandes de, vet vi
+   ikke hvor mye etterspørsel vi faktisk måtte si nei til. */
+var STATUS_VALG = ["Ny", "Tilbud sendt", "Betalt", "Fullført", "Avlyst", "Ikke ledig"];
 
 // Standardinnhold i «Innstillinger». Opprettes automatisk første gang.
 // Kontonummer og telefon står bevisst tomme – de skal aldri ligge i koden.
@@ -104,6 +107,7 @@ function onOpen() {
     .addItem("① Foreslå pris for valgt rad", "foreslaaPris")
     .addSeparator()
     .addItem("② Send tilbud", "sendTilbud")
+    .addItem("②b Send «dessverre ikke ledig»", "sendIkkeLedig")
     .addItem("③ Send betalingspåminnelse", "sendBetalingspaminnelse")
     .addItem("④ Send bekreftelse (betalt)", "sendBekreftelse")
     .addSeparator()
@@ -117,6 +121,7 @@ function onOpen() {
 }
 
 function sendTilbud()              { kjoerSteg("tilbud"); }
+function sendIkkeLedig()           { kjoerSteg("ikkeledig"); }
 function sendBetalingspaminnelse() { kjoerSteg("betalingspaminnelse"); }
 function sendBekreftelse()         { kjoerSteg("bekreftelse"); }
 function sendTurpaminnelse()       { kjoerSteg("turpaminnelse"); }
@@ -124,6 +129,7 @@ function sendTakk()                { kjoerSteg("takk"); }
 
 var STEG_NAVN = {
   tilbud: "Tilbud",
+  ikkeledig: "Ikke ledig",
   betalingspaminnelse: "Betalingspåminnelse",
   bekreftelse: "Bekreftelse",
   turpaminnelse: "Påminnelse før tur",
@@ -641,6 +647,7 @@ function settStatusEtterSending(sheet, rad, type) {
   if (type === "tilbud") ny = "Tilbud sendt";
   if (type === "bekreftelse") ny = "Betalt";
   if (type === "takk") ny = "Fullført";
+  if (type === "ikkeledig") ny = "Ikke ledig";
   if (!ny) return;
   sheet.getRange(rad, kol("Status")).setValue(ny);
 }
@@ -671,6 +678,10 @@ function valider(type, d) {
       p.push("Kontonummer i fanen «Innstillinger»");
     }
   }
+  if (type === "ikkeledig") {
+    // Ingen pris her – vi sier jo nettopp at det ikke blir noen tur.
+    if (!parseDato(d["Dato"])) p.push("Dato – e-posten sier hvilken dato som ikke er ledig");
+  }
   if (type === "bekreftelse" || type === "turpaminnelse") {
     if (!parseDato(d["Dato"])) p.push("Dato");
     if (!String(d["Hentested"] || "").trim()) p.push("Hentested");
@@ -685,6 +696,7 @@ function valider(type, d) {
 
 function byggEpost(type, d) {
   if (type === "tilbud")               return malTilbud(d);
+  if (type === "ikkeledig")            return malIkkeLedig(d);
   if (type === "betalingspaminnelse")  return malBetalingspaminnelse(d);
   if (type === "bekreftelse")          return malBekreftelse(d);
   if (type === "turpaminnelse")        return malTurpaminnelse(d);
@@ -776,7 +788,7 @@ function malTilbud(d) {
     '<div style="background:#0a0a0b;border-radius:14px;padding:22px;text-align:center;margin-bottom:22px;">' +
       '<div style="font-size:11px;letter-spacing:2px;color:#8a8a92;margin-bottom:6px;">FAST PRIS</div>' +
       '<div style="font-size:34px;font-weight:800;color:#ffffff;">' + kroner(pris) + '</div>' +
-      '<div style="font-size:12.5px;color:#8a8a92;margin-top:6px;">Sjåfør, drivstoff, bom, lydanlegg og vask er inkludert</div>' +
+      '<div style="font-size:12.5px;color:#8a8a92;margin-top:6px;">Sjåfør, drivstoff, bom, henting, levering og vask er inkludert</div>' +
     '</div>' +
     detaljboks("SLIK BEKREFTER DERE", [
       ["Konto", konto],
@@ -795,7 +807,7 @@ function malTilbud(d) {
     "Henting: " + (d["Hentested"] || "") + "\n" +
     "Antall: " + (d["Antall personer"] || "") + " personer\n\n" +
     "FAST PRIS: " + kroner(pris) + "\n" +
-    "Sjåfør, drivstoff, bom, lydanlegg og vask er inkludert.\n\n" +
+    "Sjåfør, drivstoff, bom, henting, levering og vask er inkludert.\n\n" +
     "SLIK BEKREFTER DERE\n" +
     "Betal til " + konto + ", merk «" + merking + "», innen " + langDato(frist) + ".\n" +
     "Datoen er deres så snart betalingen er registrert.\n\n" +
@@ -807,6 +819,64 @@ function malTilbud(d) {
     "Rob — NorwayRob\nnorwayrob.no";
 
   return { emne: "Tilbud – bussleie " + kortDato(dato), html: html, tekst: tekst };
+}
+
+/* ---- ②b Dessverre ikke ledig ----
+
+   En avvisning er også markedsføring. Den som får denne, ønsket å bruke penger
+   hos oss — og kommer kanskje tilbake med en annen dato hvis vi ber om det.
+
+   Tre valg som er bevisste:
+   • Nei-et kommer i første setning. Å grave det ned etter tre høflige avsnitt
+     er verre for den som leser.
+   • Ingen unnskyldningsrekke. Én beklagelse holder; flere virker uoppriktige.
+   • Vi ber om alternative datoer. Det er det eneste i e-posten som kan gjøre
+     et nei om til en tur. */
+
+function malIkkeLedig(d) {
+  var fornavn = hentFornavn(d);
+  var dato = parseDato(d["Dato"]);
+
+  var html = epostSkall(
+    merke("Svar på forespørselen", "#f7f7f9", "#0a0a0b") +
+    overskrift("Hei" + (fornavn ? " " + fornavn : "") + "! Dessverre ikke ledig") +
+    avsnitt("Takk for forespørselen — jeg skulle gjerne kjørt dere. " +
+            "Men <strong>" + langDato(dato) + "</strong> er dessverre opptatt, " +
+            "så denne turen får jeg ikke til.") +
+    detaljboks("DET DERE SPURTE OM", [
+      ["Dato", langDato(dato)],
+      ["Tid", d["Tidsrom"]],
+      ["Henting", d["Hentested"]],
+      ["Antall", d["Antall personer"] ? d["Antall personer"] + " personer" : ""],
+      ["Anledning", d["Anledning"]]
+    ]) +
+    '<div style="background:#f7f7f9;border:1px solid #ececf0;border-radius:14px;padding:20px 22px;margin-bottom:22px;">' +
+      '<div style="font-size:11px;font-weight:800;letter-spacing:2px;color:#ff3b3b;margin-bottom:8px;">GÅR DET Å FLYTTE?</div>' +
+      '<div style="font-size:15px;line-height:1.7;color:#4a4a52;">' +
+        'Har dere noen andre datoer som kunne fungert, svar på denne e-posten med dem — ' +
+        'så sjekker jeg med en gang. Ofte finnes det en helg like i nærheten som er åpen.' +
+      '</div>' +
+    '</div>' +
+    avsnitt("Blir det ikke noe av denne gangen, håper jeg dere får en knallkveld likevel — " +
+            "og at vi får kjøre dere en annen gang.")
+  );
+
+  var tekst = "Hei" + (fornavn ? " " + fornavn : "") + "!\n\n" +
+    "Takk for forespørselen — jeg skulle gjerne kjørt dere. Men " + langDato(dato) +
+    " er dessverre opptatt, så denne turen får jeg ikke til.\n\n" +
+    "DET DERE SPURTE OM\n" +
+    "Dato: " + langDato(dato) + "\n" +
+    (d["Tidsrom"] ? "Tid: " + d["Tidsrom"] + "\n" : "") +
+    (d["Hentested"] ? "Henting: " + d["Hentested"] + "\n" : "") +
+    (d["Antall personer"] ? "Antall: " + d["Antall personer"] + " personer\n" : "") +
+    "\nGÅR DET Å FLYTTE?\n" +
+    "Har dere noen andre datoer som kunne fungert, svar på denne e-posten med dem, " +
+    "så sjekker jeg med en gang. Ofte finnes det en helg like i nærheten som er åpen.\n\n" +
+    "Blir det ikke noe av denne gangen, håper jeg dere får en knallkveld likevel — " +
+    "og at vi får kjøre dere en annen gang.\n\n" +
+    "Vi sees i Bergen!\nRob — NorwayRob\nnorwayrob.no";
+
+  return { emne: "Dessverre ikke ledig " + kortDato(dato), html: html, tekst: tekst };
 }
 
 /* ---- ③ Betalingspåminnelse ---- */
