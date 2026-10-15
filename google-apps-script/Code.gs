@@ -97,10 +97,10 @@ var STANDARD_INNSTILLINGER = [
   ["Betalingsfrist normal (dager)", 7, "Frist i tilbudet når det er god tid til avreise."],
   ["Betalingsfrist kort varsel (dager)", 2, "Frist når avreise er nærmere enn grensen over."],
   ["Anmeldelseslenke", "https://g.page/r/CaOsA5S43vnjEBM/review", "Lenken i takke-e-posten."],
-  ["Avslag – grunn", "bussen er dessverre ikke i drift ennå, så denne turen får jeg ikke til.",
-   "Settes inn i «ikke ledig»-e-posten etter «Men ...». ENDRE denne når du er i drift, f.eks. til «den datoen er dessverre allerede opptatt.»"],
-  ["Avslag – neste steg", "Vi er snart i gang. Vil dere at jeg sier fra med en gang kalenderen åpner, svar på denne e-posten — så tar jeg kontakt først med dere.",
-   "Oppfordringen i «ikke ledig»-e-posten. ENDRE til f.eks. «Har dere andre datoer som kunne fungert, svar på denne e-posten med dem.» når du er i drift."]
+  ["Avslag – grunn", "bussen er dessverre ikke ledig den datoen.",
+   "Setningen etter «Men ...» i «ikke ledig»-e-posten. Endre den her hvis du vil si det annerledes — koden trenger ikke røres."],
+  ["Avslag – neste steg", "Har dere andre datoer som kunne fungert, svar på denne e-posten med dem — så sjekker jeg med en gang.",
+   "Oppfordringen nederst i «ikke ledig»-e-posten."]
 ];
 
 /* ========================== MENYEN ========================== */
@@ -843,13 +843,13 @@ function malIkkeLedig(d) {
   // Begge hentes fra «Innstillinger». Grunnen til at vi sier nei endrer seg
   // når driften starter, og da skal Rob kunne rette det selv i arket.
   var grunn = String(hentInnstilling("Avslag – grunn",
-    "bussen er dessverre ikke i drift ennå, så denne turen får jeg ikke til.")).trim();
+    "bussen er dessverre ikke ledig den datoen.")).trim();
   var nesteSteg = String(hentInnstilling("Avslag – neste steg",
-    "Vil dere at jeg sier fra når vi er i gang, svar på denne e-posten.")).trim();
+    "Har dere andre datoer som kunne fungert, svar på denne e-posten med dem — så sjekker jeg med en gang.")).trim();
 
   var html = epostSkall(
     merke("Svar på forespørselen", "#f7f7f9", "#0a0a0b") +
-    overskrift("Hei" + (fornavn ? " " + fornavn : "") + "! Dessverre får jeg ikke kjørt dere") +
+    overskrift("Hei" + (fornavn ? " " + fornavn : "") + "! Dessverre ikke ledig") +
     avsnitt("Takk for forespørselen — jeg skulle gjerne kjørt dere " +
             "<strong>" + langDato(dato) + "</strong>. Men " + grunn) +
     detaljboks("DET DERE SPURTE OM", [
@@ -880,7 +880,7 @@ function malIkkeLedig(d) {
     "og at vi får kjøre dere en annen gang.\n\n" +
     "Vi sees i Bergen!\nRob — NorwayRob\nnorwayrob.no";
 
-  return { emne: "Om turen deres " + kortDato(dato), html: html, tekst: tekst };
+  return { emne: "Dessverre ikke ledig " + kortDato(dato), html: html, tekst: tekst };
 }
 
 /* ---- ③ Betalingspåminnelse ---- */
